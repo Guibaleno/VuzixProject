@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Vuzix Speech Sample</string>
+    <string name="main_activity_name">Speech Sample</string>
+    <string name="overview">Say \"Hello Vuzix\" or click "Listen" then read any button</string>
+    <string name="btn_text_pop_up">Display Message</string>
+    <string name="btn_text_clear">Clear Message</string>
+    <string name="btn_text_restore">Restore Default Text</string>
+    <string name="btn_text_listen">Listen</string>
+    <string name="btn_text_stop">Stop Listening</string>
+    <string name="default_text">Sample Text</string>
+    <string name="entry_hint">Enter your text here</string>
+    <string name="only_on_m300">Voice SDK only runs on Vuzix M300 version 1.2.2 or higher</string>
+    <string name="upgrade_m300">Please upgrade the M300 to get all features</string>
+
+
+    <string name="btnReady">Ready</string>
+    <string name="btnBack">Back</string>
+    <string name="txtSelectedItem">Selected Item : none</string>
+
+</resources>
