@@ -1,40 +1,36 @@
-package com.vuzix.sample.m300_speech_recognition;
+package com.vuzix.sample.m300_speech_recognition.Connections;
 
-import android.provider.Settings;
+import android.content.Intent;
+import android.media.session.MediaSession;
 import android.util.Log;
-import android.util.Pair;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.vuzix.sample.m300_speech_recognition.Connections.Connection;
+import com.vuzix.sample.m300_speech_recognition.Login;
+import com.vuzix.sample.m300_speech_recognition.R;
+import com.vuzix.sample.m300_speech_recognition.Token;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class ConnectionLogin extends Connection {
     Login mLogin;
 
     public ConnectionLogin(Login newLogin, String apiAdress) {
         super();
-        mLogin = newLogin;
-        APIAdress = apiAdress;
-        connectionMethod = "POST";
-        //connection.set
+
+            mLogin = newLogin;
+            APIAdress = apiAdress;
+
     }
 
     @Override
@@ -42,8 +38,8 @@ public class ConnectionLogin extends Connection {
         StringBuffer jsonString = new StringBuffer();
         try {
 
-            Log.d("123","test");
-            URL url = new URL("https://216.226.53.29/V5/API/Employees.Login");
+
+            URL url = new URL(APIAdress);
 
             HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 
@@ -76,23 +72,6 @@ public class ConnectionLogin extends Connection {
             br.close();
 
             httpCon.disconnect();
-            Log.d("321", jsonString.toString());
-            //writer.write(get);
-            //osw.flush();
-            //osw.close();
-            //os.close();  //don't forget to close the OutputStream
-            //httpCon.connect();
-            ////read the inputstream and print it
-            //String result;
-            //BufferedInputStream bis = new BufferedInputStream(httpCon.getInputStream());
-            //ByteArrayOutputStream buf = new ByteArrayOutputStream();
-            //int result2 = bis.read();
-            //while(result2 != -1) {
-            //    buf.write((byte) result2);
-            //    result2 = bis.read();
-            //}
-            //result = buf.toString();
-            //System.out.println(result);
         }
         catch (Exception e){}
         return jsonString.toString();
@@ -100,14 +79,28 @@ public class ConnectionLogin extends Connection {
 
     @Override
     protected void onPostExecute(String response) {
-       // if (response != null) {
-       //     JSONArray jsonRoot = null;
-//
 
-        //return jsonObject;
+        if (checknetwork(mLogin)) {
+            if (response != null) {
+                Log.i("1237", response);
+                JSONArray jsonRoot = null;
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.has("token")) {
+                        Token.setToken(jsonObject.getString("token"));
+                        mLogin.MoveToWarehouse();
+                    } else if (jsonObject.has("English")) {
+                        mLogin.Toast(jsonObject.getString("English"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    mLogin.HideProgress();
+                }
+            }
+            mLogin.HideProgress();
+        }
+
     }
-    public void Toast(String texte)
-    {
-        Toast.makeText(mLogin, texte, Toast.LENGTH_SHORT).show();
-    }
+
 }

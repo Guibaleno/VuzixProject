@@ -13,8 +13,20 @@
     <string name="upgrade_m300">Please upgrade the M300 to get all features</string>
 
 
-    <string name="btnReady">Ready</string>
-    <string name="btnBack">Back</string>
+    <string name="btnNext">Next</string>
+
+    <string name="txtInstructionsCompanies">
+        1- Say \"Hello Vuzix\" until the text of the button changes\n
+        2- Select a company by saying the number on its left. The text on top of the list will change\n
+        3- Say \"Next\" to go to the login screen
+    </string>
+    <string name="txtInstructionsWarehouses">
+        1- Select a Warehouse by saying the number on its left. The text on top of the list will change\n
+        2- Say \"Next\" to go to the zone screen
+    </string>
+
+    <string name="btnReturn">Return</string>
+    <string name="btnLogin">Next</string>
     <string name="txtSelectedItem">Selected Item : none</string>
 
 </resources>

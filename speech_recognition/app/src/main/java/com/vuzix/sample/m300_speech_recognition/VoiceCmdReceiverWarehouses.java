@@ -6,7 +6,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.vuzix.sdk.speechrecognitionservice.VuzixSpeechClient;
@@ -17,17 +16,18 @@ import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
-    private MainActivity mMainActivity;
-    public VoiceCmdReceiverCompanies(MainActivity iActivity)
+public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
+    private Warehouses mWarehouse;
+    public final String MATCH_RETURN_TO_LOGIN = "ReturnToLogin";
+    public VoiceCmdReceiverWarehouses(Warehouses iActivity)
     {
-        mMainActivity = iActivity;
-        mMainActivity.registerReceiver(this, new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
-        //Log.d(mMainActivity.LOG_TAG, "Connecting to M300 SDK");
+        mWarehouse = iActivity;
+        mWarehouse.registerReceiver(this, new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
+        //Log.d(mWarehouse.LOG_TAG, "Connecting to M300 SDK");
 
         try {
             // Create a VuzixSpeechClient from the SDK
-            //Log.d(mMainActivity.LOG_TAG, iActivity.toString());
+            //Log.d(mWarehouse.LOG_TAG, iActivity.toString());
             sc = new VuzixSpeechClient(iActivity);
             // Delete specific phrases. This is useful if there are some that sound similar to yours, but
             // you want to keep the majority of them intact
@@ -36,42 +36,28 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
 
             // Delete every phrase in the dictionary! (Available in SDK version 3)
             sc.deletePhrase("*");
-
-            // Now add any new strings.  If you put a substitution in the second argument, you will be passed that string instead of the full string
-
-            // Insert a custom intent.  Note: these are sent with sendBroadcastAsUser() from the service
-            // If you are sending an event to another activity, be sure to test it from the adb shell
-            // using: am broadcast -a "<your intent string>"
-            // This example sends it to ourself, and we are sure we are active and registered for it
-            Intent customToastIntent = new Intent(mMainActivity.CUSTOM_SDK_INTENT);
+            Intent customToastIntent = new Intent(mWarehouse.CUSTOM_SDK_INTENT);
             sc.defineIntent(TOAST_EVENT, customToastIntent );
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
-
-            // Insert phrases for our broadcast handler
-            //
-            // ** NOTE **
-            // The "s:" is required in the SDK version 2, but is not required in the latest JAR distribution
-            // or SDK version 3.  But it is harmless when not required. It indicates that the recognizer is making a
-            // substitution.  When the multi-word string is matched (in any language) the associated MATCH string
-            // will be sent to the BroadcastReceiver
-
+            sc.insertPhrase("Return", MATCH_RETURN_TO_LOGIN);
+            sc.insertPhrase(MATCH_NEXT, MATCH_NEXT);
 
             // See what we've done
-            Log.i(mMainActivity.LOG_TAG, sc.dump());
-            sc.insertPhrase(mMainActivity.getResources().getString(R.string.btnNext), MATCH_NEXT);
+            Log.i(mWarehouse.LOG_TAG, sc.dump());
+
             // The recognizer may not yet be enabled in Settings. We can enable this directly
-            VuzixSpeechClient.EnableRecognizer(mMainActivity, true);
+            VuzixSpeechClient.EnableRecognizer(mWarehouse, true);
         } catch(NoClassDefFoundError e) {
             // We get this exception if the SDK stubs against which we compiled cannot be resolved
             // at runtime. This occurs if the code is not being run on an M300 supporting the voice
             // SDK
             Toast.makeText(iActivity, R.string.only_on_m300, Toast.LENGTH_LONG).show();
-            Log.e(mMainActivity.LOG_TAG, iActivity.getResources().getString(R.string.only_on_m300) );
-            Log.e(mMainActivity.LOG_TAG, e.getMessage());
+            Log.e(mWarehouse.LOG_TAG, iActivity.getResources().getString(R.string.only_on_m300) );
+            Log.e(mWarehouse.LOG_TAG, e.getMessage());
             e.printStackTrace();
             iActivity.finish();
         } catch (Exception e) {
-            Log.e(mMainActivity.LOG_TAG, "Error setting custom vocabulary: " + e.getMessage());
+            Log.e(mWarehouse.LOG_TAG, "Error setting custom vocabulary: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -80,7 +66,7 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
      * All custom phrases registered with insertPhrase() are handled here.
      *
      * Custom intents may also be directed here, but this example does not demonstrate this.
-     *MATCH_NEXT
+     *
      * Keycodes are never handled via this interface
      *
      * @param context Context in which the phrase is handled
@@ -88,7 +74,6 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.e(mMainActivity.LOG_TAG, mMainActivity.getMethodName());
         // All phrases registered with insertPhrase() match ACTION_VOICE_COMMAND as do
         // recognizer status updates
         if (intent.getAction().equals(VuzixSpeechClient.ACTION_VOICE_COMMAND)) {
@@ -101,21 +86,24 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
                     // was provided.  All phrases in this example have substitutions as it is
                     // considered best practice
                     String phrase = intent.getStringExtra(VuzixSpeechClient.PHRASE_STRING_EXTRA);
-                    Log.e(mMainActivity.LOG_TAG, mMainActivity.getMethodName() + " \"" + phrase + "\"");
 
                     // Determine the specific phrase that was recognized and act accordingly
 
 
                     if (phrase.equals(MATCH_NEXT))
                     {
-                        mMainActivity.Next();
+                        mWarehouse.Next();
+                    }
+                    else if (phrase.equals(MATCH_RETURN_TO_LOGIN))
+                    {
+                        mWarehouse.FinishActivity();
                     }
                     else
                     {
                         List<Integer> numberToFind = new ArrayList<Integer>();
                         for (int cptNumbers = 0; cptNumbers < Arrays.asList(numbers).size(); cptNumbers ++)
                         {
-                            //Log.d(mMainActivity.LOG_TAG, phrase);
+                            //Log.d(mWarehouse.LOG_TAG, phrase);
                             if (phrase.indexOf(numbers[cptNumbers]) == 0)
                             {
                                 int currentDigit = cptNumbers;
@@ -131,37 +119,60 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
                             {
                                 numberString += String.valueOf(numberToFind.get(cptDigit));
                             }
-                            mMainActivity.SelectItemInRecyclerViewCompanies(parseInt(numberString) - 1);
+                            mWarehouse.SelectItemInRecyclerView(parseInt(numberString) - 1);
                         }
                     }
                 } else if (extras.containsKey(VuzixSpeechClient.RECOGNIZER_ACTIVE_BOOL_EXTRA)) {
                     // if we get a recognizer active bool extra, it means the recognizer was
                     // activated or stopped
                     boolean isRecognizerActive = extras.getBoolean(VuzixSpeechClient.RECOGNIZER_ACTIVE_BOOL_EXTRA, false);
-                    mMainActivity.GetAPIValues(isRecognizerActive);
+                   // mWarehouse.GetAPIValues(isRecognizerActive);
                 }
             }
         }
     }
 
+    public void CreateStrings()
+    {
+        //region Companies Helper methods
+        RecyclerView lstCompanies = (RecyclerView) mWarehouse.findViewById(R.id.recyclerCompanies);
+        for (int cptViews = 1; cptViews <= lstCompanies.getAdapter().getItemCount(); cptViews ++)
+        {
+            String phrase = "";
+
+
+            for (int cptDigits = 0; cptDigits < String.valueOf(cptViews).length(); cptDigits ++)
+            {
+                int currentDigit = Integer.parseInt(Integer.toString(cptViews).substring(cptDigits, cptDigits + 1));
+                phrase += numbers[currentDigit];
+            }
+            //Log.d("allo", phrase);
+            sc.insertPhrase(phrase, phrase);
+
+        }
+        sc.insertPhrase(mWarehouse.getResources().getString(R.string.btnNext), MATCH_NEXT);
+
+    }
+
     public void unregister() {
         try {
-            mMainActivity.unregisterReceiver(this);
-            Log.i(mMainActivity.LOG_TAG, "Custom vocab removed");
-            mMainActivity = null;
+            mWarehouse.unregisterReceiver(this);
+            Log.i(mWarehouse.LOG_TAG, "Custom vocab removed");
+            mWarehouse = null;
         }catch (Exception e) {
-            Log.e(mMainActivity.LOG_TAG, "Custom vocab died " + e.getMessage());
+            Log.e(mWarehouse.LOG_TAG, "Custom vocab died " + e.getMessage());
         }
     }
     public void TriggerRecognizerToListen(boolean bOnOrOff) {
         try {
-            VuzixSpeechClient.TriggerVoiceAudio(mMainActivity, bOnOrOff);
+            VuzixSpeechClient.TriggerVoiceAudio(mWarehouse, bOnOrOff);
         } catch (NoClassDefFoundError e) {
             // The voice SDK was added in version 2. The constructor will have failed if the
             // target device is not an M300 that is compatible with SDK version 2.  But the trigger
             // command with the bool was added in SDK version 4.  It is possible the M300 does not
             // yet have the TriggerVoiceAudio interface. If so, we get this exception.
-            Toast.makeText(mMainActivity, R.string.upgrade_m300, Toast.LENGTH_LONG).show();
+            Toast.makeText(mWarehouse, R.string.upgrade_m300, Toast.LENGTH_LONG).show();
         }
     }
+
 }

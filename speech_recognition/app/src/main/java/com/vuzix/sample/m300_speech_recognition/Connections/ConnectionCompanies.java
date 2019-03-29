@@ -1,23 +1,30 @@
-package com.vuzix.sample.m300_speech_recognition;
+package com.vuzix.sample.m300_speech_recognition.Connections;
+
+import android.widget.TextView;
+
+import com.vuzix.sample.m300_speech_recognition.Connections.Connection;
+import com.vuzix.sample.m300_speech_recognition.MainActivity;
+import com.vuzix.sample.m300_speech_recognition.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.net.ssl.HttpsURLConnection;
-
 public class ConnectionCompanies extends Connection {
     MainActivity mMainActivity;
     public ConnectionCompanies(MainActivity mNewMainActivity, String apiAdress)
     {
-        mMainActivity = mNewMainActivity;
-        APIAdress = apiAdress;
+
+        if (checknetwork( mNewMainActivity))
+        {
+            mMainActivity = mNewMainActivity;
+            APIAdress = apiAdress;
+        }
+
     }
     @Override
     protected void onPostExecute(String response) {
         if (response != null){
-            //((TextView) findViewById(R.id.textView123)).setText(response);
-            // Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
             JSONArray jsonRoot = null;
 
             try{
@@ -26,12 +33,12 @@ public class ConnectionCompanies extends Connection {
 
                 for (int cptObjects = 0; cptObjects < jsonRoot.length(); cptObjects ++)
                 {
-                    JSONObject object = jsonRoot.getJSONObject(0);
+                    JSONObject object = jsonRoot.getJSONObject(cptObjects);
                     String idCompany = object.getString("idCompany");
                     String lisadbName = (cptObjects + 1) + " - " + object.getString("lisadbName");
-                    mMainActivity.InsertDataIntoCompaniesSpinner(idCompany, lisadbName);
+                    mMainActivity.InsertDataIntoCompanies(idCompany, lisadbName);
                     mMainActivity.BindData();
-                    mMainActivity.CreateStrings();
+                    mMainActivity.CreateStringsCompanies();
                 }
 
             }

@@ -36,52 +36,22 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.Pair;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vuzix.sdk.speechrecognitionservice.VuzixSpeechClient;
+import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionCompanies;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
 import static java.lang.Integer.parseInt;
 
@@ -93,13 +63,14 @@ public class MainActivity extends Activity {
     public final String APIAdress = "https://216.226.53.29/V5/API/Companies";
     public final String CUSTOM_SDK_INTENT = "com.vuzix.sample.m300_voicecontrolwithsdk.CustomIntent";
     Button buttonListen;
-    ListView lstCompanies;
     RecyclerView recyclerCompanies;
     TextView txtSelectedItem;
+    TextView txtInstructions;
+
     RecyclerView.Adapter mAdapterRecyclerCompanies;
     RecyclerView.LayoutManager mLayoutManagerRecyclerCompanies;
 
-    ConnectionCompanies connection = new ConnectionCompanies(this, APIAdress);
+    ConnectionCompanies connection;
 
     List<String> listId = new ArrayList<String>();
     List<String> listName = new ArrayList<String>();
@@ -117,16 +88,15 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         buttonListen = (Button) findViewById(R.id.btn_listen);
-        lstCompanies =  (ListView) findViewById(R.id.lstCompanies);
         recyclerCompanies = (RecyclerView) findViewById(R.id.recyclerCompanies);
         txtSelectedItem = (TextView) findViewById(R.id.txtSelectedItem);
-
+        txtInstructions = (TextView) findViewById(R.id.txtInstructions);
 
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
         // It is a best practice to explicitly request focus to a button to make navigation with the
         // M300 buttons more consistent to the user
-        buttonListen.requestFocusFromTouch();
+       // buttonListen.requestFocusFromTouch();
 
         buttonListen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,7 +107,7 @@ public class MainActivity extends Activity {
 
         // Create the voice command receiver class
         mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
-
+        connection = new ConnectionCompanies(this, APIAdress);
         // Now register another intent handler to demonstrate intents sent from the service
         myIntentReceiver = new MyIntentReceiver();
         registerReceiver(myIntentReceiver , new IntentFilter(CUSTOM_SDK_INTENT));
@@ -192,7 +162,6 @@ public class MainActivity extends Activity {
         updateListenButtonText();
         // Request the new state
         mVoiceCmdReceiver.TriggerRecognizerToListen(mRecognizerActive);
-        lstCompanies.requestFocus();
     }
 
     /**
@@ -224,16 +193,10 @@ public class MainActivity extends Activity {
     }
 
 
-    public void InsertDataIntoCompaniesSpinner(String id, String lisaDbName)
+    public void InsertDataIntoCompanies(String idCompany, String lisaDbName)
     {
         listName.add(lisaDbName);
-        listId.add(id);
-        //ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-        //        android.R.layout.simple_spinner_item, listName);
-        //dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//
-        //lstCompanies.setAdapter(dataAdapter);
-
+        listId.add(idCompany);
     }
 
     public void BindData()
@@ -258,38 +221,34 @@ public class MainActivity extends Activity {
 
 
 
-    public void Toast(String texte)
+    public void Toast(String text)
     {
-        Toast.makeText(getApplicationContext(), texte, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
     //region Companies Events
-    public void SelectItemInListView(int selectedIndex)
+    public void SelectItemInRecyclerViewCompanies(int selectedIndex)
     {
-        //lstCompanies.requestFocusFromTouch();
-        //lstCompanies.setSelection(selectedIndex);
-        //lstCompanies.requestFocus();
-       // recyclerCompanies.requestFocusFromTouch();
-       // recyclerCompanies.requestFocus(selectedIndex);
-        recyclerCompanies.setFocusable(true);
-        recyclerCompanies.requestFocus(selectedIndex);
-        recyclerCompanies.smoothScrollToPosition(selectedIndex);
-        txtSelectedItem.setText("Selected Item : " + listName.get(selectedIndex));
-        Toast("Selected Item : " + listName.get(selectedIndex));
-        //recyclerCompanies.re
+        if (recyclerCompanies.getAdapter().getItemCount() > selectedIndex)
+        {
+            recyclerCompanies.setFocusable(true);
+            recyclerCompanies.requestFocus(selectedIndex);
+            recyclerCompanies.smoothScrollToPosition(selectedIndex);
+            txtSelectedItem.setText("Selected Item : " + listName.get(selectedIndex));
+            Toast("Selected Item : " + listName.get(selectedIndex));
+        }
+
     }
 
-    public void Ready()
+    public void Next()
     {
-     Toast(txtSelectedItem.getText().toString());
-        if (!txtSelectedItem.getText().toString().equals("Selected Item : "))
+
+        if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
             String stringToRemove = "Selected item : ";
             int indexOfString = listName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, Login.class);
-            //intent.putExtra("IdCompany",listId.get(lstCompanies.getSelectedItemPosition()));
             intent.putExtra("IdCompany",listId.get(indexOfString));
             intent.putExtra("CompanyName",listName.get(indexOfString));
-            // intent.putExtra("CompanyName",String.valueOf(lstCompanies.getSelectedItem()));
             startActivity(intent);
         }
         else
@@ -300,9 +259,9 @@ public class MainActivity extends Activity {
 
     //endregion
 
-    public void CreateStrings()
+    public void CreateStringsCompanies()
     {
-        mVoiceCmdReceiver.CreateStrings();
+        mVoiceCmdReceiver.CreateStrings(recyclerCompanies);
     }
 }
 

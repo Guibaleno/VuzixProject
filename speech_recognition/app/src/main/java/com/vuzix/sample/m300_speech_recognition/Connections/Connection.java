@@ -1,9 +1,17 @@
-package com.vuzix.sample.m300_speech_recognition;
+package com.vuzix.sample.m300_speech_recognition.Connections;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.vuzix.sample.m300_speech_recognition.Token;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,18 +36,16 @@ import javax.net.ssl.X509TrustManager;
 
 public abstract class Connection extends AsyncTask<String,Void,String> {
     public String APIAdress;
+
     public HttpURLConnection connection;
     public String connectionMethod = "GET";
     @Override
     protected String doInBackground(String... urls) {
         HttpURLConnection http = null;
 
-
-
         BufferedReader reader = null;
         connection = null;
         try{
-            Log.d("", "willlliiiaammmmm");
             HostnameVerifier HostVerification = new HostnameVerifier() {
                 @Override
                 public boolean verify(String s, SSLSession sslSession) {
@@ -48,6 +54,7 @@ public abstract class Connection extends AsyncTask<String,Void,String> {
             };
             HttpsURLConnection.setDefaultHostnameVerifier(HostVerification);
             URL url = new URL(APIAdress);
+
             if (url.getProtocol().toLowerCase().equals("https")) {
                 trustAllHosts();
                 HttpsURLConnection https = (HttpsURLConnection) url.openConnection();
@@ -58,9 +65,8 @@ public abstract class Connection extends AsyncTask<String,Void,String> {
             }
 
             connection = (HttpURLConnection)url.openConnection();
-            //connection.setRequestProperty("Content-Type", "application/json");
+
             connection.connect();
-            //connection.setRequestMethod(connectionMethod);
             InputStream inputStream = connection.getInputStream();
             StringBuffer buffer = new StringBuffer();
 
@@ -101,7 +107,7 @@ public abstract class Connection extends AsyncTask<String,Void,String> {
 
 
 
-    private static void trustAllHosts() {
+    public static void trustAllHosts() {
         // Create a trust manager that does not validate certificate chains
         TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
             public java.security.cert.X509Certificate[] getAcceptedIssuers() {
@@ -127,4 +133,35 @@ public abstract class Connection extends AsyncTask<String,Void,String> {
         }
     }
 
+    //Checks if the user is connected to Internet
+    public Boolean checknetwork(Context mContext) {
+
+        NetworkInfo info = ((ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE))
+                .getActiveNetworkInfo();
+        Log.i("NETWORK", "1ER");
+        Log.d("NETWORK", "1ER");
+        if (info == null || !info.isConnected())
+        {
+            Log.i("NETWORK", "NOTCONNECTED");
+            Log.d("NETWORK", "NOTCONNECTED");
+            NotConnectedInternet(mContext);
+            return false;
+        }
+        return true;
+
+    }
+
+    public void NotConnectedInternet(Context currentContext)
+    {
+        AlertDialog alertDialog = new AlertDialog.Builder(currentContext).create();
+        alertDialog.setTitle("Internet Connection error");
+        alertDialog.setMessage("The device is not connected to Internet");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Reload frame",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+    }
 }

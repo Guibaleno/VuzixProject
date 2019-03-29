@@ -39,6 +39,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Region;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
@@ -99,11 +100,10 @@ public class VoiceCmdReceiver  extends BroadcastReceiver {
     // Voice command substitutions. These substitutions are returned when phrases are recognized.
     // This is done by registering a phrase with a substition. This eliminates localization issues
     // and is encouraged
-    List<String> companiesId;
     VuzixSpeechClient sc;
     String[] numbers = {"zero","one","two","three","four","five","six","seven","eight","nine"};
-    final String MATCH_READY = "ready";
-    final String MATCH_BACK = "back";
+    final String MATCH_NEXT = "Next";
+
 
 
     // Voice command custom intent names
@@ -126,6 +126,24 @@ public class VoiceCmdReceiver  extends BroadcastReceiver {
     {
 
     }
+    public void CreateStrings(RecyclerView currentRecyclerView)
+    {
+       // RecyclerView lstCompanies = (RecyclerView) mMainActivity.findViewById(R.id.recyclerCompanies);
+        for (int cptViews = 1; cptViews <= currentRecyclerView.getAdapter().getItemCount(); cptViews ++)
+        {
+            String phrase = "";
 
+            for (int cptDigits = 0; cptDigits < String.valueOf(cptViews).length(); cptDigits ++)
+            {
+                int currentDigit = Integer.parseInt(Integer.toString(cptViews).substring(cptDigits, cptDigits + 1));
+                phrase += numbers[currentDigit];
+
+            }
+            sc.insertPhrase(phrase, phrase);
+            Log.d("Strings", phrase);
+        }
+        //sc.insertPhrase(mMainActivity.getResources().getString(R.string.btnNext), MATCH_NEXT);
+
+    }
 
 }

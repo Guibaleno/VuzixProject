@@ -53,15 +53,14 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
     private Login mLogin;
     final String MATCH_USERNAME = "username";
     final String MATCH_PASSWORD = "password";
-    final String MATCH_CONNECT = "Login";
+    final String MATCH_LOGIN  = "Login";
+    final String MATCH_RETURN_TO_COMPANIES = "ReturnToCompanies";
+    //final String MATCH_BACK     = "back";
     public VoiceCmdReceiverLogin(Login iActivity)
     {
         mLogin = iActivity;
         mLogin.registerReceiver(this, new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
         //Log.d(mLogin.LOG_TAG, "Connecting to M300 SDK");
-
-        companiesId = new ArrayList<String>();
-
 
 
         try {
@@ -121,11 +120,13 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
             Intent customToastIntent = new Intent(mLogin.CUSTOM_SDK_INTENT);
             sc.defineIntent(TOAST_EVENT, customToastIntent );
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
-            sc.insertPhrase("back");
-           //sc.insertPhrase("username");
-           //sc.insertPhrase("password");
-            sc.insertPhrase("Login");
-            Log.d("", "ICICEST");
+            sc.insertPhrase("Return", MATCH_RETURN_TO_COMPANIES);
+            //sc.insertKeycodePhrase("back", KEYCODE_MINUS);
+            sc.insertPhrase("username", MATCH_USERNAME);
+            sc.insertPhrase("password", MATCH_PASSWORD);
+            sc.insertPhrase(MATCH_NEXT, MATCH_LOGIN);
+            Log.i("", sc.toString());
+
             //Log.d("", "allooo");
             // Insert phrases for our broadcast handler
             //
@@ -169,7 +170,6 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
     public void onReceive(Context context, Intent intent) {
         // All phrases registered with insertPhrase() match ACTION_VOICE_COMMAND as do
         // recognizer status updates
-
         if (intent.getAction().equals(VuzixSpeechClient.ACTION_VOICE_COMMAND)) {
             Bundle extras = intent.getExtras();
             if (extras != null) {
@@ -184,7 +184,7 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
                     // Determine the specific phrase that was recognized and act accordingly
 
                     //Log.d("", phrase);
-                    if (phrase.equals(MATCH_BACK))
+                    if (phrase.equals(MATCH_RETURN_TO_COMPANIES))
                     {
                         mLogin.FinishActivity();
                     }
@@ -196,8 +196,9 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
                     {
                         mLogin.GoToUsername();
                     }
-                    else if (phrase.equals(MATCH_CONNECT))
+                    else if (phrase.equals(MATCH_LOGIN))
                     {
+                        mLogin.ShowProgress();
                         mLogin.TryToConnect();
                     }
                     else
