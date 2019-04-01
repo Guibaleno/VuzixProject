@@ -39,6 +39,7 @@ public class Login extends AppCompatActivity {
     void SetCompanyText()
     {
         String companyName = getIntent().getStringExtra("CompanyName");
+        companyName = companyName.substring(companyName.indexOf("-") + 1);
         txtCompany.setText(companyName);
     }
 

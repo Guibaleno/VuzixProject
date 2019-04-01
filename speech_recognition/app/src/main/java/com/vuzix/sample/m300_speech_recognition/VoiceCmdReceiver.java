@@ -116,19 +116,8 @@ public class VoiceCmdReceiver  extends BroadcastReceiver {
 
     }
 
-
-    public void InsertDefaultPhrase()
-    {
-
-    }
-
-    public void InsertLetters()
-    {
-
-    }
     public void CreateStrings(RecyclerView currentRecyclerView)
     {
-       // RecyclerView lstCompanies = (RecyclerView) mMainActivity.findViewById(R.id.recyclerCompanies);
         for (int cptViews = 1; cptViews <= currentRecyclerView.getAdapter().getItemCount(); cptViews ++)
         {
             String phrase = "";
@@ -142,8 +131,6 @@ public class VoiceCmdReceiver  extends BroadcastReceiver {
             sc.insertPhrase(phrase, phrase);
             Log.d("Strings", phrase);
         }
-        //sc.insertPhrase(mMainActivity.getResources().getString(R.string.btnNext), MATCH_NEXT);
-
     }
 
 }

@@ -103,7 +103,6 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
                         List<Integer> numberToFind = new ArrayList<Integer>();
                         for (int cptNumbers = 0; cptNumbers < Arrays.asList(numbers).size(); cptNumbers ++)
                         {
-                            //Log.d(mWarehouse.LOG_TAG, phrase);
                             if (phrase.indexOf(numbers[cptNumbers]) == 0)
                             {
                                 int currentDigit = cptNumbers;
@@ -122,11 +121,6 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
                             mWarehouse.SelectItemInRecyclerView(parseInt(numberString) - 1);
                         }
                     }
-                } else if (extras.containsKey(VuzixSpeechClient.RECOGNIZER_ACTIVE_BOOL_EXTRA)) {
-                    // if we get a recognizer active bool extra, it means the recognizer was
-                    // activated or stopped
-                    boolean isRecognizerActive = extras.getBoolean(VuzixSpeechClient.RECOGNIZER_ACTIVE_BOOL_EXTRA, false);
-                   // mWarehouse.GetAPIValues(isRecognizerActive);
                 }
             }
         }
@@ -134,7 +128,6 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
 
     public void CreateStrings()
     {
-        //region Companies Helper methods
         RecyclerView lstCompanies = (RecyclerView) mWarehouse.findViewById(R.id.recyclerCompanies);
         for (int cptViews = 1; cptViews <= lstCompanies.getAdapter().getItemCount(); cptViews ++)
         {
@@ -146,7 +139,6 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
                 int currentDigit = Integer.parseInt(Integer.toString(cptViews).substring(cptDigits, cptDigits + 1));
                 phrase += numbers[currentDigit];
             }
-            //Log.d("allo", phrase);
             sc.insertPhrase(phrase, phrase);
 
         }
@@ -161,17 +153,6 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
             mWarehouse = null;
         }catch (Exception e) {
             Log.e(mWarehouse.LOG_TAG, "Custom vocab died " + e.getMessage());
-        }
-    }
-    public void TriggerRecognizerToListen(boolean bOnOrOff) {
-        try {
-            VuzixSpeechClient.TriggerVoiceAudio(mWarehouse, bOnOrOff);
-        } catch (NoClassDefFoundError e) {
-            // The voice SDK was added in version 2. The constructor will have failed if the
-            // target device is not an M300 that is compatible with SDK version 2.  But the trigger
-            // command with the bool was added in SDK version 4.  It is possible the M300 does not
-            // yet have the TriggerVoiceAudio interface. If so, we get this exception.
-            Toast.makeText(mWarehouse, R.string.upgrade_m300, Toast.LENGTH_LONG).show();
         }
     }
 

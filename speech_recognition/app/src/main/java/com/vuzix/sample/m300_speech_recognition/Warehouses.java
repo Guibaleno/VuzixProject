@@ -18,8 +18,8 @@ public class Warehouses extends AppCompatActivity {
     public final String APIAdress = "https://216.226.53.29/V5/API/Warehouses";
     public final String CUSTOM_SDK_INTENT = "com.vuzix.sample.m300_voicecontrolwithsdk.CustomIntent";
     RecyclerView recyclerWarehouses;
-    RecyclerView.Adapter mAdapterRecyclerCompanies;
-    RecyclerView.LayoutManager mLayoutManagerRecyclerCompanies;
+    RecyclerView.Adapter mAdapterRecyclerWarehouses;
+    RecyclerView.LayoutManager mLayoutManagerRecyclerWarehouses;
     List<String> listIdWarehouse = new ArrayList<String>();
     List<String> listWarehouseName = new ArrayList<String>();
     TextView txtSelectedItem;
@@ -33,7 +33,7 @@ public class Warehouses extends AppCompatActivity {
 
 
         txtSelectedItem = (TextView) findViewById(R.id.txtSelectedItem);
-        recyclerWarehouses = (RecyclerView) findViewById(R.id.recyclerWarehouses);
+        recyclerWarehouses = (RecyclerView) findViewById(R.id.recyclerZones);
 
 
 
@@ -52,10 +52,10 @@ public class Warehouses extends AppCompatActivity {
     public void BindData()
     {
         recyclerWarehouses.setHasFixedSize(true);
-        mLayoutManagerRecyclerCompanies = new LinearLayoutManager(this);
-        recyclerWarehouses.setLayoutManager(mLayoutManagerRecyclerCompanies);
-        mAdapterRecyclerCompanies = new RecyclerViewAdapter(listWarehouseName);
-        recyclerWarehouses.setAdapter(mAdapterRecyclerCompanies);
+        mLayoutManagerRecyclerWarehouses = new LinearLayoutManager(this);
+        recyclerWarehouses.setLayoutManager(mLayoutManagerRecyclerWarehouses);
+        mAdapterRecyclerWarehouses = new RecyclerViewAdapter(listWarehouseName);
+        recyclerWarehouses.setAdapter(mAdapterRecyclerWarehouses);
     }
 
     public void InsertDataIntoWarehouse(String idWarehouse, String warehouseName)
@@ -88,19 +88,19 @@ public class Warehouses extends AppCompatActivity {
     public void Next()
     {
         Toast(txtSelectedItem.getText().toString());
-        //if (!txtSelectedItem.getText().toString().equals("Selected Item : "))
-        //{
-        //    String stringToRemove = "Selected item : ";
-        //    int indexOfString = listWarehouseName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
-        //    Intent intent = new Intent(this, Login.class);
-        //    intent.putExtra("IdCompany",listIdWarehouse.get(indexOfString));
-        //    intent.putExtra("CompanyName",listWarehouseName.get(indexOfString));
-        //    startActivity(intent);
-        //}
-        //else
-        //{
-        //    Toast("Select a company");
-        //}
+        if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
+        {
+            String stringToRemove = "Selected item : ";
+            int indexOfString = listWarehouseName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
+            Intent intent = new Intent(this, Zones.class);
+            intent.putExtra("IdWarehouse",listIdWarehouse.get(indexOfString));
+            intent.putExtra("WarehouseName",listWarehouseName.get(indexOfString));
+            startActivity(intent);
+        }
+        else
+        {
+            Toast("Select a company");
+        }
     }
 
     void FinishActivity()

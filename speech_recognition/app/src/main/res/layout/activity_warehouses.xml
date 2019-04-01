@@ -27,7 +27,7 @@
             app:layout_constraintStart_toEndOf="@+id/btnReturn" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerWarehouses"
+            android:id="@+id/recyclerZones"
             android:layout_width="303dp"
             android:layout_height="103dp"
             android:layout_marginStart="16dp"
@@ -60,7 +60,7 @@
             android:text="@string/txtInstructionsWarehouses"
             app:layout_constraintBottom_toTopOf="@+id/btnNext"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/recyclerWarehouses"
+            app:layout_constraintStart_toEndOf="@+id/recyclerZones"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.632" />
 

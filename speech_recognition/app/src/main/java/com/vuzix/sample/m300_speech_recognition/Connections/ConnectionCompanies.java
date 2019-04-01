@@ -1,14 +1,21 @@
 package com.vuzix.sample.m300_speech_recognition.Connections;
 
-import android.widget.TextView;
-
-import com.vuzix.sample.m300_speech_recognition.Connections.Connection;
 import com.vuzix.sample.m300_speech_recognition.MainActivity;
-import com.vuzix.sample.m300_speech_recognition.R;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSession;
 
 public class ConnectionCompanies extends Connection {
     MainActivity mMainActivity;
@@ -28,7 +35,6 @@ public class ConnectionCompanies extends Connection {
             JSONArray jsonRoot = null;
 
             try{
-                //Toast.makeText(getApplicationContext(), jsonRoot.toString(), Toast.LENGTH_LONG).show();
                 jsonRoot = new JSONArray(response);
 
                 for (int cptObjects = 0; cptObjects < jsonRoot.length(); cptObjects ++)
@@ -45,5 +51,56 @@ public class ConnectionCompanies extends Connection {
             catch (JSONException e){e.printStackTrace();}
         }
     }
+
+    HostnameVerifier HostVerification = new HostnameVerifier() {
+        @Override
+        public boolean verify(String s, SSLSession sslSession) {
+            return true;
+        }
+    };
+
+    @Override
+    public String ManageConnection() {
+        try {
+            HttpsURLConnection.setDefaultHostnameVerifier(HostVerification);
+            URL url = new URL(APIAdress);
+
+            if (url.getProtocol().toLowerCase().equals("https")) {
+                trustAllHosts();
+                HttpsURLConnection https = (HttpsURLConnection) url.openConnection();
+                https.setHostnameVerifier(HostVerification);
+            }
+
+            connection = (HttpURLConnection) url.openConnection();
+
+            connection.connect();
+            InputStream inputStream = connection.getInputStream();
+            StringBuffer buffer = new StringBuffer();
+
+
+            if (inputStream == null) {
+                return null;
+            }
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line + "\n");
+            }
+            if (buffer.length() == 0) {
+                return null;
+            }
+            return buffer.toString();
+        }
+        catch (MalformedURLException e)
+        {
+            e.printStackTrace();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 
 }

@@ -6,17 +6,6 @@ import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.vuzix.sample.m300_speech_recognition.Token;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +13,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 import javax.net.ssl.HostnameVerifier;
@@ -36,58 +24,19 @@ import javax.net.ssl.X509TrustManager;
 
 public abstract class Connection extends AsyncTask<String,Void,String> {
     public String APIAdress;
-
+    public BufferedReader reader;
     public HttpURLConnection connection;
-    public String connectionMethod = "GET";
     @Override
     protected String doInBackground(String... urls) {
-        HttpURLConnection http = null;
-
-        BufferedReader reader = null;
+        reader = null;
         connection = null;
         try{
-            HostnameVerifier HostVerification = new HostnameVerifier() {
-                @Override
-                public boolean verify(String s, SSLSession sslSession) {
-                    return true;
-                }
-            };
-            HttpsURLConnection.setDefaultHostnameVerifier(HostVerification);
-            URL url = new URL(APIAdress);
-
-            if (url.getProtocol().toLowerCase().equals("https")) {
-                trustAllHosts();
-                HttpsURLConnection https = (HttpsURLConnection) url.openConnection();
-                https.setHostnameVerifier(HostVerification);
-                http = https;
-            } else {
-                http = (HttpURLConnection) url.openConnection();
-            }
-
-            connection = (HttpURLConnection)url.openConnection();
-
-            connection.connect();
-            InputStream inputStream = connection.getInputStream();
-            StringBuffer buffer = new StringBuffer();
-
-
-            if (inputStream == null){
-                return null;
-            }
-            reader = new BufferedReader(new InputStreamReader(inputStream));
-            String line;
-            while ((line = reader.readLine()) != null){
-                buffer.append(line + "\n");
-            }
-            if (buffer.length() == 0){
-                return  null;
-            }
-            return buffer.toString();
+            return ManageConnection();
         }
-        catch (MalformedURLException e){
-            e.printStackTrace();
+        catch (Exception e)
+        {
+
         }
-        catch ( IOException e){e.printStackTrace();}
         finally {
             if (connection != null)
             {
@@ -115,11 +64,11 @@ public abstract class Connection extends AsyncTask<String,Void,String> {
             }
 
             public void checkClientTrusted(X509Certificate[] chain,
-                                           String authType) throws CertificateException {
+                                           String authType) {
             }
 
             public void checkServerTrusted(X509Certificate[] chain,
-                                           String authType) throws CertificateException {
+                                           String authType) {
             }
         } };
 
@@ -133,17 +82,18 @@ public abstract class Connection extends AsyncTask<String,Void,String> {
         }
     }
 
+    public String ManageConnection()
+    {
+        return null;
+    }
+
     //Checks if the user is connected to Internet
     public Boolean checknetwork(Context mContext) {
 
         NetworkInfo info = ((ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE))
                 .getActiveNetworkInfo();
-        Log.i("NETWORK", "1ER");
-        Log.d("NETWORK", "1ER");
         if (info == null || !info.isConnected())
         {
-            Log.i("NETWORK", "NOTCONNECTED");
-            Log.d("NETWORK", "NOTCONNECTED");
             NotConnectedInternet(mContext);
             return false;
         }

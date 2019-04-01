@@ -23,18 +23,15 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
     {
         mMainActivity = iActivity;
         mMainActivity.registerReceiver(this, new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
-        //Log.d(mMainActivity.LOG_TAG, "Connecting to M300 SDK");
 
         try {
-            // Create a VuzixSpeechClient from the SDK
-            //Log.d(mMainActivity.LOG_TAG, iActivity.toString());
             sc = new VuzixSpeechClient(iActivity);
             // Delete specific phrases. This is useful if there are some that sound similar to yours, but
             // you want to keep the majority of them intact
             //sc.deletePhrase("torch on");
             //sc.deletePhrase("torch on");
 
-            // Delete every phrase in the dictionary! (Available in SDK version 3)
+            // Delete every phrase in the dictionary
             sc.deletePhrase("*");
 
             // Now add any new strings.  If you put a substitution in the second argument, you will be passed that string instead of the full string
@@ -47,14 +44,6 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
             sc.defineIntent(TOAST_EVENT, customToastIntent );
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
 
-            // Insert phrases for our broadcast handler
-            //
-            // ** NOTE **
-            // The "s:" is required in the SDK version 2, but is not required in the latest JAR distribution
-            // or SDK version 3.  But it is harmless when not required. It indicates that the recognizer is making a
-            // substitution.  When the multi-word string is matched (in any language) the associated MATCH string
-            // will be sent to the BroadcastReceiver
-
 
             // See what we've done
             Log.i(mMainActivity.LOG_TAG, sc.dump());
@@ -62,9 +51,6 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
             // The recognizer may not yet be enabled in Settings. We can enable this directly
             VuzixSpeechClient.EnableRecognizer(mMainActivity, true);
         } catch(NoClassDefFoundError e) {
-            // We get this exception if the SDK stubs against which we compiled cannot be resolved
-            // at runtime. This occurs if the code is not being run on an M300 supporting the voice
-            // SDK
             Toast.makeText(iActivity, R.string.only_on_m300, Toast.LENGTH_LONG).show();
             Log.e(mMainActivity.LOG_TAG, iActivity.getResources().getString(R.string.only_on_m300) );
             Log.e(mMainActivity.LOG_TAG, e.getMessage());
@@ -115,7 +101,6 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
                         List<Integer> numberToFind = new ArrayList<Integer>();
                         for (int cptNumbers = 0; cptNumbers < Arrays.asList(numbers).size(); cptNumbers ++)
                         {
-                            //Log.d(mMainActivity.LOG_TAG, phrase);
                             if (phrase.indexOf(numbers[cptNumbers]) == 0)
                             {
                                 int currentDigit = cptNumbers;
@@ -157,10 +142,6 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
         try {
             VuzixSpeechClient.TriggerVoiceAudio(mMainActivity, bOnOrOff);
         } catch (NoClassDefFoundError e) {
-            // The voice SDK was added in version 2. The constructor will have failed if the
-            // target device is not an M300 that is compatible with SDK version 2.  But the trigger
-            // command with the bool was added in SDK version 4.  It is possible the M300 does not
-            // yet have the TriggerVoiceAudio interface. If so, we get this exception.
             Toast.makeText(mMainActivity, R.string.upgrade_m300, Toast.LENGTH_LONG).show();
         }
     }

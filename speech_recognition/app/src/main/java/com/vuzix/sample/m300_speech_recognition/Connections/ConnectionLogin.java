@@ -1,14 +1,6 @@
 package com.vuzix.sample.m300_speech_recognition.Connections;
 
-import android.content.Intent;
-import android.media.session.MediaSession;
-import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.vuzix.sample.m300_speech_recognition.Connections.Connection;
 import com.vuzix.sample.m300_speech_recognition.Login;
-import com.vuzix.sample.m300_speech_recognition.R;
 import com.vuzix.sample.m300_speech_recognition.Token;
 
 import org.json.JSONArray;
@@ -26,55 +18,9 @@ public class ConnectionLogin extends Connection {
     Login mLogin;
 
     public ConnectionLogin(Login newLogin, String apiAdress) {
-        super();
-
+            super();
             mLogin = newLogin;
             APIAdress = apiAdress;
-
-    }
-
-    @Override
-    protected String doInBackground(String... urls) {
-        StringBuffer jsonString = new StringBuffer();
-        try {
-
-
-            URL url = new URL(APIAdress);
-
-            HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-
-            //httpCon.setDoOutput(true);
-            httpCon.setRequestMethod("POST");
-            httpCon.setDoInput(true);
-            httpCon.setInstanceFollowRedirects(false);
-            httpCon.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-
-            httpCon.connect();
-
-
-            HashMap<String, String> params = new HashMap<String, String>();
-            params.put("user","guillaume");
-            params.put("password","guillaume");
-            params.put("companyName","LisaTrainingUS");
-
-            JSONObject obj = new JSONObject(params);
-            String payload = obj.toString();
-            Log.d("123",payload);
-            OutputStreamWriter os = new OutputStreamWriter(httpCon.getOutputStream(), "UTF-8");
-            os.write(payload);
-            os.close();
-            BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
-            String line;
-            while ((line = br.readLine()) != null)
-            {
-                jsonString.append(line);
-            }
-            br.close();
-
-            httpCon.disconnect();
-        }
-        catch (Exception e){}
-        return jsonString.toString();
     }
 
     @Override
@@ -82,7 +28,6 @@ public class ConnectionLogin extends Connection {
 
         if (checknetwork(mLogin)) {
             if (response != null) {
-                Log.i("1237", response);
                 JSONArray jsonRoot = null;
 
                 try {
@@ -103,4 +48,44 @@ public class ConnectionLogin extends Connection {
 
     }
 
+    @Override
+    public String ManageConnection() {
+        StringBuffer jsonString = new StringBuffer();
+        try {
+
+
+            URL url = new URL(APIAdress);
+
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setDoInput(true);
+            connection.setInstanceFollowRedirects(false);
+            connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+
+            connection.connect();
+
+
+            HashMap<String, String> params = new HashMap<String, String>();
+            params.put("user","guillaume");
+            params.put("password","guillaume");
+            params.put("companyName","LisaTrainingUS");
+
+            JSONObject obj = new JSONObject(params);
+            String payload = obj.toString();
+            OutputStreamWriter os = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
+            os.write(payload);
+            os.close();
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line;
+            while ((line = br.readLine()) != null)
+            {
+                jsonString.append(line);
+            }
+            br.close();
+
+            connection.disconnect();
+        }
+        catch (Exception e){}
+        return jsonString.toString();
+    }
 }

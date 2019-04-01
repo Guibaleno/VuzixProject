@@ -8,11 +8,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.vuzix.sdk.speechrecognitionservice.VuzixSpeechClient;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import static android.view.KeyEvent.KEYCODE_A;
 import static android.view.KeyEvent.KEYCODE_AT;
 import static android.view.KeyEvent.KEYCODE_B;
@@ -47,7 +42,7 @@ import static android.view.KeyEvent.KEYCODE_X;
 import static android.view.KeyEvent.KEYCODE_Y;
 import static android.view.KeyEvent.KEYCODE_Z;
 import static android.view.KeyEvent.KEYCODE_MINUS;
-import static java.lang.Integer.parseInt;
+
 
 public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
     private Login mLogin;
@@ -72,7 +67,7 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
             //sc.deletePhrase("torch on");
             //sc.deletePhrase("torch on");
 
-            // Delete every phrase in the dictionary! (Available in SDK version 3)
+            // Delete every phrase in the dictionary
             sc.deletePhrase("*");
 
             // Now add any new strings.  If you put a substitution in the second argument, you will be passed that string instead of the full string
@@ -121,20 +116,10 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
             sc.defineIntent(TOAST_EVENT, customToastIntent );
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
             sc.insertPhrase("Return", MATCH_RETURN_TO_COMPANIES);
-            //sc.insertKeycodePhrase("back", KEYCODE_MINUS);
             sc.insertPhrase("username", MATCH_USERNAME);
             sc.insertPhrase("password", MATCH_PASSWORD);
             sc.insertPhrase(MATCH_NEXT, MATCH_LOGIN);
             Log.i("", sc.toString());
-
-            //Log.d("", "allooo");
-            // Insert phrases for our broadcast handler
-            //
-            // ** NOTE **
-            // The "s:" is required in the SDK version 2, but is not required in the latest JAR distribution
-            // or SDK version 3.  But it is harmless when not required. It indicates that the recognizer is making a
-            // substitution.  When the multi-word string is matched (in any language) the associated MATCH string
-            // will be sent to the BroadcastReceiver
 
 
             // See what we've done
@@ -182,8 +167,6 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
                     String phrase = intent.getStringExtra(VuzixSpeechClient.PHRASE_STRING_EXTRA);
 
                     // Determine the specific phrase that was recognized and act accordingly
-
-                    //Log.d("", phrase);
                     if (phrase.equals(MATCH_RETURN_TO_COMPANIES))
                     {
                         mLogin.FinishActivity();
@@ -205,12 +188,7 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
                     {
 
                     }
-                } //lse if (extras.containsKey(VuzixSpeechClient.RECOGNIZER_ACTIVE_BOOL_EXTRA)) {
-                  // // if we get a recognizer active bool extra, it means the recognizer was
-                  // // activated or stopped
-                  // boolean isRecognizerActive = extras.getBoolean(VuzixSpeechClient.RECOGNIZER_ACTIVE_BOOL_EXTRA, false);
-                  // mLogin.GetAPIValues(isRecognizerActive);
-                  // }
+                }
             }
         }
     }
