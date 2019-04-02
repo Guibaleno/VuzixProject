@@ -10,7 +10,7 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Warehouses">
+        tools:context=".Zones">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -65,7 +65,7 @@
                 android:text="@string/txtInstructionsZones"
                 app:layout_constraintBottom_toTopOf="@+id/btnNext"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/recyclerWarehouses"
+                app:layout_constraintStart_toEndOf="@+id/recyclerZones"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.632" />
 

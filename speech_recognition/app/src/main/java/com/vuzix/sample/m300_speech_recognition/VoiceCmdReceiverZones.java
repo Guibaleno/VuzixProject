@@ -19,6 +19,7 @@ import static java.lang.Integer.parseInt;
 public class VoiceCmdReceiverZones extends VoiceCmdReceiver {
     private Zones mZone;
     public final String MATCH_RETURN_TO_WAREHOUSES = "ReturnToWarehouses";
+    public final String MATCH_NEXT_ORDERS = "NextOrders";
     public VoiceCmdReceiverZones(Zones iActivity)
     {
         mZone = iActivity;
@@ -40,8 +41,7 @@ public class VoiceCmdReceiverZones extends VoiceCmdReceiver {
             sc.defineIntent(TOAST_EVENT, customToastIntent );
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
             sc.insertPhrase("Return", MATCH_RETURN_TO_WAREHOUSES);
-            sc.insertPhrase(MATCH_NEXT, MATCH_NEXT);
-
+            sc.insertPhrase(MATCH_NEXT, MATCH_NEXT_ORDERS);
             // See what we've done
             Log.i(mZone.LOG_TAG, sc.dump());
 
@@ -90,7 +90,7 @@ public class VoiceCmdReceiverZones extends VoiceCmdReceiver {
                     // Determine the specific phrase that was recognized and act accordingly
 
 
-                    if (phrase.equals(MATCH_NEXT))
+                    if (phrase.equals(MATCH_NEXT_ORDERS))
                     {
                         mZone.MoveToOrders();
                     }
@@ -101,14 +101,19 @@ public class VoiceCmdReceiverZones extends VoiceCmdReceiver {
                     else
                     {
                         List<Integer> numberToFind = new ArrayList<Integer>();
+                        String endingString = context.getResources().getString(R.string.Zones);
                         for (int cptNumbers = 0; cptNumbers < Arrays.asList(numbers).size(); cptNumbers ++)
                         {
-                            if (phrase.indexOf(numbers[cptNumbers]) == 0)
-                            {
-                                int currentDigit = cptNumbers;
-                                numberToFind.add(currentDigit);
-                                phrase = phrase.substring(numbers[cptNumbers].length());
-                                cptNumbers = -1;//
+                            //We will get a phrase like "OneZeroZones", we have to check if the phrase does not
+                            //begin with "Zones"
+                            if (phrase.indexOf(endingString) != 0) {
+                                if (phrase.indexOf(numbers[cptNumbers]) == 0) {
+                                    int currentDigit = cptNumbers;
+                                    numberToFind.add(currentDigit);
+                                    phrase = phrase.substring(numbers[cptNumbers].length());
+                                    //We have to look into the full array after we find a number
+                                    cptNumbers = -1;//
+                                }
                             }
                         }
                         if (numberToFind.size() > 0)

@@ -39,4 +39,10 @@
     <string name="btnLogin">Next</string>
     <string name="txtSelectedItem">Selected Item : none</string>
 
+
+    <string name="Companies">Companies</string>
+    <string name="Warehouses">Warehouses</string>
+    <string name="Zones">Zones</string>
+    <string name="Orders">Orders</string>
+
 </resources>

@@ -46,7 +46,7 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
 
 
             // See what we've done
-            Log.i(mMainActivity.LOG_TAG, sc.dump());
+            //Log.i(mMainActivity.LOG_TAG, sc.dump());
             sc.insertPhrase(mMainActivity.getResources().getString(R.string.btnNext), MATCH_NEXT);
             // The recognizer may not yet be enabled in Settings. We can enable this directly
             VuzixSpeechClient.EnableRecognizer(mMainActivity, true);
@@ -99,14 +99,21 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
                     else
                     {
                         List<Integer> numberToFind = new ArrayList<Integer>();
+                        String endingString = context.getResources().getString(R.string.Companies);
                         for (int cptNumbers = 0; cptNumbers < Arrays.asList(numbers).size(); cptNumbers ++)
                         {
-                            if (phrase.indexOf(numbers[cptNumbers]) == 0)
+                            //We will get a phrase like "OneZeroCompanies", we have to check if the phrase does not
+                            //begin with "Companies"
+                            if (phrase.indexOf(endingString) != 0)
                             {
-                                int currentDigit = cptNumbers;
-                                numberToFind.add(currentDigit);
-                                phrase = phrase.substring(numbers[cptNumbers].length());
-                                cptNumbers = -1;//
+                                if (phrase.indexOf(numbers[cptNumbers]) == 0)
+                                {
+                                    int currentDigit = cptNumbers;
+                                    numberToFind.add(currentDigit);
+                                    phrase = phrase.substring(numbers[cptNumbers].length());
+                                    //We have to look into the full array after we find a number
+                                    cptNumbers = -1;
+                                }
                             }
                         }
                         if (numberToFind.size() > 0)

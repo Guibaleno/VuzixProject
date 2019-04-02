@@ -117,6 +117,6 @@ public class Warehouses extends AppCompatActivity {
 
     public void CreateStringsWarehouse()
     {
-        mVoiceCmdReceiverWarehouse.CreateStrings(recyclerWarehouses);
+        mVoiceCmdReceiverWarehouse.CreateStrings(recyclerWarehouses, getResources().getString(R.string.Warehouses));
     }
 }

@@ -114,9 +114,9 @@ public class Orders extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), texte, Toast.LENGTH_SHORT).show();
     }
 
-    public void CreateStringsOrder()
+    public void CreateStringsOrder(String currentOrderNumber)
     {
-        mVoiceCmdReceiverOrders.CreateStringsOrders(recyclerOrders);
+        mVoiceCmdReceiverOrders.CreateStringsOrders(currentOrderNumber);
     }
 
 

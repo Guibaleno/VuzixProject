@@ -49,9 +49,10 @@ public class ConnectionOrders extends Connection {
                     Integer object = jsonRoot.getInt(cptObjects);
                     //String idZone = object.getString("idzone");
                     mOrders.InsertDataIntoOrders(String.valueOf(object));
+                    mOrders.CreateStringsOrder(String.valueOf(object));
                 }
                 mOrders.BindData();
-                mOrders.CreateStringsOrder();
+
 
             } catch (JSONException e) {
                 e.printStackTrace();

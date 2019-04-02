@@ -102,14 +102,19 @@ public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
                     else
                     {
                         List<Integer> numberToFind = new ArrayList<Integer>();
+                        String endingString = context.getResources().getString(R.string.Orders);
                         for (int cptNumbers = 0; cptNumbers < Arrays.asList(numbers).size(); cptNumbers ++)
                         {
-                            if (phrase.indexOf(numbers[cptNumbers]) == 0)
-                            {
-                                int currentDigit = cptNumbers;
-                                numberToFind.add(currentDigit);
-                                phrase = phrase.substring(numbers[cptNumbers].length());
-                                cptNumbers = -1;
+                            //We will get a phrase like "OneZeroOrders", we have to check if the phrase does not
+                            //begin with "Orders"
+                            if (phrase.indexOf(endingString) != 0) {
+                                if (phrase.indexOf(numbers[cptNumbers]) == 0) {
+                                    int currentDigit = cptNumbers;
+                                    numberToFind.add(currentDigit);
+                                    phrase = phrase.substring(numbers[cptNumbers].length());
+                                    //We have to look into the full array after we find a number
+                                    cptNumbers = -1;
+                                }
                             }
                         }
                         if (numberToFind.size() > 0)
@@ -137,25 +142,16 @@ public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
         }
     }
 
-    public void CreateStringsOrders(RecyclerView recyclerOrders)
+    public void CreateStringsOrders(String currentOrderNumber)
     {
-
-        for (int cptViews = 1; cptViews <= recyclerOrders.getAdapter().getItemCount(); cptViews ++)
-        {
-            Log.d("Digits", String.valueOf(recyclerOrders.getAdapter().getItemCount()));
+        if (currentOrderNumber.length() > 0) {
             String phrase = "";
-            Long currentView = recyclerOrders.getAdapter().getItemId(cptViews);
-            recyclerOrders.findViewHolderForItemId(currentView);
-            Log.d("Digits", currentView.toString());
-            //for (int cptDigits = 0; cptDigits < currentView.toString().length(); cptDigits ++)
-            //{
-
-                //int currentDigit = Integer.parseInt(Integer.toString(cptViews).substring(cptDigits, cptDigits + 1));
-                //phrase += numbers[currentDigit];
-
-            //}
+            char[] currentOrderArray= currentOrderNumber.toCharArray();
+            for (int cptDigits = 0; cptDigits < currentOrderNumber.length(); cptDigits++) {
+                int currentDigit = Character.getNumericValue(currentOrderArray[cptDigits]);
+                phrase += numbers[currentDigit];
+            }
             sc.insertPhrase(phrase, phrase);
-            Log.d("Strings", phrase);
         }
     }
 

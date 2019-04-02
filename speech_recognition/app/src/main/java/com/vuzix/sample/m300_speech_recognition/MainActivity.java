@@ -86,7 +86,9 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Log.d("ICI", "ICI1");
+        Log.i("ICI", "ICI1");
+        mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
         buttonListen = (Button) findViewById(R.id.btn_listen);
         recyclerCompanies = (RecyclerView) findViewById(R.id.recyclerCompanies);
         txtSelectedItem = (TextView) findViewById(R.id.txtSelectedItem);
@@ -106,8 +108,11 @@ public class MainActivity extends Activity {
         });
 
         // Create the voice command receiver class
-        mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
+        Log.d("ICI", "ICI1");
+        Log.i("ICI", "ICI1");
         connection = new ConnectionCompanies(this, APIAdress);
+        Log.d("ICI", "ICI1");
+        Log.i("ICI", "ICI1");
         // Now register another intent handler to demonstrate intents sent from the service
         myIntentReceiver = new MyIntentReceiver();
         registerReceiver(myIntentReceiver , new IntentFilter(CUSTOM_SDK_INTENT));
@@ -261,7 +266,7 @@ public class MainActivity extends Activity {
 
     public void CreateStringsCompanies()
     {
-        mVoiceCmdReceiver.CreateStrings(recyclerCompanies);
+        mVoiceCmdReceiver.CreateStrings(recyclerCompanies, getResources().getString(R.string.Companies));
     }
 }
 

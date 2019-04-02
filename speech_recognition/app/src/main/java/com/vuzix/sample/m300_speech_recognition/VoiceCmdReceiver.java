@@ -116,7 +116,7 @@ public class VoiceCmdReceiver  extends BroadcastReceiver {
 
     }
 
-    public void CreateStrings(RecyclerView currentRecyclerView)
+    public void CreateStrings(RecyclerView currentRecyclerView, String currentActivity)
     {
         //This function creates strings from 1 to the RecyclerView's size.
         for (int cptViews = 1; cptViews <= currentRecyclerView.getAdapter().getItemCount(); cptViews ++)
@@ -129,7 +129,24 @@ public class VoiceCmdReceiver  extends BroadcastReceiver {
                 phrase += numbers[currentDigit];
 
             }
-            sc.insertPhrase(phrase, phrase);
+           //String currentActivity = "";
+           ////Creates unique phrases, when we say "one", the glasses will understand, for example, "oneCompanies"
+           //switch (currentRecyclerView.getId())
+           //{
+           //    case R.id.recyclerCompanies:
+           //        currentActivity = getResources().getString(
+           //        break;
+           //    case R.id.recyclerWarehouses:
+           //        currentActivity = "Warehouses";
+           //        break;
+           //    case R.id.recyclerZones:
+           //        currentActivity = "Zones";
+           //        break;
+           //    case R.id.recyclerOrders:
+           //        currentActivity = "Orders";
+           //        break;
+           //}
+            sc.insertPhrase(phrase, phrase + currentActivity);
             Log.d("Strings", phrase);
         }
     }

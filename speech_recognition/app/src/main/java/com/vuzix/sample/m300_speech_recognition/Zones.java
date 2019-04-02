@@ -113,6 +113,6 @@ public class Zones extends AppCompatActivity {
 
     public void CreateStringsZone()
     {
-        mVoiceCmdReceiverZones.CreateStrings(recyclerZones);
+        mVoiceCmdReceiverZones.CreateStrings(recyclerZones, getResources().getString(R.string.Zones));
     }
 }
