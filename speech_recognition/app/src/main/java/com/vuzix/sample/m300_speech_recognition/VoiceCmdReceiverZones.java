@@ -16,14 +16,14 @@ import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
-    private Warehouses mWarehouse;
-    public final String MATCH_RETURN_TO_LOGIN = "ReturnToLogin";
-    public VoiceCmdReceiverWarehouses(Warehouses iActivity)
+public class VoiceCmdReceiverZones extends VoiceCmdReceiver {
+    private Zones mZone;
+    public final String MATCH_RETURN_TO_WAREHOUSES = "ReturnToWarehouses";
+    public VoiceCmdReceiverZones(Zones iActivity)
     {
-        mWarehouse = iActivity;
-        mWarehouse.registerReceiver(this, new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
-        Log.d(mWarehouse.LOG_TAG, "Connecting to M300 SDK");
+        mZone = iActivity;
+        mZone.registerReceiver(this, new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
+        //Log.d(mWarehouse.LOG_TAG, "Connecting to M300 SDK");
 
         try {
             // Create a VuzixSpeechClient from the SDK
@@ -36,28 +36,28 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
 
             // Delete every phrase in the dictionary! (Available in SDK version 3)
             sc.deletePhrase("*");
-            Intent customToastIntent = new Intent(mWarehouse.CUSTOM_SDK_INTENT);
+            Intent customToastIntent = new Intent(mZone.CUSTOM_SDK_INTENT);
             sc.defineIntent(TOAST_EVENT, customToastIntent );
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
-            sc.insertPhrase("Return", MATCH_RETURN_TO_LOGIN);
+            sc.insertPhrase("Return", MATCH_RETURN_TO_WAREHOUSES);
             sc.insertPhrase(MATCH_NEXT, MATCH_NEXT);
 
             // See what we've done
-            Log.i(mWarehouse.LOG_TAG, sc.dump());
+            Log.i(mZone.LOG_TAG, sc.dump());
 
             // The recognizer may not yet be enabled in Settings. We can enable this directly
-            VuzixSpeechClient.EnableRecognizer(mWarehouse, true);
+            VuzixSpeechClient.EnableRecognizer(mZone, true);
         } catch(NoClassDefFoundError e) {
             // We get this exception if the SDK stubs against which we compiled cannot be resolved
             // at runtime. This occurs if the code is not being run on an M300 supporting the voice
             // SDK
             Toast.makeText(iActivity, R.string.only_on_m300, Toast.LENGTH_LONG).show();
-            Log.e(mWarehouse.LOG_TAG, iActivity.getResources().getString(R.string.only_on_m300) );
-            Log.e(mWarehouse.LOG_TAG, e.getMessage());
+            Log.e(mZone.LOG_TAG, iActivity.getResources().getString(R.string.only_on_m300) );
+            Log.e(mZone.LOG_TAG, e.getMessage());
             e.printStackTrace();
             iActivity.finish();
         } catch (Exception e) {
-            Log.e(mWarehouse.LOG_TAG, "Error setting custom vocabulary: " + e.getMessage());
+            Log.e(mZone.LOG_TAG, "Error setting custom vocabulary: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -92,11 +92,11 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
 
                     if (phrase.equals(MATCH_NEXT))
                     {
-                        mWarehouse.MoveToZones();
+                        mZone.MoveToOrders();
                     }
-                    else if (phrase.equals(MATCH_RETURN_TO_LOGIN))
+                    else if (phrase.equals(MATCH_RETURN_TO_WAREHOUSES))
                     {
-                        mWarehouse.FinishActivity();
+                        mZone.FinishActivity();
                     }
                     else
                     {
@@ -118,7 +118,7 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
                             {
                                 numberString += String.valueOf(numberToFind.get(cptDigit));
                             }
-                            mWarehouse.SelectItemInRecyclerView(parseInt(numberString) - 1);
+                            mZone.SelectItemInRecyclerView(parseInt(numberString) - 1);
                         }
                     }
                 }
@@ -128,11 +128,11 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
 
     public void unregister() {
         try {
-            mWarehouse.unregisterReceiver(this);
-            Log.i(mWarehouse.LOG_TAG, "Custom vocab removed");
-            mWarehouse = null;
+            mZone.unregisterReceiver(this);
+            Log.i(mZone.LOG_TAG, "Custom vocab removed");
+            mZone = null;
         }catch (Exception e) {
-            Log.e(mWarehouse.LOG_TAG, "Custom vocab died " + e.getMessage());
+            Log.e(mZone.LOG_TAG, "Custom vocab died " + e.getMessage());
         }
     }
 

@@ -1,7 +1,7 @@
 package com.vuzix.sample.m300_speech_recognition.Connections;
 
 import com.vuzix.sample.m300_speech_recognition.Login;
-import com.vuzix.sample.m300_speech_recognition.Token;
+import com.vuzix.sample.m300_speech_recognition.HeaderInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +33,7 @@ public class ConnectionLogin extends Connection {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.has("token")) {
-                        Token.setToken(jsonObject.getString("token"));
+                        HeaderInfo.setToken(jsonObject.getString("token"));
                         mLogin.MoveToWarehouse();
                     } else if (jsonObject.has("English")) {
                         mLogin.Toast(jsonObject.getString("English"));

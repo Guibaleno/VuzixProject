@@ -18,11 +18,21 @@
     <string name="txtInstructionsCompanies">
         1- Say \"Hello Vuzix\"(View-zix) until the text of the button changes\n
         2- Select a company by saying the number on its left. The text on top of the list will change\n
-        3- Say \"Next\" to go to the login screen
+        3- Say \"Next\" to go to the login screen\n\n
+        Please note that if the number has more than one digit, say each digit./n
+        For example, to select the number 15, we would have to say "onefive".
     </string>
     <string name="txtInstructionsWarehouses">
         1- Select a Warehouse by saying the number on its left. The text on top of the list will change\n
-        2- Say \"Next\" to go to the zone screen
+        2- Say \"Next\" to go to the zone screen\n\n
+        Please note that if the number has more than one digit, say each digit./n
+        For example, to select the number 15, we would have to say "onefive".
+    </string>
+    <string name="txtInstructionsZones">
+        1- Select a Zone by saying the number on its left. The text on top of the list will change\n
+        2- Say \"Next\" to see the orders of the selected zone\n\n
+        Please note that if the number has more than one digit, say each digit./n
+        For example, to select the number 15, we would have to say "onefive".
     </string>
 
     <string name="btnReturn">Return</string>

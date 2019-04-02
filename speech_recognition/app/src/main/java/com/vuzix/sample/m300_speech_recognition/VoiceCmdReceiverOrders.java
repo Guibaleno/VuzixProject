@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.vuzix.sdk.speechrecognitionservice.VuzixSpeechClient;
@@ -16,14 +17,14 @@ import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
-    private Warehouses mWarehouse;
-    public final String MATCH_RETURN_TO_LOGIN = "ReturnToLogin";
-    public VoiceCmdReceiverWarehouses(Warehouses iActivity)
+public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
+    private Orders mOrder;
+    public final String MATCH_RETURN_TO_ZONES = "ReturnToZones";
+    public VoiceCmdReceiverOrders(Orders iActivity)
     {
-        mWarehouse = iActivity;
-        mWarehouse.registerReceiver(this, new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
-        Log.d(mWarehouse.LOG_TAG, "Connecting to M300 SDK");
+        mOrder = iActivity;
+        mOrder.registerReceiver(this, new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
+        //Log.d(mWarehouse.LOG_TAG, "Connecting to M300 SDK");
 
         try {
             // Create a VuzixSpeechClient from the SDK
@@ -36,28 +37,28 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
 
             // Delete every phrase in the dictionary! (Available in SDK version 3)
             sc.deletePhrase("*");
-            Intent customToastIntent = new Intent(mWarehouse.CUSTOM_SDK_INTENT);
+            Intent customToastIntent = new Intent(mOrder.CUSTOM_SDK_INTENT);
             sc.defineIntent(TOAST_EVENT, customToastIntent );
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
-            sc.insertPhrase("Return", MATCH_RETURN_TO_LOGIN);
+            sc.insertPhrase("Return", MATCH_RETURN_TO_ZONES);
             sc.insertPhrase(MATCH_NEXT, MATCH_NEXT);
 
             // See what we've done
-            Log.i(mWarehouse.LOG_TAG, sc.dump());
+            Log.i(mOrder.LOG_TAG, sc.dump());
 
             // The recognizer may not yet be enabled in Settings. We can enable this directly
-            VuzixSpeechClient.EnableRecognizer(mWarehouse, true);
+            VuzixSpeechClient.EnableRecognizer(mOrder, true);
         } catch(NoClassDefFoundError e) {
             // We get this exception if the SDK stubs against which we compiled cannot be resolved
             // at runtime. This occurs if the code is not being run on an M300 supporting the voice
             // SDK
             Toast.makeText(iActivity, R.string.only_on_m300, Toast.LENGTH_LONG).show();
-            Log.e(mWarehouse.LOG_TAG, iActivity.getResources().getString(R.string.only_on_m300) );
-            Log.e(mWarehouse.LOG_TAG, e.getMessage());
+            Log.e(mOrder.LOG_TAG, iActivity.getResources().getString(R.string.only_on_m300) );
+            Log.e(mOrder.LOG_TAG, e.getMessage());
             e.printStackTrace();
             iActivity.finish();
         } catch (Exception e) {
-            Log.e(mWarehouse.LOG_TAG, "Error setting custom vocabulary: " + e.getMessage());
+            Log.e(mOrder.LOG_TAG, "Error setting custom vocabulary: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -92,11 +93,11 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
 
                     if (phrase.equals(MATCH_NEXT))
                     {
-                        mWarehouse.MoveToZones();
+                        mOrder.MoveToOrders();
                     }
-                    else if (phrase.equals(MATCH_RETURN_TO_LOGIN))
+                    else if (phrase.equals(MATCH_RETURN_TO_ZONES))
                     {
-                        mWarehouse.FinishActivity();
+                        mOrder.FinishActivity();
                     }
                     else
                     {
@@ -108,7 +109,7 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
                                 int currentDigit = cptNumbers;
                                 numberToFind.add(currentDigit);
                                 phrase = phrase.substring(numbers[cptNumbers].length());
-                                cptNumbers = -1;//
+                                cptNumbers = -1;
                             }
                         }
                         if (numberToFind.size() > 0)
@@ -118,7 +119,7 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
                             {
                                 numberString += String.valueOf(numberToFind.get(cptDigit));
                             }
-                            mWarehouse.SelectItemInRecyclerView(parseInt(numberString) - 1);
+                            mOrder.SelectItemInRecyclerView(parseInt(numberString) - 1);
                         }
                     }
                 }
@@ -128,11 +129,33 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
 
     public void unregister() {
         try {
-            mWarehouse.unregisterReceiver(this);
-            Log.i(mWarehouse.LOG_TAG, "Custom vocab removed");
-            mWarehouse = null;
+            mOrder.unregisterReceiver(this);
+            Log.i(mOrder.LOG_TAG, "Custom vocab removed");
+            mOrder = null;
         }catch (Exception e) {
-            Log.e(mWarehouse.LOG_TAG, "Custom vocab died " + e.getMessage());
+            Log.e(mOrder.LOG_TAG, "Custom vocab died " + e.getMessage());
+        }
+    }
+
+    public void CreateStringsOrders(RecyclerView recyclerOrders)
+    {
+
+        for (int cptViews = 1; cptViews <= recyclerOrders.getAdapter().getItemCount(); cptViews ++)
+        {
+            Log.d("Digits", String.valueOf(recyclerOrders.getAdapter().getItemCount()));
+            String phrase = "";
+            Long currentView = recyclerOrders.getAdapter().getItemId(cptViews);
+            recyclerOrders.findViewHolderForItemId(currentView);
+            Log.d("Digits", currentView.toString());
+            //for (int cptDigits = 0; cptDigits < currentView.toString().length(); cptDigits ++)
+            //{
+
+                //int currentDigit = Integer.parseInt(Integer.toString(cptViews).substring(cptDigits, cptDigits + 1));
+                //phrase += numbers[currentDigit];
+
+            //}
+            sc.insertPhrase(phrase, phrase);
+            Log.d("Strings", phrase);
         }
     }
 

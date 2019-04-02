@@ -1,5 +1,6 @@
 package com.vuzix.sample.m300_speech_recognition;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionWarehouses;
+import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionZones;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +24,12 @@ public class Zones extends AppCompatActivity {
     List<String> listZonesName = new ArrayList<String>();
     TextView txtSelectedItem;
 
-    VoiceCmdReceiverWarehouses mVoiceCmdReceiverZones;
-    ConnectionWarehouses connectionWarehouse;
+    VoiceCmdReceiverZones mVoiceCmdReceiverZones;
+    ConnectionZones connectionZone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_warehouses);
+        setContentView(R.layout.activity_zones);
 
 
         txtSelectedItem = (TextView) findViewById(R.id.txtSelectedItem);
@@ -36,16 +37,11 @@ public class Zones extends AppCompatActivity {
 
 
 
-        //mVoiceCmdReceiverWarehouse = new VoiceCmdReceiverWarehouses(this);
-        //connectionWarehouse = new ConnectionWarehouses(this, APIAdress);
+        mVoiceCmdReceiverZones = new VoiceCmdReceiverZones(this);
+        connectionZone = new ConnectionZones(this, APIAdress);
 
-
-
-
-
-
-
-        getWarehouse();
+        HeaderInfo.setIdWarehouse(getIntent().getStringExtra("idwareHouse"));
+        getZone();
     }
 
     public void BindData()
@@ -57,17 +53,17 @@ public class Zones extends AppCompatActivity {
         recyclerZones.setAdapter(mAdapterRecyclerZones);
     }
 
-    public void InsertDataIntoWarehouse(String idWarehouse, String warehouseName)
+    public void InsertDataIntoZones(String idZone, String ZoneName)
     {
-        listZonesName.add(warehouseName);
-        listIdZones.add(idWarehouse);
+        listZonesName.add(ZoneName);
+        listIdZones.add(idZone);
     }
 
-    private void getWarehouse(){
+    private void getZone(){
 
         try{
 
-            connectionWarehouse.execute();
+            connectionZone.execute();
 
         }
         catch (Exception e){
@@ -84,22 +80,23 @@ public class Zones extends AppCompatActivity {
         Toast("Selected Item : " + listZonesName.get(selectedIndex));
     }
 
-    public void Next()
+    public void MoveToOrders()
     {
         Toast(txtSelectedItem.getText().toString());
-        //if (!txtSelectedItem.getText().toString().equals("Selected Item : "))
-        //{
-        //    String stringToRemove = "Selected item : ";
-        //    int indexOfString = listWarehouseName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
-        //    Intent intent = new Intent(this, Login.class);
-        //    intent.putExtra("IdCompany",listIdWarehouse.get(indexOfString));
-        //    intent.putExtra("CompanyName",listWarehouseName.get(indexOfString));
-        //    startActivity(intent);
-        //}
-        //else
-        //{
-        //    Toast("Select a company");
-        //}
+        if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
+        {
+            String stringToRemove = "Selected item : ";
+            int indexOfString = listZonesName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
+            Intent intent = new Intent(this, Orders.class);
+            Toast(getIntent().getStringExtra("idwareHouse"));
+            intent.putExtra("idzone",listIdZones.get(indexOfString));
+            intent.putExtra("name",listZonesName.get(indexOfString));
+            startActivity(intent);
+        }
+        else
+        {
+            Toast("Select a company");
+        }
     }
 
     void FinishActivity()
@@ -114,7 +111,7 @@ public class Zones extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), texte, Toast.LENGTH_SHORT).show();
     }
 
-    public void CreateStringsWarehouse()
+    public void CreateStringsZone()
     {
         mVoiceCmdReceiverZones.CreateStrings(recyclerZones);
     }

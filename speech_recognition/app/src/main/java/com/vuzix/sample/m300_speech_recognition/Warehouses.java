@@ -33,7 +33,7 @@ public class Warehouses extends AppCompatActivity {
 
 
         txtSelectedItem = (TextView) findViewById(R.id.txtSelectedItem);
-        recyclerWarehouses = (RecyclerView) findViewById(R.id.recyclerZones);
+        recyclerWarehouses = (RecyclerView) findViewById(R.id.recyclerWarehouses);
 
 
 
@@ -85,7 +85,7 @@ public class Warehouses extends AppCompatActivity {
         Toast("Selected Item : " + listWarehouseName.get(selectedIndex));
     }
 
-    public void Next()
+    public void MoveToZones()
     {
         Toast(txtSelectedItem.getText().toString());
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
@@ -93,7 +93,7 @@ public class Warehouses extends AppCompatActivity {
             String stringToRemove = "Selected item : ";
             int indexOfString = listWarehouseName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, Zones.class);
-            intent.putExtra("IdWarehouse",listIdWarehouse.get(indexOfString));
+            intent.putExtra("idwareHouse",listIdWarehouse.get(indexOfString));
             intent.putExtra("WarehouseName",listWarehouseName.get(indexOfString));
             startActivity(intent);
         }

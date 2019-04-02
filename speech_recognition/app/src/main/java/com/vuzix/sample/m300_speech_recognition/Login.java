@@ -71,7 +71,7 @@ public class Login extends AppCompatActivity {
 
     public void MoveToWarehouse()
     {
-        Intent intent = new Intent(this, Warehouses.class);
+        Intent intent = new Intent(this, Orders.class);
         startActivity(intent);
     }
 

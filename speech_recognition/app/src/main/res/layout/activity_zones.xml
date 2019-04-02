@@ -62,10 +62,10 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@string/txtInstructionsWarehouses"
+                android:text="@string/txtInstructionsZones"
                 app:layout_constraintBottom_toTopOf="@+id/btnNext"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/recyclerZones"
+                app:layout_constraintStart_toEndOf="@+id/recyclerWarehouses"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.632" />
 

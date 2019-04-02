@@ -118,6 +118,7 @@ public class VoiceCmdReceiver  extends BroadcastReceiver {
 
     public void CreateStrings(RecyclerView currentRecyclerView)
     {
+        //This function creates strings from 1 to the RecyclerView's size.
         for (int cptViews = 1; cptViews <= currentRecyclerView.getAdapter().getItemCount(); cptViews ++)
         {
             String phrase = "";
