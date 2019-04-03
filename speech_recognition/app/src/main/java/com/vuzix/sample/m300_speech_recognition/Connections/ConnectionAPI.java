@@ -4,9 +4,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.session.MediaSession;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+
+import com.vuzix.sample.m300_speech_recognition.HeaderInfo;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,10 +27,11 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-public abstract class Connection extends AsyncTask<String,Void,String> {
+public class ConnectionAPI extends AsyncTask<String,Void,String> {
     public String APIAdress;
     public BufferedReader reader;
     public HttpURLConnection connection;
+
     @Override
     protected String doInBackground(String... urls) {
         reader = null;
@@ -105,7 +110,7 @@ public abstract class Connection extends AsyncTask<String,Void,String> {
     public void NotConnectedInternet(Context currentContext)
     {
         AlertDialog alertDialog = new AlertDialog.Builder(currentContext).create();
-        alertDialog.setTitle("Internet Connection error");
+        alertDialog.setTitle("Internet ConnectionAPI error");
         alertDialog.setMessage("The device is not connected to Internet");
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Reload frame",
                 new DialogInterface.OnClickListener() {

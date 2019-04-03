@@ -32,61 +32,12 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.vuzix.sample.m300_speech_recognition;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.Region;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.ListView;
-import android.widget.Toast;
-import static java.lang.Integer.parseInt;
-
 import com.vuzix.sdk.speechrecognitionservice.VuzixSpeechClient;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static android.view.KeyEvent.KEYCODE_A;
-import static android.view.KeyEvent.KEYCODE_AT;
-import static android.view.KeyEvent.KEYCODE_B;
-import static android.view.KeyEvent.KEYCODE_C;
-import static android.view.KeyEvent.KEYCODE_CAPS_LOCK;
-import static android.view.KeyEvent.KEYCODE_D;
-import static android.view.KeyEvent.KEYCODE_DEL;
-import static android.view.KeyEvent.KEYCODE_E;
-import static android.view.KeyEvent.KEYCODE_ENTER;
-import static android.view.KeyEvent.KEYCODE_F;
-import static android.view.KeyEvent.KEYCODE_G;
-import static android.view.KeyEvent.KEYCODE_H;
-import static android.view.KeyEvent.KEYCODE_I;
-import static android.view.KeyEvent.KEYCODE_J;
-import static android.view.KeyEvent.KEYCODE_K;
-import static android.view.KeyEvent.KEYCODE_L;
-import static android.view.KeyEvent.KEYCODE_M;
-import static android.view.KeyEvent.KEYCODE_N;
-import static android.view.KeyEvent.KEYCODE_O;
-import static android.view.KeyEvent.KEYCODE_P;
-import static android.view.KeyEvent.KEYCODE_PERIOD;
-import static android.view.KeyEvent.KEYCODE_Q;
-import static android.view.KeyEvent.KEYCODE_R;
-import static android.view.KeyEvent.KEYCODE_S;
-import static android.view.KeyEvent.KEYCODE_SHIFT_LEFT;
-import static android.view.KeyEvent.KEYCODE_SPACE;
-import static android.view.KeyEvent.KEYCODE_T;
-import static android.view.KeyEvent.KEYCODE_U;
-import static android.view.KeyEvent.KEYCODE_V;
-import static android.view.KeyEvent.KEYCODE_W;
-import static android.view.KeyEvent.KEYCODE_X;
-import static android.view.KeyEvent.KEYCODE_Y;
-import static android.view.KeyEvent.KEYCODE_Z;
-
 
 /**
  * Class to encapsulate all voice commands
@@ -129,23 +80,6 @@ public class VoiceCmdReceiver  extends BroadcastReceiver {
                 phrase += numbers[currentDigit];
 
             }
-           //String currentActivity = "";
-           ////Creates unique phrases, when we say "one", the glasses will understand, for example, "oneCompanies"
-           //switch (currentRecyclerView.getId())
-           //{
-           //    case R.id.recyclerCompanies:
-           //        currentActivity = getResources().getString(
-           //        break;
-           //    case R.id.recyclerWarehouses:
-           //        currentActivity = "Warehouses";
-           //        break;
-           //    case R.id.recyclerZones:
-           //        currentActivity = "Zones";
-           //        break;
-           //    case R.id.recyclerOrders:
-           //        currentActivity = "Orders";
-           //        break;
-           //}
             sc.insertPhrase(phrase, phrase + currentActivity);
             Log.d("Strings", phrase);
         }

@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionOrders;
+import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPIOrders;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +24,7 @@ public class Orders extends AppCompatActivity {
     TextView txtSelectedItem;
 
     VoiceCmdReceiverOrders mVoiceCmdReceiverOrders;
-    ConnectionOrders connectionOrder;
+    ConnectionAPIOrders connectionOrder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +39,8 @@ public class Orders extends AppCompatActivity {
 
 
         APIAdress = getAPIAdress();
-        connectionOrder = new ConnectionOrders(this, APIAdress);
-
+        connectionOrder = new ConnectionAPIOrders(this, APIAdress);
+        Log.d("william", this.toString());
         getOrder();
     }
 
@@ -74,13 +72,14 @@ public class Orders extends AppCompatActivity {
         }
     }
 
-    public void SelectItemInRecyclerView(int selectedIndex)
+    public void SelectItemInRecyclerViewOrders(int selectedIndex)
     {
+        Log.d("selectedIndex", String.valueOf(selectedIndex));
         recyclerOrders.setFocusable(true);
         recyclerOrders.requestFocus(selectedIndex);
         recyclerOrders.smoothScrollToPosition(selectedIndex);
-        txtSelectedItem.setText("Selected Item : " + listIdOrders.get(selectedIndex));
-        Toast("Selected Item : " + listIdOrders.get(selectedIndex));
+        txtSelectedItem.setText("Selected Item : " + listIdOrders.get(listIdOrders.indexOf(selectedIndex)));
+        //Toast("Selected Item : " + listIdOrders.get(selectedIndex));
     }
 
     public void MoveToOrders()
@@ -125,8 +124,8 @@ public class Orders extends AppCompatActivity {
 
         String idWarehouse = HeaderInfo.getIdWarehouse();
         String idZone = getIntent().getStringExtra("idzone");
-        return  "https://216.226.53.29/V5/API/Zones%28" + "1"
-                + "%29/Orders?idWarehouse=" + "1"
+        return  "https://216.226.53.29/V5/API/Zones%28" + idZone
+                + "%29/Orders?idWarehouse=" + idWarehouse
                 + "&resetPickRoute=false";
     }
 }

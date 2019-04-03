@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionWarehouses;
+import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPIWarehouses;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class Warehouses extends AppCompatActivity {
     TextView txtSelectedItem;
 
     VoiceCmdReceiverWarehouses mVoiceCmdReceiverWarehouse;
-    ConnectionWarehouses connectionWarehouse;
+    ConnectionAPIWarehouses connectionWarehouse;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +38,7 @@ public class Warehouses extends AppCompatActivity {
 
 
         mVoiceCmdReceiverWarehouse = new VoiceCmdReceiverWarehouses(this);
-        connectionWarehouse = new ConnectionWarehouses(this, APIAdress);
+        connectionWarehouse = new ConnectionAPIWarehouses(this, APIAdress);
 
 
 
@@ -76,13 +76,17 @@ public class Warehouses extends AppCompatActivity {
         }
     }
 
-    public void SelectItemInRecyclerView(int selectedIndex)
+    public void SelectItemInRecyclerViewWarehouse(int selectedIndex)
     {
         recyclerWarehouses.setFocusable(true);
         recyclerWarehouses.requestFocus(selectedIndex);
         recyclerWarehouses.smoothScrollToPosition(selectedIndex);
-        txtSelectedItem.setText("Selected Item : " + listWarehouseName.get(selectedIndex));
-        Toast("Selected Item : " + listWarehouseName.get(selectedIndex));
+        if (selectedIndex < listWarehouseName.size())
+        {
+            txtSelectedItem.setText("Selected Item : " + listWarehouseName.get(selectedIndex));
+            Toast("Selected Item : " + listWarehouseName.get(selectedIndex));
+        }
+
     }
 
     public void MoveToZones()

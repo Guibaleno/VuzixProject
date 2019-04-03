@@ -17,9 +17,9 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
 
-public class ConnectionCompanies extends Connection {
+public class ConnectionAPICompanies extends ConnectionAPI {
     MainActivity mMainActivity;
-    public ConnectionCompanies(MainActivity mNewMainActivity, String apiAdress)
+    public ConnectionAPICompanies(MainActivity mNewMainActivity, String apiAdress)
     {
 
         if (checknetwork( mNewMainActivity))

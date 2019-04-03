@@ -3,14 +3,14 @@ package com.vuzix.sample.m300_speech_recognition;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vuzix.sample.m300_speech_recognition.Connections.Connection;
-import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionLogin;
+import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPILogin;
 
 public class Login extends AppCompatActivity {
     public final String LOG_TAG = "VoiceSample";
@@ -34,13 +34,14 @@ public class Login extends AppCompatActivity {
         SetCompanyText();
         mVoiceCmdReceiver = new VoiceCmdReceiverLogin(this);
         progressLogin.setVisibility(View.INVISIBLE);
+        Log.d("EIRWFNW", getIntent().getStringExtra("lisadbName"));
     }
 
     void SetCompanyText()
     {
-        String companyName = getIntent().getStringExtra("CompanyName");
-        companyName = companyName.substring(companyName.indexOf("-") + 1);
-        txtCompany.setText(companyName);
+        String lisadbName = getIntent().getStringExtra("lisadbName");
+        lisadbName = lisadbName.substring(lisadbName.indexOf("-") + 1);
+        txtCompany.setText(lisadbName);
     }
 
     void GoToUsername()
@@ -63,7 +64,7 @@ public class Login extends AppCompatActivity {
     void TryToConnect()
     {
         Toast.makeText(getApplicationContext(), "Next", Toast.LENGTH_SHORT).show();
-        ConnectionLogin connection = new ConnectionLogin(this, APIAdress);
+        ConnectionAPILogin connection = new ConnectionAPILogin(this, APIAdress);
         connection.execute();
 
 

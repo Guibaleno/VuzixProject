@@ -1,11 +1,7 @@
 package com.vuzix.sample.m300_speech_recognition.Connections;
 
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
-
-import com.vuzix.sample.m300_speech_recognition.Orders;
 import com.vuzix.sample.m300_speech_recognition.HeaderInfo;
+import com.vuzix.sample.m300_speech_recognition.Warehouses;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,13 +20,14 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
 
-public class ConnectionOrders extends Connection {
-    Orders mOrders;
-    public ConnectionOrders(Orders mNewOrders, String apiAdress)
+public class ConnectionAPIWarehouses extends ConnectionAPI {
+    Warehouses mWarehouse;
+
+    public ConnectionAPIWarehouses(Warehouses mNewWarehouse, String apiAdress)
     {
-        if (checknetwork(mNewOrders))
+        if (checknetwork(mNewWarehouse))
         {
-            mOrders = mNewOrders;
+            mWarehouse = mNewWarehouse;
             APIAdress = apiAdress;
         }
     }
@@ -46,13 +43,13 @@ public class ConnectionOrders extends Connection {
                 jsonRoot = new JSONArray(response);
 
                 for (int cptObjects = 0; cptObjects < jsonRoot.length(); cptObjects++) {
-                    Integer object = jsonRoot.getInt(cptObjects);
-                    //String idZone = object.getString("idzone");
-                    mOrders.InsertDataIntoOrders(String.valueOf(object));
-                    mOrders.CreateStringsOrder(String.valueOf(object));
+                    JSONObject object = jsonRoot.getJSONObject(cptObjects);
+                    String idWareHouse = object.getString("idwareHouse");
+                    String lisadbName = (cptObjects + 1) + " - " + object.getString("name");
+                    mWarehouse.InsertDataIntoWarehouse(idWareHouse, lisadbName);
                 }
-                mOrders.BindData();
-
+                mWarehouse.BindData();
+                mWarehouse.CreateStringsWarehouse();
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -78,9 +75,9 @@ public class ConnectionOrders extends Connection {
 
             connection.setDoInput(true);
             connection.setRequestProperty("jwt", HeaderInfo.getToken());
-            connection.setRequestProperty("idWarehouse","1");
-            connection.setRequestProperty("resetPickRoute","false");
+            InputStream in = new BufferedInputStream(connection.getInputStream());
             connection.connect();
+
             InputStream inputStream = connection.getInputStream();
 
             StringBuffer buffer = new StringBuffer();
@@ -107,7 +104,5 @@ public class ConnectionOrders extends Connection {
         }
         return null;
     }
-
-
 }
 

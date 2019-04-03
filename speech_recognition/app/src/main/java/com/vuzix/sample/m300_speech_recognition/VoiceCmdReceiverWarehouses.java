@@ -126,7 +126,7 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
                             }
                             Log.d("Warehouse","Warehouuuse");
                             Log.i("Warehouse","Warehouuuse");
-                            mWarehouse.SelectItemInRecyclerView(parseInt(numberString) - 1);
+                            mWarehouse.SelectItemInRecyclerViewWarehouse(parseInt(numberString) - 1);
                         }
                     }
                 }

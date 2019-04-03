@@ -123,7 +123,7 @@ public class VoiceCmdReceiverZones extends VoiceCmdReceiver {
                             {
                                 numberString += String.valueOf(numberToFind.get(cptDigit));
                             }
-                            mZone.SelectItemInRecyclerView(parseInt(numberString) - 1);
+                            mZone.SelectItemInRecyclerViewZones(parseInt(numberString) - 1);
                         }
                     }
                 }

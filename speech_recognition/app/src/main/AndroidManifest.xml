@@ -11,7 +11,7 @@
         android:screenOrientation="fullSensor"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".Orders"></activity>
+        <activity android:name=".Orders" />
         <activity android:name=".Zones" />
         <activity android:name=".Warehouses" />
         <activity android:name=".Login" />

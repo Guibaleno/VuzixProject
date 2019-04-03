@@ -1,7 +1,7 @@
 package com.vuzix.sample.m300_speech_recognition.Connections;
 
 import com.vuzix.sample.m300_speech_recognition.HeaderInfo;
-import com.vuzix.sample.m300_speech_recognition.Warehouses;
+import com.vuzix.sample.m300_speech_recognition.Zones;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,14 +20,14 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
 
-public class ConnectionWarehouses extends Connection {
-    Warehouses mWarehouse;
+public class ConnectionAPIZones extends ConnectionAPI {
+    Zones mZones;
 
-    public ConnectionWarehouses(Warehouses mNewWarehouse, String apiAdress)
+    public ConnectionAPIZones(Zones mNewZones, String apiAdress)
     {
-        if (checknetwork(mNewWarehouse))
+        if (checknetwork(mNewZones))
         {
-            mWarehouse = mNewWarehouse;
+            mZones = mNewZones;
             APIAdress = apiAdress;
         }
     }
@@ -44,12 +44,12 @@ public class ConnectionWarehouses extends Connection {
 
                 for (int cptObjects = 0; cptObjects < jsonRoot.length(); cptObjects++) {
                     JSONObject object = jsonRoot.getJSONObject(cptObjects);
-                    String idWareHouse = object.getString("idwareHouse");
-                    String lisadbName = (cptObjects + 1) + " - " + object.getString("name");
-                    mWarehouse.InsertDataIntoWarehouse(idWareHouse, lisadbName);
+                    String idZone = object.getString("idzone");
+                    String zoneName = (cptObjects + 1) + " - " + object.getString("name");
+                    mZones.InsertDataIntoZones(idZone, zoneName);
                 }
-                mWarehouse.BindData();
-                mWarehouse.CreateStringsWarehouse();
+                mZones.BindData();
+                mZones.CreateStringsZone();
 
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionZones;
+import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPIZones;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class Zones extends AppCompatActivity {
     TextView txtSelectedItem;
 
     VoiceCmdReceiverZones mVoiceCmdReceiverZones;
-    ConnectionZones connectionZone;
+    ConnectionAPIZones connectionZone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +38,7 @@ public class Zones extends AppCompatActivity {
 
 
         mVoiceCmdReceiverZones = new VoiceCmdReceiverZones(this);
-        connectionZone = new ConnectionZones(this, APIAdress);
+        connectionZone = new ConnectionAPIZones(this, APIAdress);
 
         HeaderInfo.setIdWarehouse(getIntent().getStringExtra("idwareHouse"));
         getZone();
@@ -71,13 +71,17 @@ public class Zones extends AppCompatActivity {
         }
     }
 
-    public void SelectItemInRecyclerView(int selectedIndex)
+    public void SelectItemInRecyclerViewZones(int selectedIndex)
     {
         recyclerZones.setFocusable(true);
         recyclerZones.requestFocus(selectedIndex);
         recyclerZones.smoothScrollToPosition(selectedIndex);
-        txtSelectedItem.setText("Selected Item : " + listZonesName.get(selectedIndex));
-        Toast("Selected Item : " + listZonesName.get(selectedIndex));
+        if (selectedIndex < listZonesName.size())
+        {
+            txtSelectedItem.setText("Selected Item : " + listZonesName.get(selectedIndex));
+            Toast("Selected Item : " + listZonesName.get(selectedIndex));
+        }
+
     }
 
     public void MoveToOrders()

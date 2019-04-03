@@ -90,7 +90,7 @@ public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
 
                     // Determine the specific phrase that was recognized and act accordingly
 
-
+                    Log.d("OrdersPenis", phrase);
                     if (phrase.equals(MATCH_NEXT))
                     {
                         mOrder.MoveToOrders();
@@ -124,7 +124,7 @@ public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
                             {
                                 numberString += String.valueOf(numberToFind.get(cptDigit));
                             }
-                            mOrder.SelectItemInRecyclerView(parseInt(numberString) - 1);
+                            mOrder.SelectItemInRecyclerViewOrders(parseInt(numberString));
                         }
                     }
                 }
@@ -151,8 +151,11 @@ public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
                 int currentDigit = Character.getNumericValue(currentOrderArray[cptDigits]);
                 phrase += numbers[currentDigit];
             }
+            Log.d(phrase,phrase);
             sc.insertPhrase(phrase, phrase);
         }
+        Log.i("Reinhart Auer", sc.dump());
+
     }
 
 }

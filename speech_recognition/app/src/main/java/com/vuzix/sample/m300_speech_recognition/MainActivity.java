@@ -44,11 +44,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionCompanies;
+import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPICompanies;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +69,7 @@ public class MainActivity extends Activity {
     RecyclerView.Adapter mAdapterRecyclerCompanies;
     RecyclerView.LayoutManager mLayoutManagerRecyclerCompanies;
 
-    ConnectionCompanies connection;
+    ConnectionAPICompanies connection;
 
     List<String> listId = new ArrayList<String>();
     List<String> listName = new ArrayList<String>();
@@ -108,11 +107,7 @@ public class MainActivity extends Activity {
         });
 
         // Create the voice command receiver class
-        Log.d("ICI", "ICI1");
-        Log.i("ICI", "ICI1");
-        connection = new ConnectionCompanies(this, APIAdress);
-        Log.d("ICI", "ICI1");
-        Log.i("ICI", "ICI1");
+        connection = new ConnectionAPICompanies(this, APIAdress);
         // Now register another intent handler to demonstrate intents sent from the service
         myIntentReceiver = new MyIntentReceiver();
         registerReceiver(myIntentReceiver , new IntentFilter(CUSTOM_SDK_INTENT));
@@ -230,7 +225,7 @@ public class MainActivity extends Activity {
     {
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
-    //region Companies Events
+
     public void SelectItemInRecyclerViewCompanies(int selectedIndex)
     {
         if (recyclerCompanies.getAdapter().getItemCount() > selectedIndex)
@@ -253,7 +248,7 @@ public class MainActivity extends Activity {
             int indexOfString = listName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, Login.class);
             intent.putExtra("IdCompany",listId.get(indexOfString));
-            intent.putExtra("CompanyName",listName.get(indexOfString));
+            intent.putExtra("lisadbName",listName.get(indexOfString).substring(listName.get(indexOfString).indexOf("-") + 2));
             startActivity(intent);
         }
         else
@@ -262,7 +257,6 @@ public class MainActivity extends Activity {
         }
     }
 
-    //endregion
 
     public void CreateStringsCompanies()
     {

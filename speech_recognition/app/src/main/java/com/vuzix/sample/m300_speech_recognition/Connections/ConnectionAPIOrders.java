@@ -1,13 +1,13 @@
 package com.vuzix.sample.m300_speech_recognition.Connections;
 
+import android.util.Log;
+
+import com.vuzix.sample.m300_speech_recognition.Orders;
 import com.vuzix.sample.m300_speech_recognition.HeaderInfo;
-import com.vuzix.sample.m300_speech_recognition.Zones;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,14 +20,13 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
 
-public class ConnectionZones extends Connection {
-    Zones mZones;
-
-    public ConnectionZones(Zones mNewZones, String apiAdress)
+public class ConnectionAPIOrders extends ConnectionAPI {
+    Orders mOrders;
+    public ConnectionAPIOrders(Orders mNewOrders, String apiAdress)
     {
-        if (checknetwork(mNewZones))
+        if (checknetwork(mNewOrders))
         {
-            mZones = mNewZones;
+            mOrders = mNewOrders;
             APIAdress = apiAdress;
         }
     }
@@ -43,13 +42,14 @@ public class ConnectionZones extends Connection {
                 jsonRoot = new JSONArray(response);
 
                 for (int cptObjects = 0; cptObjects < jsonRoot.length(); cptObjects++) {
-                    JSONObject object = jsonRoot.getJSONObject(cptObjects);
-                    String idZone = object.getString("idzone");
-                    String zoneName = (cptObjects + 1) + " - " + object.getString("name");
-                    mZones.InsertDataIntoZones(idZone, zoneName);
+                    Integer object = jsonRoot.getInt(cptObjects);
+                    //String idZone = object.getString("idzone");
+                    mOrders.InsertDataIntoOrders(String.valueOf(object));
+                    mOrders.CreateStringsOrder(String.valueOf(object));
                 }
-                mZones.BindData();
-                mZones.CreateStringsZone();
+
+                mOrders.BindData();
+
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -75,9 +75,9 @@ public class ConnectionZones extends Connection {
 
             connection.setDoInput(true);
             connection.setRequestProperty("jwt", HeaderInfo.getToken());
-            InputStream in = new BufferedInputStream(connection.getInputStream());
+            connection.setRequestProperty("idWarehouse","1");
+            connection.setRequestProperty("resetPickRoute","false");
             connection.connect();
-
             InputStream inputStream = connection.getInputStream();
 
             StringBuffer buffer = new StringBuffer();
@@ -104,5 +104,7 @@ public class ConnectionZones extends Connection {
         }
         return null;
     }
+
+
 }
 

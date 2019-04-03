@@ -1,5 +1,7 @@
 package com.vuzix.sample.m300_speech_recognition.Connections;
 
+import android.util.Log;
+
 import com.vuzix.sample.m300_speech_recognition.Login;
 import com.vuzix.sample.m300_speech_recognition.HeaderInfo;
 
@@ -14,21 +16,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-public class ConnectionLogin extends Connection {
+public class ConnectionAPILogin extends ConnectionAPI {
     Login mLogin;
 
-    public ConnectionLogin(Login newLogin, String apiAdress) {
+    public ConnectionAPILogin(Login newLogin, String apiAdress) {
             super();
             mLogin = newLogin;
             APIAdress = apiAdress;
+
     }
 
     @Override
     protected void onPostExecute(String response) {
-
         if (checknetwork(mLogin)) {
             if (response != null) {
-                JSONArray jsonRoot = null;
 
                 try {
                     JSONObject jsonObject = new JSONObject(response);
@@ -61,14 +62,12 @@ public class ConnectionLogin extends Connection {
             connection.setDoInput(true);
             connection.setInstanceFollowRedirects(false);
             connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-
             connection.connect();
-
 
             HashMap<String, String> params = new HashMap<String, String>();
             params.put("user","guillaume");
             params.put("password","guillaume");
-            params.put("companyName","LisaTrainingUS");
+            params.put("companyName",mLogin.getIntent().getStringExtra("lisadbName"));
 
             JSONObject obj = new JSONObject(params);
             String payload = obj.toString();
@@ -77,12 +76,12 @@ public class ConnectionLogin extends Connection {
             os.close();
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line;
+
             while ((line = br.readLine()) != null)
             {
                 jsonString.append(line);
             }
             br.close();
-
             connection.disconnect();
         }
         catch (Exception e){}
