@@ -34,6 +34,7 @@ package com.vuzix.sample.m300_speech_recognition;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -109,8 +110,8 @@ public class MainActivity extends Activity {
         // Create the voice command receiver class
         connection = new ConnectionAPICompanies(this, APIAdress);
         // Now register another intent handler to demonstrate intents sent from the service
-        myIntentReceiver = new MyIntentReceiver();
-        registerReceiver(myIntentReceiver , new IntentFilter(CUSTOM_SDK_INTENT));
+       // myIntentReceiver = new MyIntentReceiver();
+        //registerReceiver(myIntentReceiver , new IntentFilter(CUSTOM_SDK_INTENT));
         getCompanies();
     }//
 
@@ -151,7 +152,7 @@ public class MainActivity extends Activity {
      * to a time-out
      */
     private void OnListenClick() {
-        Log.e(LOG_TAG, getMethodName());
+        //Log.e(LOG_TAG, getMethodName());
         // Trigger the speech recognizer to start/stop listening.  Listening has a time-out
         // specified in the M300 settings menu, so it may terminate without us requesting it.
         //
@@ -261,6 +262,21 @@ public class MainActivity extends Activity {
     public void CreateStringsCompanies()
     {
         mVoiceCmdReceiver.CreateStrings(recyclerCompanies, getResources().getString(R.string.Companies));
+    }
+
+    public void Scroll(boolean scrollDown)
+    {
+        mVoiceCmdReceiver.scrollRecyclerView(recyclerCompanies, scrollDown);
+    }
+
+    public void Reload()
+    {
+        connection.HideAlert();
+        this.onDestroy();
+        Intent intent = new Intent(this, MainActivity.class);
+
+        startActivity(intent);
+        finish();
     }
 }
 

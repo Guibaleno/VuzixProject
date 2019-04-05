@@ -31,6 +31,7 @@ public class ConnectionAPI extends AsyncTask<String,Void,String> {
     public String APIAdress;
     public BufferedReader reader;
     public HttpURLConnection connection;
+    AlertDialog alertDialog;
 
     @Override
     protected String doInBackground(String... urls) {
@@ -107,9 +108,9 @@ public class ConnectionAPI extends AsyncTask<String,Void,String> {
 
     }
 
-    public void NotConnectedInternet(Context currentContext)
+    public void NotConnectedInternet(final Context currentContext)
     {
-        AlertDialog alertDialog = new AlertDialog.Builder(currentContext).create();
+        alertDialog = new AlertDialog.Builder(currentContext).create();
         alertDialog.setTitle("Internet ConnectionAPI error");
         alertDialog.setMessage("The device is not connected to Internet");
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Reload frame",
@@ -119,5 +120,10 @@ public class ConnectionAPI extends AsyncTask<String,Void,String> {
                     }
                 });
         alertDialog.show();
+    }
+
+    public void HideAlert()
+    {
+        alertDialog.dismiss();
     }
 }

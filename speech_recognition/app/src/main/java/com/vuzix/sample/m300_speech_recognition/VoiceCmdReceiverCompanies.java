@@ -19,6 +19,9 @@ import static java.lang.Integer.parseInt;
 
 public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
     private MainActivity mMainActivity;
+    public final String MATCH_SCROLLDOWN_COMPANIES = "ScrollUpCompanies";
+    public final String MATCH_SCROLLUP_COMPANIES = "ScrollUpCompanies";
+    public final String MATCH_RELOAD_COMPANIES = "RealoadCompanies";
     public VoiceCmdReceiverCompanies(MainActivity iActivity)
     {
         mMainActivity = iActivity;
@@ -43,8 +46,10 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
             Intent customToastIntent = new Intent(mMainActivity.CUSTOM_SDK_INTENT);
             sc.defineIntent(TOAST_EVENT, customToastIntent );
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
-
-
+            sc.insertPhrase(MATCH_SCROLLDOWN, MATCH_SCROLLDOWN_COMPANIES);
+            sc.insertPhrase(MATCH_SCROLLUP, MATCH_SCROLLUP_COMPANIES);
+            sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_COMPANIES);
+            Log.i("REALOAD", "RELOAD");
             // See what we've done
             //Log.i(mMainActivity.LOG_TAG, sc.dump());
             sc.insertPhrase(mMainActivity.getResources().getString(R.string.btnNext), MATCH_NEXT);
@@ -96,6 +101,18 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
                     {
                         mMainActivity.Next();
                     }
+                    else if (phrase.equals(MATCH_SCROLLDOWN))
+                    {
+                        mMainActivity.Scroll(true);
+                    }
+                    else if (phrase.equals(MATCH_SCROLLUP))
+                    {
+                        mMainActivity.Scroll(false);
+                    }
+                    else if (phrase.equals(MATCH_RELOAD_COMPANIES))
+                    {
+                        mMainActivity.Reload();
+                    }
                     else
                     {
                         List<Integer> numberToFind = new ArrayList<Integer>();
@@ -142,7 +159,7 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
             Log.i(mMainActivity.LOG_TAG, "Custom vocab removed");
             mMainActivity = null;
         }catch (Exception e) {
-            Log.e(mMainActivity.LOG_TAG, "Custom vocab died " + e.getMessage());
+            //Log.e(mMainActivity.LOG_TAG, "Custom vocab died " + e.getMessage());
         }
     }
     public void TriggerRecognizerToListen(boolean bOnOrOff) {
