@@ -80,8 +80,6 @@ public class Login extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Next", Toast.LENGTH_SHORT).show();
         connection = new ConnectionAPILogin(this, APIAdress);
         connection.execute();
-
-
     }
 
     public void MoveToWarehouse()

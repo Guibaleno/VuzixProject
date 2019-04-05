@@ -95,7 +95,7 @@ public class Warehouses extends AppCompatActivity {
         }
         else
         {
-            Toast("Select a company");
+            Toast("Select a Warehouse");
         }
     }
 

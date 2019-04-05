@@ -97,7 +97,7 @@ public class Orders extends AppCompatActivity {
         }
         else
         {
-            Toast("Select a company");
+            Toast("Select an Order");
         }
     }
 

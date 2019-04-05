@@ -99,7 +99,7 @@ public class Zones extends AppCompatActivity {
         }
         else
         {
-            Toast("Select a company");
+            Toast("Select a zone");
         }
     }
 

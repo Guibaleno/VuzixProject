@@ -71,8 +71,15 @@ public class LicensePlate extends AppCompatActivity {
 
     public void MoveToOrderInfo()
     {
-        Intent intent = new Intent(this, OrderInfo.class);
-        startActivity(intent);
+        if (!txtLicensePlate.getText().toString().equals(""))
+        {
+            Intent intent = new Intent(this, OrderInfo.class);
+            startActivity(intent);
+        }
+        else
+        {
+            Toast("Enter a Licence Plate");
+        }
     }
 
     public void Toast(String texte)
