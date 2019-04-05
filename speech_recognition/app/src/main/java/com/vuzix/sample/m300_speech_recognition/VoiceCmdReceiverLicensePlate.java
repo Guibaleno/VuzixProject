@@ -44,13 +44,13 @@ import static android.view.KeyEvent.KEYCODE_Z;
 import static android.view.KeyEvent.KEYCODE_MINUS;
 
 
-public class VoiceCmdLicensePlate extends VoiceCmdReceiver {
+public class VoiceCmdReceiverLicensePlate extends VoiceCmdReceiver {
     private LicensePlate mLicensePLate;
     final String MATCH_RETURN_TO_ORDERS = "ReturnToOrders";
     public final String MATCH_RELOAD_LICENSEPLATE = "RealoadLicensePlate";
     public final String MATCH_NEXT_INFOORDERS = "NextInfoOrders";
     //final String MATCH_BACK     = "back";
-    public VoiceCmdLicensePlate(LicensePlate iActivity)
+    public VoiceCmdReceiverLicensePlate(LicensePlate iActivity)
     {
         mLicensePLate = iActivity;
         mLicensePLate.registerReceiver(this, new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
@@ -114,16 +114,16 @@ public class VoiceCmdLicensePlate extends VoiceCmdReceiver {
             Intent customToastIntent = new Intent(mLicensePLate.CUSTOM_SDK_INTENT);
             sc.defineIntent(TOAST_EVENT, customToastIntent );
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
-            sc.insertPhrase(MATCH_RETURN, MATCH_RETURN_TO_COMPANIES);
+            sc.insertPhrase(MATCH_RETURN, MATCH_RETURN_TO_ORDERS);
             sc.insertPhrase(MATCH_NEXT, MATCH_NEXT_INFOORDERS);
-            sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_LOGIN);
+            sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_LICENSEPLATE);
             Log.i("", sc.toString());
 
 
             // See what we've done
-            mLicensePLate
+           // mLicensePLate.dump();
             // The recognizer may not yet be enabled in Settings. We can enable this directly
-            VuzixSpeechClient.EnableRecognizer(mLogin, true);
+            VuzixSpeechClient.EnableRecognizer(mLicensePLate, true);
         } catch(NoClassDefFoundError e) {
             // We get this exception if the SDK stubs against which we compiled cannot be resolved
             // at runtime. This occurs if the code is not being run on an M300 supporting the voice
@@ -170,7 +170,6 @@ public class VoiceCmdLicensePlate extends VoiceCmdReceiver {
                     }
                     else if (phrase.equals(MATCH_NEXT_INFOORDERS))
                     {
-                        mLicensePLate.ShowProgress();
                         mLicensePLate.TryToConnect();
                     }
                     else if (phrase.equals(MATCH_RELOAD_LICENSEPLATE))

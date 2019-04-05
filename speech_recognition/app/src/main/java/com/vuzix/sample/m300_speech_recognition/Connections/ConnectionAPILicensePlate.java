@@ -33,16 +33,14 @@ public class ConnectionAPILicensePlate extends ConnectionAPI {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.has("token")) {
                         HeaderInfo.setToken(jsonObject.getString("token"));
-                        mLicensePlate.MoveToWarehouse();
+                        //mLicensePlate.mo();
                     } else if (jsonObject.has("English")) {
                         mLicensePlate.Toast(jsonObject.getString("English"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    mLicensePlate.HideProgress();
                 }
             }
-            mLicensePlate.HideProgress();
         }
 
     }

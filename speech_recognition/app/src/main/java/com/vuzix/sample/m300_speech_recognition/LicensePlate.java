@@ -3,14 +3,11 @@ package com.vuzix.sample.m300_speech_recognition;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPILicensePlate;
-import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPILogin;
 
 public class LicensePlate extends AppCompatActivity {
     public final String LOG_TAG = "VoiceSample";
@@ -21,7 +18,7 @@ public class LicensePlate extends AppCompatActivity {
 
     EditText txtLicensePlate;
 
-    VoiceCmdLicensePlate mVoiceCmdReceiver;
+    VoiceCmdReceiverLicensePlate mVoiceCmdReceiver;
     ConnectionAPILicensePlate connection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +32,7 @@ public class LicensePlate extends AppCompatActivity {
         APIAdress = getAPIAdress();
 
         SetCompanyText();
-        mVoiceCmdReceiver = new VoiceCmdLicensePlate(this);
+        mVoiceCmdReceiver = new VoiceCmdReceiverLicensePlate(this);
     }
 
     void SetCompanyText()
@@ -91,5 +88,6 @@ public class LicensePlate extends AppCompatActivity {
 
         String idWarehouse = HeaderInfo.getIdWarehouse();
         return  "https://216.226.53.29/V5/API/Warehouses%28" + idWarehouse
-                + "%29/Licenseplates%28" + txtLicensePlate.getText().toString(); + "%29";
+                + "%29/Licenseplates%28" + txtLicensePlate.getText().toString() + "%29";
+    }
 }
