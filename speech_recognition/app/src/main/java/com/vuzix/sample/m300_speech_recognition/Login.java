@@ -23,6 +23,7 @@ public class Login extends AppCompatActivity {
     EditText txtPassword;
 
     VoiceCmdReceiverLogin mVoiceCmdReceiver;
+    ConnectionAPILogin connection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +35,6 @@ public class Login extends AppCompatActivity {
         SetCompanyText();
         mVoiceCmdReceiver = new VoiceCmdReceiverLogin(this);
         progressLogin.setVisibility(View.INVISIBLE);
-        Log.d("EIRWFNW", getIntent().getStringExtra("lisadbName"));
     }
 
     void SetCompanyText()
@@ -64,7 +64,7 @@ public class Login extends AppCompatActivity {
     void TryToConnect()
     {
         Toast.makeText(getApplicationContext(), "Next", Toast.LENGTH_SHORT).show();
-        ConnectionAPILogin connection = new ConnectionAPILogin(this, APIAdress);
+        connection = new ConnectionAPILogin(this, APIAdress);
         connection.execute();
 
 
@@ -88,5 +88,17 @@ public class Login extends AppCompatActivity {
     public void HideProgress()
     {
         progressLogin.setVisibility(View.INVISIBLE);
+    }
+
+    public void Reload()
+    {
+
+        this.onDestroy();
+        Intent intent = new Intent(this, Login.class);
+        intent.putExtra("lisadbName",txtCompany.getText().toString());
+        intent.putExtra("username",txtUsername.getText().toString());
+        intent.putExtra("password",txtPassword.getText().toString());
+        startActivity(intent);
+        finish();
     }
 }

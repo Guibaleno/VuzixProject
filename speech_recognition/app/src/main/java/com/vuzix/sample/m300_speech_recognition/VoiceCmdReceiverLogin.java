@@ -50,6 +50,7 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
     final String MATCH_PASSWORD = "password";
     final String MATCH_LOGIN  = "Login";
     final String MATCH_RETURN_TO_COMPANIES = "ReturnToCompanies";
+    public final String MATCH_RELOAD_LOGIN = "RealoadLogin";
     //final String MATCH_BACK     = "back";
     public VoiceCmdReceiverLogin(Login iActivity)
     {
@@ -115,10 +116,11 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
             Intent customToastIntent = new Intent(mLogin.CUSTOM_SDK_INTENT);
             sc.defineIntent(TOAST_EVENT, customToastIntent );
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
-            sc.insertPhrase("Return", MATCH_RETURN_TO_COMPANIES);
+            sc.insertPhrase(MATCH_RETURN, MATCH_RETURN_TO_COMPANIES);
             sc.insertPhrase("username", MATCH_USERNAME);
             sc.insertPhrase("password", MATCH_PASSWORD);
             sc.insertPhrase(MATCH_NEXT, MATCH_LOGIN);
+            sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_LOGIN);
             Log.i("", sc.toString());
 
 
@@ -183,6 +185,10 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
                     {
                         mLogin.ShowProgress();
                         mLogin.TryToConnect();
+                    }
+                    else if (phrase.equals(MATCH_RELOAD_LOGIN))
+                    {
+                        mLogin.Reload();
                     }
                     else
                     {

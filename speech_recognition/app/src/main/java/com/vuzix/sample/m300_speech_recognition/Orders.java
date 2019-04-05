@@ -56,6 +56,7 @@ public class Orders extends AppCompatActivity {
     public void InsertDataIntoOrders(String idOrder)
     {
         listIdOrders.add(idOrder);
+        Log.d("IdOrder", String.valueOf(idOrder));
     }
 
     private void getOrder(){
@@ -72,13 +73,15 @@ public class Orders extends AppCompatActivity {
         }
     }
 
-    public void SelectItemInRecyclerViewOrders(int selectedIndex)
+    public void SelectItemInRecyclerViewOrders(int selectedValue)
     {
+        Log.d("selectedIndex", String.valueOf(selectedValue));
+        int selectedIndex = listIdOrders.indexOf(String.valueOf(selectedValue));
         Log.d("selectedIndex", String.valueOf(selectedIndex));
         recyclerOrders.setFocusable(true);
         recyclerOrders.requestFocus(selectedIndex);
         recyclerOrders.smoothScrollToPosition(selectedIndex);
-        txtSelectedItem.setText("Selected Item : " + listIdOrders.get(listIdOrders.indexOf(selectedIndex)));
+        txtSelectedItem.setText("Selected Item : " + listIdOrders.get(selectedIndex));
         //Toast("Selected Item : " + listIdOrders.get(selectedIndex));
     }
 
@@ -127,5 +130,10 @@ public class Orders extends AppCompatActivity {
         return  "https://216.226.53.29/V5/API/Zones%28" + idZone
                 + "%29/Orders?idWarehouse=" + idWarehouse
                 + "&resetPickRoute=false";
+    }
+
+    public void Scroll(boolean scrollDown)
+    {
+        mVoiceCmdReceiverOrders.scrollRecyclerView(recyclerOrders, scrollDown);
     }
 }
