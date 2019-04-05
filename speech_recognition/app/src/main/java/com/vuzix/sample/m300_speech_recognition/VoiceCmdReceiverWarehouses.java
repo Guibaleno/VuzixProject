@@ -20,6 +20,9 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
     private Warehouses mWarehouse;
     public final String MATCH_RETURN_TO_LOGIN = "ReturnToLogin";
     public final String MATCH_NEXT_ZONES = "NextZones";
+    public final String MATCH_SCROLLDOWN_WAREHOUSES = "ScrollDownWarehouses";
+    public final String MATCH_SCROLLUP_WAREHOUSES = "ScrollUpWarehouses";
+    public final String MATCH_RELOAD_WAREHOUSES = "RealoadWarehouses";
     public VoiceCmdReceiverWarehouses(Warehouses iActivity)
     {
         mWarehouse = iActivity;
@@ -40,8 +43,11 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
             Intent customToastIntent = new Intent(mWarehouse.CUSTOM_SDK_INTENT);
             sc.defineIntent(TOAST_EVENT, customToastIntent );
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
-            sc.insertPhrase("Return", MATCH_RETURN_TO_LOGIN);
+            sc.insertPhrase(MATCH_RETURN, MATCH_RETURN_TO_LOGIN);
             sc.insertPhrase(MATCH_NEXT, MATCH_NEXT_ZONES);
+            sc.insertPhrase(MATCH_SCROLLDOWN, MATCH_SCROLLDOWN_WAREHOUSES);
+            sc.insertPhrase(MATCH_SCROLLUP, MATCH_SCROLLUP_WAREHOUSES);
+            sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_WAREHOUSES);
 
             // See what we've done
             Log.i(mWarehouse.LOG_TAG, sc.dump());
@@ -98,6 +104,14 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
                     else if (phrase.equals(MATCH_RETURN_TO_LOGIN))
                     {
                         mWarehouse.FinishActivity();
+                    }
+                    else if (phrase.equals(MATCH_SCROLLDOWN))
+                    {
+                        mWarehouse.Scroll(true);
+                    }
+                    else if (phrase.equals(MATCH_SCROLLUP))
+                    {
+                        mWarehouse.Scroll(false);
                     }
                     else
                     {

@@ -123,4 +123,9 @@ public class Warehouses extends AppCompatActivity {
     {
         mVoiceCmdReceiverWarehouse.CreateStrings(recyclerWarehouses, getResources().getString(R.string.Warehouses));
     }
+
+    public void Scroll(boolean scrollDown)
+    {
+        mVoiceCmdReceiverWarehouse.scrollRecyclerView(recyclerWarehouses, scrollDown);
+    }
 }

@@ -20,6 +20,9 @@ import static java.lang.Integer.parseInt;
 public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
     private Orders mOrder;
     public final String MATCH_RETURN_TO_ZONES = "ReturnToZones";
+    public final String MATCH_SCROLLDOWN_ORDERS = "ScrollDownOrders";
+    public final String MATCH_SCROLLUP_ORDERS = "ScrollUpOrders";
+    public final String MATCH_RELOAD_ORDERS = "RealoadOrders";
     public VoiceCmdReceiverOrders(Orders iActivity)
     {
         mOrder = iActivity;
@@ -40,8 +43,11 @@ public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
             Intent customToastIntent = new Intent(mOrder.CUSTOM_SDK_INTENT);
             sc.defineIntent(TOAST_EVENT, customToastIntent );
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
-            sc.insertPhrase("Return", MATCH_RETURN_TO_ZONES);
+            sc.insertPhrase(MATCH_RETURN, MATCH_RETURN_TO_ZONES);
             sc.insertPhrase(MATCH_NEXT, MATCH_NEXT);
+            sc.insertPhrase(MATCH_SCROLLDOWN, MATCH_SCROLLDOWN_ORDERS);
+            sc.insertPhrase(MATCH_SCROLLUP, MATCH_SCROLLUP_ORDERS);
+            sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_ORDERS);
 
             // See what we've done
             Log.i(mOrder.LOG_TAG, sc.dump());
@@ -98,6 +104,14 @@ public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
                     else if (phrase.equals(MATCH_RETURN_TO_ZONES))
                     {
                         mOrder.FinishActivity();
+                    }
+                    else if (phrase.equals(MATCH_SCROLLDOWN))
+                    {
+                        mOrder.Scroll(true);
+                    }
+                    else if (phrase.equals(MATCH_SCROLLUP))
+                    {
+                        mOrder.Scroll(false);
                     }
                     else
                     {

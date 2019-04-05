@@ -119,4 +119,9 @@ public class Zones extends AppCompatActivity {
     {
         mVoiceCmdReceiverZones.CreateStrings(recyclerZones, getResources().getString(R.string.Zones));
     }
+
+    public void Scroll(boolean scrollDown)
+    {
+        mVoiceCmdReceiverZones.scrollRecyclerView(recyclerZones, scrollDown);
+    }
 }

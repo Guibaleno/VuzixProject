@@ -35,9 +35,12 @@ package com.vuzix.sample.m300_speech_recognition;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import com.vuzix.sdk.speechrecognitionservice.VuzixSpeechClient;
+
 
 /**
  * Class to encapsulate all voice commands
@@ -54,6 +57,10 @@ public class VoiceCmdReceiver  extends BroadcastReceiver {
     VuzixSpeechClient sc;
     String[] numbers = {"zero","one","two","three","four","five","six","seven","eight","nine"};
     final String MATCH_NEXT = "Next";
+    final String MATCH_RELOAD = "Reload";
+    final String MATCH_SCROLLDOWN = "Scrolldown";
+    final String MATCH_SCROLLUP = "ScrollUp";
+    final String MATCH_RETURN = "Return";
 
 
 
@@ -82,6 +89,37 @@ public class VoiceCmdReceiver  extends BroadcastReceiver {
             }
             sc.insertPhrase(phrase, phrase + currentActivity);
             Log.d("Strings", phrase);
+        }
+    }
+
+    public void scrollRecyclerView(RecyclerView currentRecyclerView, boolean scrollDown)
+    {
+
+        LinearLayoutManager layoutManager = ((LinearLayoutManager)currentRecyclerView.getLayoutManager());
+        int visiblePosition;
+        if (scrollDown)
+        {
+            visiblePosition = layoutManager.findLastVisibleItemPosition();
+            if (visiblePosition + 3 > currentRecyclerView.getAdapter().getItemCount())
+            {
+                currentRecyclerView.smoothScrollToPosition(currentRecyclerView.getAdapter().getItemCount());
+            }
+            else
+            {
+              currentRecyclerView.smoothScrollToPosition(visiblePosition + 3);
+            }
+        }
+        else
+        {
+            visiblePosition= layoutManager.findFirstVisibleItemPosition();
+            if (visiblePosition - 3 < 0)
+            {
+                currentRecyclerView.smoothScrollToPosition(0);
+            }
+            else
+            {
+                currentRecyclerView.smoothScrollToPosition(visiblePosition - 3);
+            }
         }
     }
 

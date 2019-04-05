@@ -20,6 +20,9 @@ public class VoiceCmdReceiverZones extends VoiceCmdReceiver {
     private Zones mZone;
     public final String MATCH_RETURN_TO_WAREHOUSES = "ReturnToWarehouses";
     public final String MATCH_NEXT_ORDERS = "NextOrders";
+    public final String MATCH_SCROLLDOWN_ZONES = "ScrollDownZones";
+    public final String MATCH_SCROLLUP_ZONES = "ScrollUpZones";
+    public final String MATCH_RELOAD_ZONES = "RealoadZones";
     public VoiceCmdReceiverZones(Zones iActivity)
     {
         mZone = iActivity;
@@ -40,8 +43,11 @@ public class VoiceCmdReceiverZones extends VoiceCmdReceiver {
             Intent customToastIntent = new Intent(mZone.CUSTOM_SDK_INTENT);
             sc.defineIntent(TOAST_EVENT, customToastIntent );
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
-            sc.insertPhrase("Return", MATCH_RETURN_TO_WAREHOUSES);
+            sc.insertPhrase(MATCH_RETURN, MATCH_RETURN_TO_WAREHOUSES);
             sc.insertPhrase(MATCH_NEXT, MATCH_NEXT_ORDERS);
+            sc.insertPhrase(MATCH_SCROLLDOWN_ZONES, MATCH_SCROLLDOWN);
+            sc.insertPhrase(MATCH_SCROLLUP_ZONES, MATCH_SCROLLUP);
+            sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_ZONES);
             // See what we've done
             Log.i(mZone.LOG_TAG, sc.dump());
 
@@ -97,6 +103,14 @@ public class VoiceCmdReceiverZones extends VoiceCmdReceiver {
                     else if (phrase.equals(MATCH_RETURN_TO_WAREHOUSES))
                     {
                         mZone.FinishActivity();
+                    }
+                    else if (phrase.equals(MATCH_SCROLLDOWN))
+                    {
+                        mZone.Scroll(true);
+                    }
+                    else if (phrase.equals(MATCH_SCROLLUP))
+                    {
+                        mZone.Scroll(false);
                     }
                     else
                     {
