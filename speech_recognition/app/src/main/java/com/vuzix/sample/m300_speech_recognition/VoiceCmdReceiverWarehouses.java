@@ -113,6 +113,10 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
                     {
                         mWarehouse.Scroll(false);
                     }
+                    else if (phrase.equals(MATCH_RELOAD_WAREHOUSES))
+                    {
+                        mWarehouse.Reload();
+                    }
                     else
                     {
                         List<Integer> numberToFind = new ArrayList<Integer>();

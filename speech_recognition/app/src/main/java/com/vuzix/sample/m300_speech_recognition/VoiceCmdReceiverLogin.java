@@ -50,7 +50,7 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
     final String MATCH_PASSWORD = "password";
     final String MATCH_LOGIN  = "Login";
     final String MATCH_RETURN_TO_COMPANIES = "ReturnToCompanies";
-    public final String MATCH_RELOAD_LOGIN = "RealoadLogin";
+    public final String MATCH_RELOAD_LOGIN = "ReloadLogin";
     //final String MATCH_BACK     = "back";
     public VoiceCmdReceiverLogin(Login iActivity)
     {

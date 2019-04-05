@@ -35,6 +35,8 @@ public class Login extends AppCompatActivity {
         SetCompanyText();
         mVoiceCmdReceiver = new VoiceCmdReceiverLogin(this);
         progressLogin.setVisibility(View.INVISIBLE);
+
+        WritePreviousData();
     }
 
     void SetCompanyText()
@@ -42,6 +44,18 @@ public class Login extends AppCompatActivity {
         String lisadbName = getIntent().getStringExtra("lisadbName");
         lisadbName = lisadbName.substring(lisadbName.indexOf("-") + 1);
         txtCompany.setText(lisadbName);
+    }
+    //This function will write the same username and password after a reload
+    void WritePreviousData()
+    {
+        if (getIntent().getStringExtra("username") != null)
+        {
+            txtUsername.setText(getIntent().getStringExtra("username"));
+        }
+        if (getIntent().getStringExtra("password") != null)
+        {
+            txtPassword.setText(getIntent().getStringExtra("password"));
+        }
     }
 
     void GoToUsername()
@@ -90,15 +104,21 @@ public class Login extends AppCompatActivity {
         progressLogin.setVisibility(View.INVISIBLE);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
     public void Reload()
     {
 
-        this.onDestroy();
         Intent intent = new Intent(this, Login.class);
         intent.putExtra("lisadbName",txtCompany.getText().toString());
         intent.putExtra("username",txtUsername.getText().toString());
         intent.putExtra("password",txtPassword.getText().toString());
-        startActivity(intent);
+        mVoiceCmdReceiver.unregister();
         finish();
+
+        startActivity(intent);
     }
 }

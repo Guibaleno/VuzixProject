@@ -128,4 +128,12 @@ public class Warehouses extends AppCompatActivity {
     {
         mVoiceCmdReceiverWarehouse.scrollRecyclerView(recyclerWarehouses, scrollDown);
     }
+
+    public void Reload()
+    {
+        mVoiceCmdReceiverWarehouse.unregister();
+       Intent intent = new Intent(this, Warehouses.class);
+       finish();
+       startActivity(intent);
+    }
 }
