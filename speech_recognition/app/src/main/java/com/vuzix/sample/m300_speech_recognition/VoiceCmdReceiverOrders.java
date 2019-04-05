@@ -99,7 +99,7 @@ public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
                     Log.d("OrdersPenis", phrase);
                     if (phrase.equals(MATCH_NEXT))
                     {
-                        mOrder.MoveToOrders();
+                        mOrder.MoveToLicensePlate();
                     }
                     else if (phrase.equals(MATCH_RETURN_TO_ZONES))
                     {
