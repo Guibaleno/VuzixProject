@@ -11,26 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7c36549-4010-4d4e-98da-589383ca6bc7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/Connections/ConnectionAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/Connections/ConnectionAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/Orders.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/Orders.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiverCompanies.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiverCompanies.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiverLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiverLogin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiverOrders.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiverOrders.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiverWarehouses.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiverWarehouses.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiverZones.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiverZones.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/Warehouses.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/Warehouses.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/Zones.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/Zones.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -154,8 +135,8 @@
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.11" value="2" />
           <entry key="project.open.time.4" value="1" />
-          <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="5" />
+          <entry key="project.open.time.9" value="2" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -197,11 +178,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
+            <state relative-caret-position="3672">
               <caret line="271" selection-start-line="271" selection-end-line="279" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#9442#9486#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -210,7 +190,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiverWarehouses.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
+            <state relative-caret-position="2312">
               <caret line="150" column="16" selection-start-line="150" selection-start-column="16" selection-end-line="150" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -222,7 +202,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/Warehouses.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="575">
+            <state relative-caret-position="1989">
               <caret line="128" column="72" selection-start-line="128" selection-start-column="72" selection-end-line="128" selection-end-column="72" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -234,7 +214,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
+            <state relative-caret-position="221">
               <caret line="50" selection-start-line="50" selection-end-line="50" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -246,11 +226,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiverCompanies.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
+            <state relative-caret-position="136">
               <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="68" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2065#2121#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -268,12 +247,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/Login.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1300">
+            <state relative-caret-position="1292">
               <caret line="98" column="30" selection-start-line="98" selection-start-column="30" selection-end-line="98" selection-end-column="30" />
-              <folding>
-                <element signature="e#1749#1750#0" expanded="true" />
-                <element signature="e#1791#1792#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -281,8 +256,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiverLogin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="26">
-              <caret line="122" column="60" selection-start-line="122" selection-start-column="60" selection-end-line="122" selection-end-column="60" />
+            <state relative-caret-position="170">
+              <caret line="131" column="41" lean-forward="true" selection-start-line="131" selection-start-column="41" selection-end-line="131" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -293,15 +268,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/Connections/ConnectionAPI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="421">
+            <state relative-caret-position="1598">
               <caret line="124" column="25" selection-start-line="124" selection-start-column="16" selection-end-line="124" selection-end-column="25" />
               <folding>
-                <element signature="e#2728#2729#0" expanded="true" />
-                <element signature="e#2755#2756#0" expanded="true" />
-                <element signature="e#3561#3759#0" expanded="true" />
-                <element signature="e#3758#3759#0" expanded="true" />
                 <element signature="e#3846#3847#0" expanded="true" />
-                <element signature="e#3872#3873#0" expanded="true" />
+                <element signature="e#3883#3884#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2704,8 +2675,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2737,6 +2706,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -2925,6 +2896,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" sideWeight="0.86412394" visible="true" weight="0.3114887" />
@@ -2937,11 +2909,11 @@
       <window_info anchor="bottom" id="Version Control" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="TODO" order="1" />
       <window_info anchor="bottom" id="Terminal" order="2" sideWeight="0.49919093" weight="0.3290993" />
-      <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.20064725" side_tool="true" visible="true" weight="0.9018476" />
-      <window_info anchor="bottom" id="Build" order="4" sideWeight="0.8430421" weight="0.21247113" />
+      <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.15776698" side_tool="true" visible="true" weight="0.15588914" />
+      <window_info active="true" anchor="bottom" id="Build" order="4" sideWeight="0.842233" visible="true" weight="0.15588914" />
       <window_info anchor="bottom" id="Run" order="5" sideWeight="0.83576053" weight="0.6893764" />
-      <window_info active="true" anchor="bottom" id="Logcat" order="6" sideWeight="0.79935277" visible="true" weight="0.9018476" />
-      <window_info anchor="bottom" id="Android Profiler" order="7" />
+      <window_info anchor="bottom" id="Logcat" order="6" sideWeight="0.7985437" weight="0.9018476" />
+      <window_info anchor="bottom" id="Android Profiler" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Debug" order="8" />
       <window_info anchor="bottom" id="Find" order="9" sideWeight="0.49919093" weight="0.46073902" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
@@ -3066,27 +3038,26 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="799">
           <caret line="47" column="37" selection-start-line="47" selection-start-column="37" selection-end-line="47" selection-end-column="37" />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_orders.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_zones.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="54" column="60" lean-forward="true" selection-start-line="54" selection-start-column="60" selection-end-line="54" selection-end-column="60" />
@@ -3095,6 +3066,7 @@
           </folding>
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/HeaderInfo.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -3143,12 +3115,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/recyclerviewdefault.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="595">
           <caret line="35" column="46" selection-start-line="35" selection-start-column="46" selection-end-line="35" selection-end-column="46" />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/RecyclerViewAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -3157,16 +3129,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/ScrollManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-323">
-          <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/ScrollManager.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/Orders.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="477">
@@ -3189,8 +3152,8 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_warehouses.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -3219,9 +3182,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-23/android/content/ContextWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="587" selection-start-line="587" selection-end-line="587" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3672">
+          <caret line="271" selection-start-line="271" selection-end-line="279" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiverWarehouses.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
+        <state relative-caret-position="2312">
           <caret line="150" column="16" selection-start-line="150" selection-start-column="16" selection-end-line="150" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -3231,7 +3211,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/Warehouses.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
+        <state relative-caret-position="1989">
           <caret line="128" column="72" selection-start-line="128" selection-start-column="72" selection-end-line="128" selection-end-column="72" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -3241,7 +3221,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
+        <state relative-caret-position="221">
           <caret line="50" selection-start-line="50" selection-end-line="50" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -3249,17 +3229,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/Connections/ConnectionAPI.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiverCompanies.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="124" column="25" selection-start-line="124" selection-start-column="16" selection-end-line="124" selection-end-column="25" />
+        <state relative-caret-position="136">
+          <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="68" />
           <folding>
-            <element signature="e#2728#2729#0" expanded="true" />
-            <element signature="e#2755#2756#0" expanded="true" />
-            <element signature="e#3561#3759#0" expanded="true" />
-            <element signature="e#3758#3759#0" expanded="true" />
-            <element signature="e#3846#3847#0" expanded="true" />
-            <element signature="e#3872#3873#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3271,50 +3246,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-23/android/content/ContextWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="587" selection-start-line="587" selection-end-line="587" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="271" selection-start-line="271" selection-end-line="279" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#9442#9486#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/Login.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1300">
+        <state relative-caret-position="1292">
           <caret line="98" column="30" selection-start-line="98" selection-start-column="30" selection-end-line="98" selection-end-column="30" />
-          <folding>
-            <element signature="e#1749#1750#0" expanded="true" />
-            <element signature="e#1791#1792#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiverCompanies.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/Connections/ConnectionAPI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="68" />
+        <state relative-caret-position="1598">
+          <caret line="124" column="25" selection-start-line="124" selection-start-column="16" selection-end-line="124" selection-end-column="25" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2065#2121#0" expanded="true" />
+            <element signature="e#3846#3847#0" expanded="true" />
+            <element signature="e#3883#3884#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vuzix/sample/m300_speech_recognition/VoiceCmdReceiverLogin.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="122" column="60" selection-start-line="122" selection-start-column="60" selection-end-line="122" selection-end-column="60" />
+        <state relative-caret-position="170">
+          <caret line="131" column="41" lean-forward="true" selection-start-line="131" selection-start-column="41" selection-end-line="131" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
