@@ -133,7 +133,8 @@ public class Warehouses extends AppCompatActivity {
     {
         mVoiceCmdReceiverWarehouse.unregister();
        Intent intent = new Intent(this, Warehouses.class);
-       finish();
+
        startActivity(intent);
+        finish();
     }
 }

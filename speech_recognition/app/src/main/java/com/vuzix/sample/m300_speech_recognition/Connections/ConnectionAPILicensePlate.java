@@ -33,7 +33,7 @@ public class ConnectionAPILicensePlate extends ConnectionAPI {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.has("token")) {
                         HeaderInfo.setToken(jsonObject.getString("token"));
-                        //mLicensePlate.mo();
+                        mLicensePlate.MoveToOrderInfo();
                     } else if (jsonObject.has("English")) {
                         mLicensePlate.Toast(jsonObject.getString("English"));
                     }
@@ -58,12 +58,11 @@ public class ConnectionAPILicensePlate extends ConnectionAPI {
             connection.setDoInput(true);
             connection.setInstanceFollowRedirects(false);
             connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            connection.setRequestProperty("jwt", HeaderInfo.getToken());
             connection.connect();
 
             HashMap<String, String> params = new HashMap<String, String>();
-            params.put("user","guillaume");
-            params.put("password","guillaume");
-            params.put("companyName",mLicensePlate.getIntent().getStringExtra("lisadbName"));
+            params.put("ZoneId",mLicensePlate.getIntent().getStringExtra("idZone"));
 
             JSONObject obj = new JSONObject(params);
             String payload = obj.toString();

@@ -1,5 +1,6 @@
 package com.vuzix.sample.m300_speech_recognition;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -85,23 +86,24 @@ public class Orders extends AppCompatActivity {
         //Toast("Selected Item : " + listIdOrders.get(selectedIndex));
     }
 
-    public void MoveToOrders()
+    public void MoveToLicensePlate()
     {
         Toast(txtSelectedItem.getText().toString());
-        //if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
-        //{
-        //    String stringToRemove = "Selected item : ";
-        //    int indexOfString = listOrdersName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
-        //    Intent intent = new Intent(this, Orders.class);
-        //    intent.putExtra("idwareHouse", getIntent().getStringExtra("idwareHouse"));
-        //    intent.putExtra("idOrder",listIdOrders.get(indexOfString));
-        //    intent.putExtra("name",listOrdersName.get(indexOfString));
-        //    startActivity(intent);
-        //}
-        //else
-        //{
-        //    Toast("Select a company");
-        //}
+        if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
+        {
+            String stringToRemove = "Selected item : ";
+            int indexOfString = listIdOrders.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
+            Intent intent = new Intent(this, LicensePlate.class);
+            intent.putExtra("idwareHouse", getIntent().getStringExtra("idwareHouse"));
+            intent.putExtra("idOrder",listIdOrders.get(indexOfString));
+            intent.putExtra("idZone",getIntent().getStringExtra("idZone"));
+            intent.putExtra("zoneName",getIntent().getStringExtra("zoneName"));
+            startActivity(intent);
+        }
+        else
+        {
+            Toast("Select a company");
+        }
     }
 
     void FinishActivity()
@@ -126,7 +128,7 @@ public class Orders extends AppCompatActivity {
     {
 
         String idWarehouse = HeaderInfo.getIdWarehouse();
-        String idZone = getIntent().getStringExtra("idzone");
+        String idZone = getIntent().getStringExtra("idZone");
         return  "https://216.226.53.29/V5/API/Zones%28" + idZone
                 + "%29/Orders?idWarehouse=" + idWarehouse
                 + "&resetPickRoute=false";

@@ -38,9 +38,10 @@ public class LicensePlate extends AppCompatActivity {
     void SetCompanyText()
     {
         String zoneName = getIntent().getStringExtra("zoneName");
-        String orderNo = getIntent().getStringExtra("orderNo");
-        txtOrder.setText(orderNo);
-        txtZone.setText(zoneName);
+        String orderNo = getIntent().getStringExtra("idOrder");
+        txtOrder.setText(getString(R.string.txtSelectedOrder)+ " " + orderNo);
+        txtZone.setText(getString(R.string.txtSelectedZone) + " " + zoneName);
+        txtLicensePlate.requestFocus();
     }
 
     void FinishActivity()
@@ -50,7 +51,7 @@ public class LicensePlate extends AppCompatActivity {
         finish();
     }
 
-    void TryToConnect()
+    void CreateLicencePlate()
     {
         Toast.makeText(getApplicationContext(), "Next", Toast.LENGTH_SHORT).show();
         connection = new ConnectionAPILicensePlate(this, APIAdress);
@@ -59,11 +60,11 @@ public class LicensePlate extends AppCompatActivity {
 
     }
 
-    //public void MoveToWarehouse()
-    //{
-    //    Intent intent = new Intent(this, Warehouses.class);
-    //    startActivity(intent);
-    //}
+    public void MoveToOrderInfo()
+    {
+        Intent intent = new Intent(this, OrderInfo.class);
+        startActivity(intent);
+    }
 
     public void Toast(String texte)
     {
@@ -77,8 +78,9 @@ public class LicensePlate extends AppCompatActivity {
         this.onDestroy();
         Intent intent = new Intent(this, LicensePlate.class);
         intent.putExtra("zoneName",txtZone.getText().toString());
-        intent.putExtra("orderNo",txtOrder.getText().toString());
-        intent.putExtra("LicensePlateNo",txtLicensePlate.getText().toString());
+        intent.putExtra("idZone",getIntent().getStringExtra("idZone"));
+        intent.putExtra("idOrder",txtOrder.getText().toString());
+        intent.putExtra("licensePlateNo",txtLicensePlate.getText().toString());
         startActivity(intent);
         finish();
     }

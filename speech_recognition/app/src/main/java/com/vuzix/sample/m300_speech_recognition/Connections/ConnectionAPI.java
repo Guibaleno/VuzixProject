@@ -124,6 +124,13 @@ public class ConnectionAPI extends AsyncTask<String,Void,String> {
 
     public void HideAlert()
     {
-        alertDialog.dismiss();
+        if (alertDialog != null)
+        {
+            if (alertDialog.isShowing())
+            {
+                alertDialog.dismiss();
+            }
+        }
+
     }
 }

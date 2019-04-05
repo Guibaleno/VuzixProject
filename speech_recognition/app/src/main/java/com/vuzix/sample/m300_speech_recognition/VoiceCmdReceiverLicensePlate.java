@@ -170,7 +170,7 @@ public class VoiceCmdReceiverLicensePlate extends VoiceCmdReceiver {
                     }
                     else if (phrase.equals(MATCH_NEXT_INFOORDERS))
                     {
-                        mLicensePLate.TryToConnect();
+                        mLicensePLate.CreateLicencePlate();
                     }
                     else if (phrase.equals(MATCH_RELOAD_LICENSEPLATE))
                     {

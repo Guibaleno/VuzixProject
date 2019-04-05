@@ -92,9 +92,9 @@ public class Zones extends AppCompatActivity {
             String stringToRemove = "Selected item : ";
             int indexOfString = listZonesName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, Orders.class);
-            Toast(getIntent().getStringExtra("idwareHouse"));
-            intent.putExtra("idzone",listIdZones.get(indexOfString));
-            intent.putExtra("name",listZonesName.get(indexOfString));
+            Toast(getIntent().getStringExtra("idWarehouse"));
+            intent.putExtra("idZone",listIdZones.get(indexOfString));
+            intent.putExtra("zoneName",listZonesName.get(indexOfString).substring(listZonesName.get(indexOfString).indexOf("-") + 2));
             startActivity(intent);
         }
         else
