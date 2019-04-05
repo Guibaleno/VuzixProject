@@ -35,16 +35,8 @@ public class Warehouses extends AppCompatActivity {
         txtSelectedItem = (TextView) findViewById(R.id.txtSelectedItem);
         recyclerWarehouses = (RecyclerView) findViewById(R.id.recyclerWarehouses);
 
-
-
         mVoiceCmdReceiverWarehouse = new VoiceCmdReceiverWarehouses(this);
         connectionWarehouse = new ConnectionAPIWarehouses(this, APIAdress);
-
-
-
-
-
-
 
         getWarehouse();
     }

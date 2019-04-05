@@ -113,6 +113,10 @@ public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
                     {
                         mOrder.Scroll(false);
                     }
+                    else if (phrase.equals(MATCH_RELOAD_ORDERS))
+                    {
+                        mOrder.Reload();
+                    }
                     else
                     {
                         List<Integer> numberToFind = new ArrayList<Integer>();

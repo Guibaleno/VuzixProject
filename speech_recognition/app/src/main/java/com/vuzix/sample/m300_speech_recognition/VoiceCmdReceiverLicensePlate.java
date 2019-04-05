@@ -49,7 +49,6 @@ public class VoiceCmdReceiverLicensePlate extends VoiceCmdReceiver {
     final String MATCH_RETURN_TO_ORDERS = "ReturnToOrders";
     public final String MATCH_RELOAD_LICENSEPLATE = "RealoadLicensePlate";
     public final String MATCH_NEXT_INFOORDERS = "NextInfoOrders";
-    //final String MATCH_BACK     = "back";
     public VoiceCmdReceiverLicensePlate(LicensePlate iActivity)
     {
         mLicensePLate = iActivity;

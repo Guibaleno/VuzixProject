@@ -41,7 +41,6 @@ public class Orders extends AppCompatActivity {
 
         APIAdress = getAPIAdress();
         connectionOrder = new ConnectionAPIOrders(this, APIAdress);
-        Log.d("william", this.toString());
         getOrder();
     }
 
@@ -63,11 +62,7 @@ public class Orders extends AppCompatActivity {
     private void getOrder(){
 
         try{
-
             connectionOrder.execute();
-
-            //Log.d("Response", String.valueOf(connectionOrder.connection.getResponseCode()));
-            //Log.i("Response", String.valueOf(connectionOrder.connection.getResponseCode()));
         }
         catch (Exception e){
             e.printStackTrace();
@@ -137,5 +132,14 @@ public class Orders extends AppCompatActivity {
     public void Scroll(boolean scrollDown)
     {
         mVoiceCmdReceiverOrders.scrollRecyclerView(recyclerOrders, scrollDown);
+    }
+    public void Reload()
+    {
+        mVoiceCmdReceiverOrders.unregister();
+        Intent intent = new Intent(this, Orders.class);
+        intent.putExtra("idZone",getIntent().getStringExtra("idZone"));
+        intent.putExtra("zoneName",getIntent().getStringExtra("zoneName"));
+        startActivity(intent);
+        finish();
     }
 }

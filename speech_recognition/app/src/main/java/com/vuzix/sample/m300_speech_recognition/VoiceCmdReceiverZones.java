@@ -112,6 +112,10 @@ public class VoiceCmdReceiverZones extends VoiceCmdReceiver {
                     {
                         mZone.Scroll(false);
                     }
+                    else if (phrase.equals(MATCH_RELOAD_ZONES))
+                    {
+                        mZone.Reload();
+                    }
                     else
                     {
                         List<Integer> numberToFind = new ArrayList<Integer>();

@@ -269,14 +269,12 @@ public class MainActivity extends Activity {
         mVoiceCmdReceiver.scrollRecyclerView(recyclerCompanies, scrollDown);
     }
 
-    public void Reload()
-    {
-        connection.HideAlert();
-        this.onDestroy();
-        Intent intent = new Intent(this, MainActivity.class);
-
-        startActivity(intent);
-        finish();
+    public void Reload() {
+            connection.HideAlert();
+            this.onDestroy();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
     }
 }
 

@@ -124,4 +124,13 @@ public class Zones extends AppCompatActivity {
     {
         mVoiceCmdReceiverZones.scrollRecyclerView(recyclerZones, scrollDown);
     }
+    public void Reload()
+    {
+        mVoiceCmdReceiverZones.unregister();
+        Intent intent = new Intent(this, Zones.class);
+        intent.putExtra("idwareHouse",getIntent().getStringExtra("idwareHouse"));
+        intent.putExtra("WarehouseName",getIntent().getStringExtra("WarehouseName"));
+        startActivity(intent);
+        finish();
+    }
 }

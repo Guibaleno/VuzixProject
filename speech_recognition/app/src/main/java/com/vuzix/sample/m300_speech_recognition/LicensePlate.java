@@ -31,17 +31,26 @@ public class LicensePlate extends AppCompatActivity {
 
         APIAdress = getAPIAdress();
 
-        SetCompanyText();
+        SetOrderInfoText();
+        WritePreviousData();
         mVoiceCmdReceiver = new VoiceCmdReceiverLicensePlate(this);
     }
-
-    void SetCompanyText()
+    //This function will write the same License plate after a reload
+    void SetOrderInfoText()
     {
         String zoneName = getIntent().getStringExtra("zoneName");
         String orderNo = getIntent().getStringExtra("idOrder");
         txtOrder.setText(getString(R.string.txtSelectedOrder)+ " " + orderNo);
         txtZone.setText(getString(R.string.txtSelectedZone) + " " + zoneName);
         txtLicensePlate.requestFocus();
+    }
+
+    void WritePreviousData()
+    {
+        if (getIntent().getStringExtra("licensePlateNo") != null)
+        {
+            txtLicensePlate.setText(getIntent().getStringExtra("licensePlateNo"));
+        }
     }
 
     void FinishActivity()
@@ -74,15 +83,14 @@ public class LicensePlate extends AppCompatActivity {
 
     public void Reload()
     {
-
-        this.onDestroy();
-        Intent intent = new Intent(this, LicensePlate.class);
-        intent.putExtra("zoneName",txtZone.getText().toString());
-        intent.putExtra("idZone",getIntent().getStringExtra("idZone"));
-        intent.putExtra("idOrder",txtOrder.getText().toString());
-        intent.putExtra("licensePlateNo",txtLicensePlate.getText().toString());
-        startActivity(intent);
-        finish();
+            Intent intent = new Intent(this, LicensePlate.class);
+            intent.putExtra("zoneName",txtZone.getText().toString());
+            intent.putExtra("idZone",getIntent().getStringExtra("idZone"));
+            intent.putExtra("idOrder",txtOrder.getText().toString());
+            intent.putExtra("idwareHouse", getIntent().getStringExtra("idwareHouse"));
+            intent.putExtra("licensePlateNo",txtLicensePlate.getText().toString());
+            startActivity(intent);
+            finish();
     }
 
     public String getAPIAdress()
@@ -92,4 +100,5 @@ public class LicensePlate extends AppCompatActivity {
         return  "https://216.226.53.29/V5/API/Warehouses%28" + idWarehouse
                 + "%29/Licenseplates%28" + txtLicensePlate.getText().toString() + "%29";
     }
+
 }
