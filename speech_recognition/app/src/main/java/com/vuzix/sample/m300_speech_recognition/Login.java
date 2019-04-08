@@ -119,4 +119,13 @@ public class Login extends AppCompatActivity {
 
         startActivity(intent);
     }
+
+    public void Dimiss(){
+        connection.HideAlert();
+    }
+
+    public void ClearPasswordTextbox(){
+        txtPassword.setText("");
+    }
+
 }

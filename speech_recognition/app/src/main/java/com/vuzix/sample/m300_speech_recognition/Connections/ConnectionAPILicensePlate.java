@@ -2,7 +2,6 @@ package com.vuzix.sample.m300_speech_recognition.Connections;
 
 import com.vuzix.sample.m300_speech_recognition.HeaderInfo;
 import com.vuzix.sample.m300_speech_recognition.LicensePlate;
-import com.vuzix.sample.m300_speech_recognition.Login;
 
 import org.json.JSONException;
 import org.json.JSONObject;

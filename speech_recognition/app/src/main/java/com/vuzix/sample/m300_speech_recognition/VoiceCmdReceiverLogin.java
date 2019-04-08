@@ -51,6 +51,7 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
     final String MATCH_LOGIN  = "Login";
     final String MATCH_RETURN_TO_COMPANIES = "ReturnToCompanies";
     public final String MATCH_RELOAD_LOGIN = "ReloadLogin";
+    public final String MATCH_DISMISS_LOGIN = "DismissLogin";
     //final String MATCH_BACK     = "back";
     public VoiceCmdReceiverLogin(Login iActivity)
     {
@@ -121,6 +122,7 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
             sc.insertPhrase("password", MATCH_PASSWORD);
             sc.insertPhrase(MATCH_NEXT, MATCH_LOGIN);
             sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_LOGIN);
+            sc.insertPhrase(MATCH_DISMISS, MATCH_DISMISS_LOGIN);
             Log.i("", sc.toString());
 
 
@@ -190,9 +192,9 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
                     {
                         mLogin.Reload();
                     }
-                    else
+                    else if (phrase.equals(MATCH_DISMISS_LOGIN))
                     {
-
+                        mLogin.Dimiss();
                     }
                 }
             }

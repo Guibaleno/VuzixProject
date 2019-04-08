@@ -61,6 +61,7 @@ public class VoiceCmdReceiver  extends BroadcastReceiver {
     final String MATCH_SCROLLDOWN = "Scrolldown";
     final String MATCH_SCROLLUP = "ScrollUp";
     final String MATCH_RETURN = "Return";
+    final String MATCH_DISMISS = "Dismiss";
 
 
 

@@ -101,19 +101,22 @@ public class ConnectionAPI extends AsyncTask<String,Void,String> {
                 .getActiveNetworkInfo();
         if (info == null || !info.isConnected())
         {
-            NotConnectedInternet(mContext);
+            Alert(mContext, "Internet Connection error",
+                    "The device is not connected to Internet" ,
+                    "Reload frame");
             return false;
         }
         return true;
 
     }
 
-    public void NotConnectedInternet(final Context currentContext)
+    public void Alert(final Context currentContext, String titleText,
+                                     String messageText, String buttonText)
     {
         alertDialog = new AlertDialog.Builder(currentContext).create();
-        alertDialog.setTitle("Internet ConnectionAPI error");
-        alertDialog.setMessage("The device is not connected to Internet");
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Reload frame",
+        alertDialog.setTitle(titleText);
+        alertDialog.setMessage(messageText);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, buttonText,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

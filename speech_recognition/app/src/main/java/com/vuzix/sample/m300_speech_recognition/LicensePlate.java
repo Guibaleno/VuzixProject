@@ -18,7 +18,7 @@ public class LicensePlate extends AppCompatActivity {
 
     EditText txtLicensePlate;
 
-    VoiceCmdReceiverLicensePlate mVoiceCmdReceiver;
+    VoiceCmdReceiverLicensePlate mVoiceCmdReceiverLicensePlate;
     ConnectionAPILicensePlate connection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class LicensePlate extends AppCompatActivity {
 
         SetOrderInfoText();
         WritePreviousData();
-        mVoiceCmdReceiver = new VoiceCmdReceiverLicensePlate(this);
+        mVoiceCmdReceiverLicensePlate = new VoiceCmdReceiverLicensePlate(this);
     }
     //This function will write the same License plate after a reload
     void SetOrderInfoText()
@@ -55,8 +55,8 @@ public class LicensePlate extends AppCompatActivity {
 
     void FinishActivity()
     {
-        mVoiceCmdReceiver.unregister();
-        mVoiceCmdReceiver = null;
+        mVoiceCmdReceiverLicensePlate.unregister();
+        mVoiceCmdReceiverLicensePlate = null;
         finish();
     }
 
@@ -65,7 +65,6 @@ public class LicensePlate extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Next", Toast.LENGTH_SHORT).show();
         connection = new ConnectionAPILicensePlate(this, APIAdress);
         connection.execute();
-
 
     }
 

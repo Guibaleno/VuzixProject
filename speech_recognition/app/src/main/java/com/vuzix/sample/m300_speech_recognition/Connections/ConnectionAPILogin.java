@@ -32,12 +32,14 @@ public class ConnectionAPILogin extends ConnectionAPI {
             if (response != null) {
 
                 try {
+
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.has("token")) {
                         HeaderInfo.setToken(jsonObject.getString("token"));
                         mLogin.MoveToWarehouse();
                     } else if (jsonObject.has("English")) {
-                        mLogin.Toast(jsonObject.getString("English"));
+                        Alert(mLogin,"Connection error",jsonObject.getString("English"), "Dismiss");
+                        mLogin.ClearPasswordTextbox();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -66,15 +68,22 @@ public class ConnectionAPILogin extends ConnectionAPI {
 
             HashMap<String, String> params = new HashMap<String, String>();
             params.put("user","guillaume");
-            params.put("password","guillaume");
+            params.put("password","p");
             params.put("companyName",mLogin.getIntent().getStringExtra("lisadbName"));
 
             JSONObject obj = new JSONObject(params);
             String payload = obj.toString();
+            Log.d("eee",payload);
             OutputStreamWriter os = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
             os.write(payload);
             os.close();
-            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            BufferedReader br;
+            if(connection.getResponseCode() == 200){
+                br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            }else
+            {
+                br = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+            }
             String line;
 
             while ((line = br.readLine()) != null)
