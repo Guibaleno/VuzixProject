@@ -105,11 +105,11 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
                     {
                         mWarehouse.FinishActivity();
                     }
-                    else if (phrase.equals(MATCH_SCROLLDOWN))
+                    else if (phrase.equals(MATCH_SCROLLDOWN_WAREHOUSES))
                     {
                         mWarehouse.Scroll(true);
                     }
-                    else if (phrase.equals(MATCH_SCROLLUP))
+                    else if (phrase.equals(MATCH_SCROLLUP_WAREHOUSES))
                     {
                         mWarehouse.Scroll(false);
                     }

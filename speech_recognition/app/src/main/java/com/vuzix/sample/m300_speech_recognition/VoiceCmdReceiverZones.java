@@ -104,11 +104,11 @@ public class VoiceCmdReceiverZones extends VoiceCmdReceiver {
                     {
                         mZone.FinishActivity();
                     }
-                    else if (phrase.equals(MATCH_SCROLLDOWN))
+                    else if (phrase.equals(MATCH_SCROLLDOWN_ZONES))
                     {
                         mZone.Scroll(true);
                     }
-                    else if (phrase.equals(MATCH_SCROLLUP))
+                    else if (phrase.equals(MATCH_SCROLLUP_ZONES))
                     {
                         mZone.Scroll(false);
                     }
