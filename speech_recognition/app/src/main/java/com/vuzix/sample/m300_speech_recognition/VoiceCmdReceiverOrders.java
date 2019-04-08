@@ -105,11 +105,11 @@ public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
                     {
                         mOrder.FinishActivity();
                     }
-                    else if (phrase.equals(MATCH_SCROLLDOWN))
+                    else if (phrase.equals(MATCH_SCROLLDOWN_ORDERS))
                     {
                         mOrder.Scroll(true);
                     }
-                    else if (phrase.equals(MATCH_SCROLLUP))
+                    else if (phrase.equals(MATCH_SCROLLUP_ORDERS))
                     {
                         mOrder.Scroll(false);
                     }

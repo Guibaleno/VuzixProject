@@ -101,11 +101,11 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
                     {
                         mMainActivity.Next();
                     }
-                    else if (phrase.equals(MATCH_SCROLLDOWN))
+                    else if (phrase.equals(MATCH_SCROLLDOWN_COMPANIES))
                     {
                         mMainActivity.Scroll(true);
                     }
-                    else if (phrase.equals(MATCH_SCROLLUP))
+                    else if (phrase.equals(MATCH_SCROLLUP_COMPANIES))
                     {
                         mMainActivity.Scroll(false);
                     }
