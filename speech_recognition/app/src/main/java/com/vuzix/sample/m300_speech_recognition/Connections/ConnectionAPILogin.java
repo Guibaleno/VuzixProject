@@ -68,7 +68,7 @@ public class ConnectionAPILogin extends ConnectionAPI {
 
             HashMap<String, String> params = new HashMap<String, String>();
             params.put("user","guillaume");
-            params.put("password","p");
+            params.put("password","guillaume");
             params.put("companyName",mLogin.getIntent().getStringExtra("lisadbName"));
 
             JSONObject obj = new JSONObject(params);

@@ -8,6 +8,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPILicensePlate;
+import com.vuzix.sample.m300_speech_recognition.Barcode.MainBarcode;
+
 
 public class LicensePlate extends AppCompatActivity {
     public final String LOG_TAG = "VoiceSample";
@@ -70,15 +72,15 @@ public class LicensePlate extends AppCompatActivity {
 
     public void MoveToOrderInfo()
     {
-        if (!txtLicensePlate.getText().toString().equals(""))
-        {
-            Intent intent = new Intent(this, OrderInfo.class);
+        //if (!txtLicensePlate.getText().toString().equals(""))
+        //{
+            Intent intent = new Intent(this, MainBarcode.class);
             startActivity(intent);
-        }
-        else
-        {
-            Toast("Enter a Licence Plate");
-        }
+        //}
+        //else
+        //{
+        //    Toast("Enter a Licence Plate");
+       // }
     }
 
     public void Toast(String texte)
@@ -104,7 +106,7 @@ public class LicensePlate extends AppCompatActivity {
 
         String idWarehouse = HeaderInfo.getIdWarehouse();
         return  "https://216.226.53.29/V5/API/Warehouses%28" + idWarehouse
-                + "%29/Licenseplates%28" + txtLicensePlate.getText().toString() + "%29";
+                + "%29/Licenseplates%28LP361%29";
     }
 
 }

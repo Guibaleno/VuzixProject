@@ -48,4 +48,8 @@
     <string name="Zones">Zones</string>
     <string name="Orders">Orders</string>
 
+    <string name="scan_barcode">Press any button to scan barcode</string>
+    <string name="no_permission">Camera permission is required for this app</string>
+    <string name="no_barcode_in_image">No barcode detected</string>
+
 </resources>
