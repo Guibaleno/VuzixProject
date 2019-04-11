@@ -6,43 +6,18 @@
     android:layout_height="match_parent"
     tools:context="com.vuzix.sample.m300_speech_recognition.MainActivity">
 
-    <TextView
-        android:id="@+id/textView123"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/overview"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.807" />
-
-    <Button
-        android:id="@+id/btn_listen"
-        android:layout_width="172dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/custom_button"
-        android:nextFocusLeft="@+id/btn_listen"
-        android:nextFocusRight="@+id/btn_popup"
-        android:text="@string/btn_text_listen"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerCompanies"
-        android:layout_width="303dp"
-        android:layout_height="176dp"
+        android:layout_width="698dp"
+        android:layout_height="323dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="116dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSelectedItem" />
+        app:layout_constraintTop_toBottomOf="@+id/txtSelectedItem"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtSelectedItem"
@@ -50,21 +25,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/txtSelectedItem"
-        android:textSize="36sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtInstructions"
-        android:layout_width="310dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="332dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/txtInstructionsCompanies"
+        android:text="@string/txtSelectACompany"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.469"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

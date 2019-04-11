@@ -62,7 +62,6 @@ public class MainActivity extends Activity {
     public final String LOG_TAG = "VoiceSample";
     public final String APIAdress = "https://216.226.53.29/V5/API/Companies";
     public final String CUSTOM_SDK_INTENT = "com.vuzix.sample.m300_voicecontrolwithsdk.CustomIntent";
-    Button buttonListen;
     RecyclerView recyclerCompanies;
     TextView txtSelectedItem;
     TextView txtInstructions;
@@ -89,7 +88,6 @@ public class MainActivity extends Activity {
         Log.d("ICI", "ICI1");
         Log.i("ICI", "ICI1");
         mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
-        buttonListen = (Button) findViewById(R.id.btn_listen);
         recyclerCompanies = (RecyclerView) findViewById(R.id.recyclerCompanies);
         txtSelectedItem = (TextView) findViewById(R.id.txtSelectedItem);
         txtInstructions = (TextView) findViewById(R.id.txtInstructions);
@@ -100,12 +98,6 @@ public class MainActivity extends Activity {
         // M300 buttons more consistent to the user
        // buttonListen.requestFocusFromTouch();
 
-        buttonListen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                OnListenClick();
-            }
-        });
 
         // Create the voice command receiver class
         connection = new ConnectionAPICompanies(this, APIAdress);
@@ -136,36 +128,6 @@ public class MainActivity extends Activity {
 
 
     /**
-     * Update the button from "Listen" to "Stop" based on our cached state
-     */
-    private void updateListenButtonText() {
-        int newText = R.string.btn_text_listen;
-        if ( mRecognizerActive ) {
-            newText = R.string.btn_text_stop;
-        }
-        buttonListen.setText(newText);
-    }
-
-    /**
-     * Handler called when "Listen" button is clicked. Activates the speech recognizer identically to
-     * saying "Hello Vuzix".  Also handles "Stop" button clicks to terminate the recognizer identically
-     * to a time-out
-     */
-    private void OnListenClick() {
-        //Log.e(LOG_TAG, getMethodName());
-        // Trigger the speech recognizer to start/stop listening.  Listening has a time-out
-        // specified in the M300 settings menu, so it may terminate without us requesting it.
-        //
-        // We want this to toggle to state opposite our current one.
-        mRecognizerActive = !mRecognizerActive;
-        // Manually calling this syncrhonizes our UI state to the recognizer state in case we're
-        // requesting the current state, in which we won't be notified of a change.
-        updateListenButtonText();
-        // Request the new state
-        mVoiceCmdReceiver.TriggerRecognizerToListen(mRecognizerActive);
-    }
-
-    /**
      * A callback for the SDK to notify us if the recognizer starts or stop listening
      *
      * @param isRecognizerActive boolean - true when listening
@@ -175,7 +137,7 @@ public class MainActivity extends Activity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                updateListenButtonText();
+
             }
         });
     }

@@ -77,7 +77,7 @@ public class Orders extends AppCompatActivity {
         recyclerOrders.setFocusable(true);
         recyclerOrders.requestFocus(selectedIndex);
         recyclerOrders.smoothScrollToPosition(selectedIndex);
-        txtSelectedItem.setText("Selected Item : " + listIdOrders.get(selectedIndex));
+        txtSelectedItem.setText("Selected order : " + listIdOrders.get(selectedIndex));
         //Toast("Selected Item : " + listIdOrders.get(selectedIndex));
     }
 

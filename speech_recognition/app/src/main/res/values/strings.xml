@@ -38,9 +38,9 @@
     <string name="btnReturn">Return</string>
     <string name="btnLogin">Next</string>
 
-    <string name="txtSelectedItem">Selected Item : none</string>
+    <string name="txtSelectACompany">Select a Company</string>
     <string name="txtSelectedZone">Selected Zone : </string>
-    <string name="txtSelectedOrder">Selected Order : </string>
+    <string name="txtSelectedOrder">Select an order </string>
 
 
     <string name="Companies">Companies</string>

@@ -103,7 +103,7 @@ public class ConnectionAPI extends AsyncTask<String,Void,String> {
         {
             Alert(mContext, "Internet Connection error",
                     "The device is not connected to Internet" ,
-                    "Reload frame");
+                    "Reload");
             return false;
         }
         return true;

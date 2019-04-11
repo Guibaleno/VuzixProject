@@ -10,11 +10,13 @@
         android:id="@+id/txtCompany"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:text="TextView"
         android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="@+id/txtUsername"
-        app:layout_constraintStart_toStartOf="@+id/txtUsername"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -44,16 +46,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/txtUsername"
         app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
-
-    <Button
-        android:id="@+id/btnConnection"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="24dp"
-        android:text="@string/btnLogin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/txtPassword" />
 
     <ProgressBar
         android:id="@+id/progressLogin"
