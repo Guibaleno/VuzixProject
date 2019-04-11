@@ -89,8 +89,7 @@ public class Zones extends AppCompatActivity {
         recyclerZones.smoothScrollToPosition(selectedIndex);
         if (selectedIndex < listZonesName.size())
         {
-            txtSelectedItem.setText("Selected Item : " + listZonesName.get(selectedIndex));
-            Toast("Selected Item : " + listZonesName.get(selectedIndex));
+            txtSelectedItem.setText("Selected Zone : " + listZonesName.get(selectedIndex));
         }
 
     }
@@ -100,7 +99,7 @@ public class Zones extends AppCompatActivity {
         Toast(txtSelectedItem.getText().toString());
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
-            String stringToRemove = "Selected item : ";
+            String stringToRemove = "Selected Zone : ";
             int indexOfString = listZonesName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, Orders.class);
             Toast(getIntent().getStringExtra("idWarehouse"));
