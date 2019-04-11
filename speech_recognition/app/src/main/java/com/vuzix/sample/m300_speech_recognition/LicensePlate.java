@@ -19,7 +19,7 @@ public class LicensePlate extends AppCompatActivity {
     public final String LOG_TAG = "VoiceSample";
     public String APIAdress;
     public final String CUSTOM_SDK_INTENT = "com.vuzix.sample.m300_voicecontrolwithsdk.CustomIntent";
-    private static final int REQUEST_CODE_SCAN = 90001;
+    private static final int REQUEST_CODE_SCAN = 60000;
 
 
     TextView txtOrder;
@@ -44,16 +44,17 @@ public class LicensePlate extends AppCompatActivity {
         WritePreviousData();
         mVoiceCmdReceiverLicensePlate = new VoiceCmdReceiverLicensePlate(this);
     }
-    //This function will write the same License plate after a reload
+
     void SetOrderInfoText()
     {
         String zoneName = getIntent().getStringExtra("zoneName");
         String orderNo = getIntent().getStringExtra("idOrder");
-        txtOrder.setText(getString(R.string.txtSelectedOrder)+ " " + orderNo);
-        txtZone.setText(getString(R.string.txtSelectedZone) + " " + zoneName);
+        txtOrder.setText(getString(R.string.txtSelectAnOrder)+ " " + orderNo);
+        txtZone.setText(getString(R.string.txtSelectAZone) + " " + zoneName);
         txtLicensePlate.requestFocus();
     }
 
+    //This function will write the same License plate after a reload
     void WritePreviousData()
     {
         if (getIntent().getStringExtra("licensePlateNo") != null)

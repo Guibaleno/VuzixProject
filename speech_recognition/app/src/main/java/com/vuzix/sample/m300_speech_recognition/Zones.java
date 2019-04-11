@@ -23,6 +23,8 @@ public class Zones extends AppCompatActivity {
     List<String> listIdZones = new ArrayList<String>();
     List<String> listZonesName = new ArrayList<String>();
     TextView txtSelectedItem;
+    TextView txtWarehouse;
+
 
     VoiceCmdReceiverZones mVoiceCmdReceiverZones;
     ConnectionAPIZones connectionZone;
@@ -33,6 +35,7 @@ public class Zones extends AppCompatActivity {
 
 
         txtSelectedItem = (TextView) findViewById(R.id.txtSelectedItem);
+        txtWarehouse = (TextView) findViewById(R.id.textView_Warehouse);
         recyclerZones = (RecyclerView) findViewById(R.id.recyclerZones);
 
 
@@ -40,8 +43,16 @@ public class Zones extends AppCompatActivity {
         mVoiceCmdReceiverZones = new VoiceCmdReceiverZones(this);
         connectionZone = new ConnectionAPIZones(this, APIAdress);
 
+        SetOrderInfoText();
         HeaderInfo.setIdWarehouse(getIntent().getStringExtra("idwareHouse"));
         getZone();
+    }
+
+
+    void SetOrderInfoText()
+    {
+        String warehouseName = getIntent().getStringExtra("WarehouseName");
+        txtWarehouse.setText(getString(R.string.txtSelectedWarehouse)+ " " + warehouseName);
     }
 
     public void BindData()
