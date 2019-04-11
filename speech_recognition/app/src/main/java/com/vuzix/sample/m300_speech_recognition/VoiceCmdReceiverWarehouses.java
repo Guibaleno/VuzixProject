@@ -19,7 +19,6 @@ import static java.lang.Integer.parseInt;
 public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
     private Warehouses mWarehouse;
     public final String MATCH_RETURN_TO_LOGIN = "ReturnToLogin";
-    public final String MATCH_NEXT_ZONES = "NextZones";
     public final String MATCH_SCROLLDOWN_WAREHOUSES = "ScrollDownWarehouses";
     public final String MATCH_SCROLLUP_WAREHOUSES = "ScrollUpWarehouses";
     public final String MATCH_RELOAD_WAREHOUSES = "RealoadWarehouses";
@@ -44,7 +43,6 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
             sc.defineIntent(TOAST_EVENT, customToastIntent );
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
             sc.insertPhrase(MATCH_RETURN, MATCH_RETURN_TO_LOGIN);
-            sc.insertPhrase(MATCH_NEXT, MATCH_NEXT_ZONES);
             sc.insertPhrase(MATCH_SCROLLDOWN, MATCH_SCROLLDOWN_WAREHOUSES);
             sc.insertPhrase(MATCH_SCROLLUP, MATCH_SCROLLUP_WAREHOUSES);
             sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_WAREHOUSES);
@@ -97,11 +95,7 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
                     // Determine the specific phrase that was recognized and act accordingly
 
 
-                    if (phrase.equals(MATCH_NEXT_ZONES))
-                    {
-                        mWarehouse.MoveToZones();
-                    }
-                    else if (phrase.equals(MATCH_RETURN_TO_LOGIN))
+                    if (phrase.equals(MATCH_RETURN_TO_LOGIN))
                     {
                         mWarehouse.FinishActivity();
                     }
@@ -142,9 +136,8 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
                             {
                                 numberString += String.valueOf(numberToFind.get(cptDigit));
                             }
-                            Log.d("Warehouse","Warehouuuse");
-                            Log.i("Warehouse","Warehouuuse");
                             mWarehouse.SelectItemInRecyclerViewWarehouse(parseInt(numberString) - 1);
+                            mWarehouse.MoveToZones();
                         }
                     }
                 }

@@ -52,7 +52,6 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
             Log.i("REALOAD", "RELOAD");
             // See what we've done
             //Log.i(mMainActivity.LOG_TAG, sc.dump());
-            sc.insertPhrase(mMainActivity.getResources().getString(R.string.btnNext), MATCH_NEXT);
             // The recognizer may not yet be enabled in Settings. We can enable this directly
             VuzixSpeechClient.EnableRecognizer(mMainActivity, true);
         } catch(NoClassDefFoundError e) {
@@ -96,12 +95,7 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
 
                     // Determine the specific phrase that was recognized and act accordingly
 
-
-                    if (phrase.equals(MATCH_NEXT))
-                    {
-                        mMainActivity.Next();
-                    }
-                    else if (phrase.equals(MATCH_SCROLLDOWN_COMPANIES))
+                    if (phrase.equals(MATCH_SCROLLDOWN_COMPANIES))
                     {
                         mMainActivity.Scroll(true);
                     }
@@ -141,6 +135,7 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
                                 numberString += String.valueOf(numberToFind.get(cptDigit));
                             }
                             mMainActivity.SelectItemInRecyclerViewCompanies(parseInt(numberString) - 1);
+                            mMainActivity.Next();
                         }
                     }
                 } else if (extras.containsKey(VuzixSpeechClient.RECOGNIZER_ACTIVE_BOOL_EXTRA)) {

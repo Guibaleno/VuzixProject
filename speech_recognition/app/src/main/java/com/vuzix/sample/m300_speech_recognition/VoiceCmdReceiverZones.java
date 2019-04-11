@@ -19,7 +19,6 @@ import static java.lang.Integer.parseInt;
 public class VoiceCmdReceiverZones extends VoiceCmdReceiver {
     private Zones mZone;
     public final String MATCH_RETURN_TO_WAREHOUSES = "ReturnToWarehouses";
-    public final String MATCH_NEXT_ORDERS = "NextOrders";
     public final String MATCH_SCROLLDOWN_ZONES = "ScrollDownZones";
     public final String MATCH_SCROLLUP_ZONES = "ScrollUpZones";
     public final String MATCH_RELOAD_ZONES = "RealoadZones";
@@ -44,7 +43,6 @@ public class VoiceCmdReceiverZones extends VoiceCmdReceiver {
             sc.defineIntent(TOAST_EVENT, customToastIntent );
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
             sc.insertPhrase(MATCH_RETURN, MATCH_RETURN_TO_WAREHOUSES);
-            sc.insertPhrase(MATCH_NEXT, MATCH_NEXT_ORDERS);
             sc.insertPhrase(MATCH_SCROLLDOWN_ZONES, MATCH_SCROLLDOWN);
             sc.insertPhrase(MATCH_SCROLLUP_ZONES, MATCH_SCROLLUP);
             sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_ZONES);
@@ -96,11 +94,7 @@ public class VoiceCmdReceiverZones extends VoiceCmdReceiver {
                     // Determine the specific phrase that was recognized and act accordingly
 
 
-                    if (phrase.equals(MATCH_NEXT_ORDERS))
-                    {
-                        mZone.MoveToOrders();
-                    }
-                    else if (phrase.equals(MATCH_RETURN_TO_WAREHOUSES))
+                    if (phrase.equals(MATCH_RETURN_TO_WAREHOUSES))
                     {
                         mZone.FinishActivity();
                     }
@@ -142,6 +136,7 @@ public class VoiceCmdReceiverZones extends VoiceCmdReceiver {
                                 numberString += String.valueOf(numberToFind.get(cptDigit));
                             }
                             mZone.SelectItemInRecyclerViewZones(parseInt(numberString) - 1);
+                            mZone.MoveToOrders();
                         }
                     }
                 }

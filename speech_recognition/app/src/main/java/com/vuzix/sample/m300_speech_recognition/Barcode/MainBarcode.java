@@ -146,9 +146,9 @@ public class MainBarcode extends Activity {
         switch (keycode) {
             case KeyEvent.KEYCODE_DPAD_RIGHT:
             case KeyEvent.KEYCODE_DPAD_LEFT:
-            case KeyEvent.KEYCODE_ENTER:
-                takeStillPicture();
-                return true;
+            //case KeyEvent.KEYCODE_ENTER:
+               //takeStillPicture();
+               // return true;
             case KeyEvent.KEYCODE_BACK:
                 finish();
         }

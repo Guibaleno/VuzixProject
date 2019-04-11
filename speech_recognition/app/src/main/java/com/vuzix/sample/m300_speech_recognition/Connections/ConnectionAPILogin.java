@@ -92,15 +92,15 @@ public class ConnectionAPILogin extends ConnectionAPI {
             connection.connect();
 
             HashMap<String, String> params = new HashMap<String, String>();
-<<<<<<< HEAD
+
             params.put("user","guillaume");
             params.put("password","guillaume");
-=======
-            TextView txtUser = (TextView) mLogin.findViewById(R.id.txtUsername);
-            TextView txtPassword = (TextView) mLogin.findViewById(R.id.txtPassword);
-            params.put("user",txtUser.getText().toString());
-            params.put("password",txtPassword.getText().toString());
->>>>>>> ad0dd9730cde7464d947e7fb86c19aaf3631ffc2
+
+            //TextView txtUser = (TextView) mLogin.findViewById(R.id.txtUsername);
+            //TextView txtPassword = (TextView) mLogin.findViewById(R.id.txtPassword);
+            //params.put("user",txtUser.getText().toString());
+            //params.put("password",txtPassword.getText().toString());
+
             params.put("companyName",mLogin.getIntent().getStringExtra("lisadbName"));
 
             JSONObject obj = new JSONObject(params);

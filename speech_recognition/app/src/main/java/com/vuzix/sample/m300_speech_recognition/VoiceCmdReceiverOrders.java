@@ -44,7 +44,6 @@ public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
             sc.defineIntent(TOAST_EVENT, customToastIntent );
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
             sc.insertPhrase(MATCH_RETURN, MATCH_RETURN_TO_ZONES);
-            sc.insertPhrase(MATCH_NEXT, MATCH_NEXT);
             sc.insertPhrase(MATCH_SCROLLDOWN, MATCH_SCROLLDOWN_ORDERS);
             sc.insertPhrase(MATCH_SCROLLUP, MATCH_SCROLLUP_ORDERS);
             sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_ORDERS);
@@ -96,12 +95,7 @@ public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
 
                     // Determine the specific phrase that was recognized and act accordingly
 
-                    Log.d("OrdersPenis", phrase);
-                    if (phrase.equals(MATCH_NEXT))
-                    {
-                        mOrder.MoveToLicensePlate();
-                    }
-                    else if (phrase.equals(MATCH_RETURN_TO_ZONES))
+                    if (phrase.equals(MATCH_RETURN_TO_ZONES))
                     {
                         mOrder.FinishActivity();
                     }
@@ -143,6 +137,7 @@ public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
                                 numberString += String.valueOf(numberToFind.get(cptDigit));
                             }
                             mOrder.SelectItemInRecyclerViewOrders(parseInt(numberString));
+                            mOrder.MoveToLicensePlate();
                         }
                     }
                 }
