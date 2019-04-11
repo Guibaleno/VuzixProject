@@ -23,6 +23,7 @@ public class Orders extends AppCompatActivity {
     RecyclerView.LayoutManager mLayoutManagerRecyclerOrders;
     List<String> listIdOrders = new ArrayList<String>();
     TextView txtSelectedItem;
+    TextView txtSelectedZone;
 
     VoiceCmdReceiverOrders mVoiceCmdReceiverOrders;
     ConnectionAPIOrders connectionOrder;
@@ -33,15 +34,22 @@ public class Orders extends AppCompatActivity {
 
 
         txtSelectedItem = (TextView) findViewById(R.id.txtSelectedItem);
+        txtSelectedZone = (TextView) findViewById(R.id.txtSelectedZone);
         recyclerOrders = (RecyclerView) findViewById(R.id.recyclerOrders);
 
 
         mVoiceCmdReceiverOrders = new VoiceCmdReceiverOrders(this);
 
-
+        SetSelectedZoneText();
         APIAdress = getAPIAdress();
         connectionOrder = new ConnectionAPIOrders(this, APIAdress);
         getOrder();
+    }
+
+    void SetSelectedZoneText()
+    {
+        String zoneName = getIntent().getStringExtra("zoneName");
+        txtSelectedZone.setText(txtSelectedZone.getText().toString() + zoneName);
     }
 
     public void BindData()
@@ -86,7 +94,7 @@ public class Orders extends AppCompatActivity {
         Toast(txtSelectedItem.getText().toString());
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
-            String stringToRemove = "Selected item : ";
+            String stringToRemove = "Selected order : ";
             int indexOfString = listIdOrders.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, LicensePlate.class);
             intent.putExtra("idwareHouse", getIntent().getStringExtra("idwareHouse"));

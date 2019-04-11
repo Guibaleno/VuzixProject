@@ -9,10 +9,9 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerCompanies"
-        android:layout_width="698dp"
-        android:layout_height="323dp"
+        android:layout_width="679dp"
+        android:layout_height="177dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="116dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

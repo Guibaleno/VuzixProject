@@ -101,26 +101,25 @@ public class VoiceCmdReceiver  extends BroadcastReceiver {
         if (scrollDown)
         {
             visiblePosition = layoutManager.findLastVisibleItemPosition();
-            if (visiblePosition + 6 > currentRecyclerView.getAdapter().getItemCount())
+            if (visiblePosition + 4 > currentRecyclerView.getAdapter().getItemCount())
             {
                 currentRecyclerView.smoothScrollToPosition(currentRecyclerView.getAdapter().getItemCount());
             }
             else
             {
-              currentRecyclerView.smoothScrollToPosition(visiblePosition + 6);
+              currentRecyclerView.smoothScrollToPosition(visiblePosition + 4);
             }
         }
         else
         {
             visiblePosition= layoutManager.findFirstVisibleItemPosition();
-            Log.d("item cont33333", String.valueOf(visiblePosition));
-            if (visiblePosition - 6 < 0)
+            if (visiblePosition - 4 < 0)
             {
                 currentRecyclerView.smoothScrollToPosition(0);
             }
             else
             {
-                currentRecyclerView.smoothScrollToPosition(visiblePosition - 6);
+                currentRecyclerView.smoothScrollToPosition(visiblePosition - 4);
             }
         }
     }

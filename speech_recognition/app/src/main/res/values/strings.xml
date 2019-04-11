@@ -39,9 +39,12 @@
     <string name="btnLogin">Next</string>
 
     <string name="txtSelectACompany">Select a Company</string>
+    <string name="txtSelectAWarehouse">Select a Warehouse</string>
     <string name="txtSelectAZone">Select a Zone </string>
     <string name="txtSelectAnOrder">Select an order </string>
+    <string name="txtSelectedOrder">Selected order : </string>
     <string name="txtSelectedWarehouse">Selected Warehouse :  </string>
+    <string name="txtSelectedZone">Selected zone : </string>
 
 
     <string name="Companies">Companies</string>
