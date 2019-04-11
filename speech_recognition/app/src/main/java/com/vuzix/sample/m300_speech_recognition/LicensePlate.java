@@ -1,5 +1,7 @@
 package com.vuzix.sample.m300_speech_recognition;
 
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,12 +11,17 @@ import android.widget.Toast;
 
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPILicensePlate;
 import com.vuzix.sample.m300_speech_recognition.Barcode.MainBarcode;
+import com.vuzix.sdk.barcode.ScanResult;
+import com.vuzix.sdk.barcode.ScannerIntent;
 
 
 public class LicensePlate extends AppCompatActivity {
     public final String LOG_TAG = "VoiceSample";
     public String APIAdress;
     public final String CUSTOM_SDK_INTENT = "com.vuzix.sample.m300_voicecontrolwithsdk.CustomIntent";
+    private static final int REQUEST_CODE_SCAN = 90001;
+
+
     TextView txtOrder;
     TextView txtZone;
 
@@ -70,18 +77,17 @@ public class LicensePlate extends AppCompatActivity {
 
     }
 
-    public void MoveToOrderInfo()
-    {
-        //if (!txtLicensePlate.getText().toString().equals(""))
-        //{
-            Intent intent = new Intent(this, MainBarcode.class);
-            startActivity(intent);
-        //}
-        //else
-        //{
-        //    Toast("Enter a Licence Plate");
-       // }
+    public void MoveToScanner() {
+        Intent scannerIntent = new Intent(ScannerIntent.ACTION);
+        try {
+            // The Vuzix M300 has a built-in Barcode Scanner app that is registered for this intent.
+            startActivityForResult(scannerIntent, REQUEST_CODE_SCAN);
+        } catch (ActivityNotFoundException activityNotFound) {
+            Toast.makeText(this, R.string.only_on_m300, Toast.LENGTH_LONG).show();
+        }
     }
+
+
 
     public void Toast(String texte)
     {

@@ -30,7 +30,8 @@ public class ConnectionAPILicensePlate extends ConnectionAPI {
 
                 try {
                     //JSONObject jsonObject = new JSONObject(response);
-                        mLicensePlate.MoveToOrderInfo();
+                        mLicensePlate.MoveToScanner();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
