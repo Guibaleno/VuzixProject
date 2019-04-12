@@ -72,6 +72,7 @@ public class LicensePlate extends AppCompatActivity {
 
     void CreateLicencePlate()
     {
+        mVoiceCmdReceiverLicensePlate.unregister();
         Toast.makeText(getApplicationContext(), "Next", Toast.LENGTH_SHORT).show();
         connection = new ConnectionAPILicensePlate(this, APIAdress);
         connection.execute();
@@ -80,12 +81,9 @@ public class LicensePlate extends AppCompatActivity {
 
     public void MoveToScanner() {
         Intent scannerIntent = new Intent(ScannerIntent.ACTION);
-        try {
-            // The Vuzix M300 has a built-in Barcode Scanner app that is registered for this intent.
-            startActivityForResult(scannerIntent, REQUEST_CODE_SCAN);
-        } catch (ActivityNotFoundException activityNotFound) {
-            Toast.makeText(this, R.string.only_on_m300, Toast.LENGTH_LONG).show();
-        }
+            //startActivityForResult(scannerIntent, REQUEST_CODE_SCAN);
+            Intent intent = new Intent(this, MainBarcode.class);
+            //startActivity(intent);
     }
 
 
@@ -104,8 +102,8 @@ public class LicensePlate extends AppCompatActivity {
             intent.putExtra("idOrder",txtOrder.getText().toString());
             intent.putExtra("idwareHouse", getIntent().getStringExtra("idwareHouse"));
             intent.putExtra("licensePlateNo",txtLicensePlate.getText().toString());
-            startActivity(intent);
             finish();
+            startActivity(intent);
     }
 
     public String getAPIAdress()

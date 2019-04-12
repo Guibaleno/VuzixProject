@@ -42,6 +42,16 @@ import static android.view.KeyEvent.KEYCODE_X;
 import static android.view.KeyEvent.KEYCODE_Y;
 import static android.view.KeyEvent.KEYCODE_Z;
 import static android.view.KeyEvent.KEYCODE_MINUS;
+import static android.view.KeyEvent.KEYCODE_0;
+import static android.view.KeyEvent.KEYCODE_1;
+import static android.view.KeyEvent.KEYCODE_2;
+import static android.view.KeyEvent.KEYCODE_3;
+import static android.view.KeyEvent.KEYCODE_4;
+import static android.view.KeyEvent.KEYCODE_5;
+import static android.view.KeyEvent.KEYCODE_6;
+import static android.view.KeyEvent.KEYCODE_7;
+import static android.view.KeyEvent.KEYCODE_8;
+import static android.view.KeyEvent.KEYCODE_9;
 
 
 public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
@@ -109,6 +119,16 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
             sc.insertKeycodePhrase("erase", KEYCODE_DEL);
             sc.insertKeycodePhrase("enter", KEYCODE_ENTER);
             sc.insertKeycodePhrase("hyphen", KEYCODE_MINUS);
+            sc.insertKeycodePhrase("zero", KEYCODE_0);
+            sc.insertKeycodePhrase("one", KEYCODE_1);
+            sc.insertKeycodePhrase("two", KEYCODE_2);
+            sc.insertKeycodePhrase("three", KEYCODE_3);
+            sc.insertKeycodePhrase("four", KEYCODE_4);
+            sc.insertKeycodePhrase("five", KEYCODE_5);
+            sc.insertKeycodePhrase("six", KEYCODE_6);
+            sc.insertKeycodePhrase("seven", KEYCODE_7);
+            sc.insertKeycodePhrase("eight", KEYCODE_8);
+            sc.insertKeycodePhrase("nine", KEYCODE_9);
 
             // Insert a custom intent.  Note: these are sent with sendBroadcastAsUser() from the service
             // If you are sending an event to another activity, be sure to test it from the adb shell

@@ -41,7 +41,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint='Say "Password"'
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/txtUsername"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/txtUsername"

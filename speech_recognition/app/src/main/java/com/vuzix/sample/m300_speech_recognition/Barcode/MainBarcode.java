@@ -29,11 +29,16 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.vuzix.sample.m300_speech_recognition.Box;
+import com.vuzix.sample.m300_speech_recognition.OrderInfo;
 import com.vuzix.sample.m300_speech_recognition.R;
+import com.vuzix.sample.m300_speech_recognition.VoiceCmdReceiverScanBarcode;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+
 
 /**
  * Barcode scanner sample code.
@@ -45,9 +50,10 @@ import java.util.List;
  */
 
 public class MainBarcode extends Activity {
+    Box box ;
     private final String LOG_TAG = "BarcodeFromImage";
     public final String CUSTOM_SDK_INTENT = "com.vuzix.sample.m300_voicecontrolwithsdk.CustomIntent";
-    private TextureView mTextureView;
+    TextureView mTextureView;
     private CameraDevice mCameraDevice;
     private CameraCaptureSession mCameraCaptureSessions;
     private CaptureRequest.Builder mCaptureRequestBuilder;
@@ -61,6 +67,7 @@ public class MainBarcode extends Activity {
 
     private final static int TAKE_PICTURE_COMPLETED = 1001;
     private static final int REQUEST_PERMISSIONS = 2222; // unique to this application
+    VoiceCmdReceiverScanBarcode mVoiceCmdReceiverScanBarcode;
 
     /**
      * Registers the UI handlers and threads, and creates the barcode scanner object
@@ -72,12 +79,14 @@ public class MainBarcode extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_barcode);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
+        mVoiceCmdReceiverScanBarcode = new VoiceCmdReceiverScanBarcode(this);
+
         // surface listeners - the only purpose is to open the camera when the preview surface becomes available
-        mTextureView = (TextureView) findViewById(R.id.texture);
-        mTextureView.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
+        mTextureView = (TextureView) findViewById(R.id.textureView234);
+        final TextureView.SurfaceTextureListener mSurfaceTextureListener = new TextureView.SurfaceTextureListener() {
             @Override
             public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
                 openCamera();  // Open the camera whenever hte surface becomes available
@@ -98,8 +107,11 @@ public class MainBarcode extends Activity {
             public void onSurfaceTextureUpdated(SurfaceTexture surface) {
                 // no action
             }
-        });
+        };
+        mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
+        box = new Box(this);
 
+        addContentView(box, new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
         // Handler for intercepting TAKE_PICTURE_COMPLETED back on the UI thread
         mUiThreadHandler = new Handler(Looper.getMainLooper()){
             @Override
