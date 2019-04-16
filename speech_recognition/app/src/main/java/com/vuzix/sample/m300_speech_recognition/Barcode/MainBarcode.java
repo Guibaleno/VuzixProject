@@ -30,6 +30,8 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.vuzix.sample.m300_speech_recognition.Box;
+import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPISaleOrders;
+import com.vuzix.sample.m300_speech_recognition.HeaderInfo;
 import com.vuzix.sample.m300_speech_recognition.OrderInfo;
 import com.vuzix.sample.m300_speech_recognition.R;
 import com.vuzix.sample.m300_speech_recognition.VoiceCmdReceiverScanBarcode;
@@ -68,6 +70,8 @@ public class MainBarcode extends Activity {
     private final static int TAKE_PICTURE_COMPLETED = 1001;
     private static final int REQUEST_PERMISSIONS = 2222; // unique to this application
     VoiceCmdReceiverScanBarcode mVoiceCmdReceiverScanBarcode;
+
+    ConnectionAPISaleOrders connection;
 
     /**
      * Registers the UI handlers and threads, and creates the barcode scanner object
@@ -109,9 +113,10 @@ public class MainBarcode extends Activity {
             }
         };
         mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
-        box = new Box(this);
 
-        addContentView(box, new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
+
+
+        //addContentView(box, new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
         // Handler for intercepting TAKE_PICTURE_COMPLETED back on the UI thread
         mUiThreadHandler = new Handler(Looper.getMainLooper()){
             @Override
@@ -134,6 +139,10 @@ public class MainBarcode extends Activity {
 
         // Create the class that will handle the image and process for barcodes
         mBarcodeProcessor = new BarcodeFinder(this);
+
+        connection = new ConnectionAPISaleOrders(this, getAPIAdress());
+        connection.execute();
+        //box = new Box(this);
     }
 
     /**
@@ -412,5 +421,21 @@ public class MainBarcode extends Activity {
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    public String getAPIAdress()
+    {
+        String orderNo = getIntent().getStringExtra("idOrder");
+        return  "https://216.226.53.29/V5/API/SaleOrders%28" + orderNo +"%29/Pickroutes";
+    }
+
+    public void setCanvasInfo(String newBin,String newDescription,
+                              String newProductCode,String newQuantity)
+    {
+        String idOrder = getIntent().getStringExtra("idOrder");
+        String licensePlateNo = getIntent().getStringExtra("licensePlateNo");
+        box = new Box(this,idOrder,newBin,newDescription,
+                newProductCode,licensePlateNo,newQuantity);
+        addContentView(box, new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
     }
 }

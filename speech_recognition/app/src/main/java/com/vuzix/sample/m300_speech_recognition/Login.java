@@ -77,7 +77,6 @@ public class Login extends AppCompatActivity {
 
     void TryToConnect()
     {
-        Toast.makeText(getApplicationContext(), "Next", Toast.LENGTH_SHORT).show();
         connection = new ConnectionAPILogin(this, APIAdress);
         connection.execute();
     }

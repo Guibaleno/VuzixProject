@@ -88,6 +88,12 @@ public class OrderInfo extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        mVoiceCmdReceiverScanBarcode.unregister();
+        super.onDestroy();
+    }
+
     void FinishActivity()
     {
         mVoiceCmdReceiverScanBarcode.unregister();

@@ -45,12 +45,18 @@ public class LicensePlate extends AppCompatActivity {
         mVoiceCmdReceiverLicensePlate = new VoiceCmdReceiverLicensePlate(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        mVoiceCmdReceiverLicensePlate.unregister();
+        super.onDestroy();
+    }
+
     void SetOrderInfoText()
     {
         String zoneName = getIntent().getStringExtra("zoneName");
         String orderNo = getIntent().getStringExtra("idOrder");
-        txtOrder.setText(getString(R.string.txtSelectAnOrder)+ " " + orderNo);
-        txtZone.setText(getString(R.string.txtSelectAZone) + " " + zoneName);
+        txtOrder.setText(getString(R.string.txtSelectedOrder)+ " " + orderNo);
+        txtZone.setText(getString(R.string.txtSelectedZone) + " " + zoneName);
         txtLicensePlate.requestFocus();
     }
 
@@ -83,7 +89,9 @@ public class LicensePlate extends AppCompatActivity {
         Intent scannerIntent = new Intent(ScannerIntent.ACTION);
             //startActivityForResult(scannerIntent, REQUEST_CODE_SCAN);
             Intent intent = new Intent(this, MainBarcode.class);
-            //startActivity(intent);
+            intent.putExtra("idOrder", getIntent().getStringExtra("idOrder"));
+            intent.putExtra("licensePlateNo",txtLicensePlate.getText().toString());
+            startActivity(intent);
     }
 
 
@@ -98,7 +106,6 @@ public class LicensePlate extends AppCompatActivity {
     {
             Intent intent = new Intent(this, LicensePlate.class);
             intent.putExtra("zoneName",txtZone.getText().toString());
-            intent.putExtra("idZone",getIntent().getStringExtra("idZone"));
             intent.putExtra("idOrder",txtOrder.getText().toString());
             intent.putExtra("idwareHouse", getIntent().getStringExtra("idwareHouse"));
             intent.putExtra("licensePlateNo",txtLicensePlate.getText().toString());

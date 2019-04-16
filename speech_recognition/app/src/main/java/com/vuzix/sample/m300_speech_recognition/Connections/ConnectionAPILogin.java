@@ -93,13 +93,13 @@ public class ConnectionAPILogin extends ConnectionAPI {
 
             HashMap<String, String> params = new HashMap<String, String>();
 
-            params.put("user","guillaume");
-            params.put("password","guillaume");
+            //params.put("user","guillaume");
+            //params.put("password","guillaume");
 
-            //TextView txtUser = (TextView) mLogin.findViewById(R.id.txtUsername);
-            //TextView txtPassword = (TextView) mLogin.findViewById(R.id.txtPassword);
-            //params.put("user",txtUser.getText().toString());
-            //params.put("password",txtPassword.getText().toString());
+            TextView txtUser = (TextView) mLogin.findViewById(R.id.txtUsername);
+            TextView txtPassword = (TextView) mLogin.findViewById(R.id.txtPassword);
+            params.put("user",txtUser.getText().toString());
+            params.put("password",txtPassword.getText().toString());
 
             params.put("companyName",mLogin.getIntent().getStringExtra("lisadbName"));
 

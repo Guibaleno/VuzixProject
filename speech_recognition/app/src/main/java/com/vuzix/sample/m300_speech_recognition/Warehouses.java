@@ -76,14 +76,12 @@ public class Warehouses extends AppCompatActivity {
         if (selectedIndex < listWarehouseName.size())
         {
             txtSelectedItem.setText("Selected Item : " + listWarehouseName.get(selectedIndex));
-            Toast("Selected Item : " + listWarehouseName.get(selectedIndex));
         }
 
     }
 
     public void MoveToZones()
     {
-        Toast(txtSelectedItem.getText().toString());
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
             String stringToRemove = "Selected item : ";

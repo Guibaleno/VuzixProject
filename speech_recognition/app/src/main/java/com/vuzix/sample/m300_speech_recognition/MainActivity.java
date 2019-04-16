@@ -197,7 +197,6 @@ public class MainActivity extends Activity {
             recyclerCompanies.requestFocus(selectedIndex);
             recyclerCompanies.smoothScrollToPosition(selectedIndex);
             txtSelectedItem.setText("Selected Item : " + listName.get(selectedIndex));
-            Toast("Selected Item : " + listName.get(selectedIndex));
         }
 
     }

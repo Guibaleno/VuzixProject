@@ -44,6 +44,7 @@ public class Orders extends AppCompatActivity {
         APIAdress = getAPIAdress();
         connectionOrder = new ConnectionAPIOrders(this, APIAdress);
         getOrder();
+        HeaderInfo.setIdZone(getIntent().getStringExtra("idZone"));
     }
 
     void SetSelectedZoneText()
@@ -64,7 +65,6 @@ public class Orders extends AppCompatActivity {
     public void InsertDataIntoOrders(String idOrder)
     {
         listIdOrders.add(idOrder);
-        Log.d("IdOrder", String.valueOf(idOrder));
     }
 
     private void getOrder(){
@@ -79,19 +79,15 @@ public class Orders extends AppCompatActivity {
 
     public void SelectItemInRecyclerViewOrders(int selectedValue)
     {
-        Log.d("selectedIndex", String.valueOf(selectedValue));
         int selectedIndex = listIdOrders.indexOf(String.valueOf(selectedValue));
-        Log.d("selectedIndex", String.valueOf(selectedIndex));
         recyclerOrders.setFocusable(true);
         recyclerOrders.requestFocus(selectedIndex);
         recyclerOrders.smoothScrollToPosition(selectedIndex);
         txtSelectedItem.setText("Selected order : " + listIdOrders.get(selectedIndex));
-        //Toast("Selected Item : " + listIdOrders.get(selectedIndex));
     }
 
     public void MoveToLicensePlate()
     {
-        Toast(txtSelectedItem.getText().toString());
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
             String stringToRemove = "Selected order : ";
@@ -99,7 +95,6 @@ public class Orders extends AppCompatActivity {
             Intent intent = new Intent(this, LicensePlate.class);
             intent.putExtra("idwareHouse", getIntent().getStringExtra("idwareHouse"));
             intent.putExtra("idOrder",listIdOrders.get(indexOfString));
-            intent.putExtra("idZone",getIntent().getStringExtra("idZone"));
             intent.putExtra("zoneName",getIntent().getStringExtra("zoneName"));
             startActivity(intent);
         }

@@ -122,7 +122,10 @@ public class ConnectionAPI extends AsyncTask<String,Void,String> {
                         dialog.dismiss();
                     }
                 });
-        alertDialog.show();
+        if (!alertDialog.isShowing())
+        {
+            alertDialog.show();
+        }
     }
 
     public void HideAlert()

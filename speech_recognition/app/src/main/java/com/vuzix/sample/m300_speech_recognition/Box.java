@@ -6,33 +6,47 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
 
+import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPISaleOrders;
+
 public class Box extends View {
     private Paint paint = new Paint();
-    public Box(Context context) {
+    public String orderNumber;
+    public String bin;
+    public String description;
+    public String productCode;
+    public String licensePlate;
+    public String quantity;
+    public Box(Context context, String newOrderNumber,String newBin,String newDescription,
+               String newProductCode,String newLicensePlate,String newQuantity) {
         super(context);
+        orderNumber = newOrderNumber;
+        bin = newBin;
+        description = newDescription;
+        productCode = newProductCode;
+        licensePlate = newLicensePlate;
+        quantity = newQuantity;
     }
-
+    private ConnectionAPISaleOrders connection;
     @Override
     protected void onDraw(Canvas canvas) { // Override the onDraw() Method
         super.onDraw(canvas);
 
         //paint.setStyle(Paint.Style.STROKE);
-        //paint.setColor(Color.GREEN);
-        //paint.setStrokeWidth(10);
+        paint.setColor(Color.WHITE);
+        paint.setTextSize(25);
+        canvas.drawText("Order #" + orderNumber, 10, 20, paint);
+        canvas.drawText("Bin:" + bin, 10, 42, paint);
+        canvas.drawText("Description:" + description, 10, 64, paint);
+        canvas.drawText("Product code:" + productCode, 10, 86, paint);
+        canvas.drawText("License plate:" + licensePlate, 10, 108, paint);
+        canvas.drawText("Quantity:" + quantity, 10, 130, paint);
 
-        //center
-        int x0 = canvas.getWidth()/2;
-        int y0 = canvas.getHeight()/2;
-        int dx = canvas.getHeight()/3;
-        int dy = canvas.getHeight()/3;
-        //draw guide box
-        //canvas.drawRect(x0-dx, y0-dy, x0+dx, y0+dy, paint);
+        //canvas.drawText("Order #" + orderNumber + "\n" +
+        //                     "Bin:" + bin + "\n" +
+        //                     "Description:" + description + "\n" +
+        //                     "Product code:" + productCode + "\n" +
+        //                     "License plate:" + licensePlate + "\n" +
+        //                     "Quantity:" + quantity, 10,10,paint);
 
-        canvas.drawText("AAAHHHHH", 10, 10, paint);
-        canvas.drawText("AAAHHHHH2", 10, 20, paint);
-        //String test = "bsdyusagdas";
-        //char[] asd = test.toCharArray();
-//
-        //paint.breakText(asd, 0, 2, 40, new float[3]);
     }
 }
