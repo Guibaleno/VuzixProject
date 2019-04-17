@@ -50,7 +50,7 @@ public class ConnectionAPIWarehouses extends ConnectionAPI {
                 }
                 mWarehouse.BindData();
                 mWarehouse.CreateStringsWarehouse();
-
+                mWarehouse.HideProgress();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

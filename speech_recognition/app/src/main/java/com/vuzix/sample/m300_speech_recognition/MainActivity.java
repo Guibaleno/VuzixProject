@@ -45,6 +45,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,6 +66,7 @@ public class MainActivity extends Activity {
     RecyclerView recyclerCompanies;
     TextView txtSelectedItem;
     TextView txtInstructions;
+    ProgressBar progressCompanies;
 
     RecyclerView.Adapter mAdapterRecyclerCompanies;
     RecyclerView.LayoutManager mLayoutManagerRecyclerCompanies;
@@ -85,12 +87,11 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("ICI", "ICI1");
-        Log.i("ICI", "ICI1");
         mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
         recyclerCompanies = (RecyclerView) findViewById(R.id.recyclerCompanies);
         txtSelectedItem = (TextView) findViewById(R.id.txtSelectedItem);
         txtInstructions = (TextView) findViewById(R.id.txtInstructions);
+        progressCompanies = (ProgressBar) findViewById(R.id.progressCompanies);
 
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
@@ -100,6 +101,7 @@ public class MainActivity extends Activity {
 
 
         // Create the voice command receiver class
+        progressCompanies.setVisibility(View.VISIBLE);
         connection = new ConnectionAPICompanies(this, APIAdress);
         // Now register another intent handler to demonstrate intents sent from the service
        // myIntentReceiver = new MyIntentReceiver();
@@ -238,6 +240,10 @@ public class MainActivity extends Activity {
             finish();
     }
 
+    public void HideProgress()
+    {
+        progressCompanies.setVisibility(View.INVISIBLE);
+    }
 
 }
 

@@ -46,7 +46,7 @@ public class ConnectionAPICompanies extends ConnectionAPI {
                     mMainActivity.BindData();
                     mMainActivity.CreateStringsCompanies();
                 }
-
+                mMainActivity.HideProgress();
             }
             catch (JSONException e){e.printStackTrace();}
         }

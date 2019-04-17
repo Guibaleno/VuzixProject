@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ public class Orders extends AppCompatActivity {
     List<String> listIdOrders = new ArrayList<String>();
     TextView txtSelectedItem;
     TextView txtSelectedZone;
+    ProgressBar progressOrders;
 
     VoiceCmdReceiverOrders mVoiceCmdReceiverOrders;
     ConnectionAPIOrders connectionOrder;
@@ -36,8 +39,9 @@ public class Orders extends AppCompatActivity {
         txtSelectedItem = (TextView) findViewById(R.id.txtSelectedItem);
         txtSelectedZone = (TextView) findViewById(R.id.txtSelectedZone);
         recyclerOrders = (RecyclerView) findViewById(R.id.recyclerOrders);
+        progressOrders = (ProgressBar) findViewById(R.id.progressOrders);
 
-
+        progressOrders.setVisibility(View.VISIBLE);
         mVoiceCmdReceiverOrders = new VoiceCmdReceiverOrders(this);
 
         SetSelectedZoneText();
@@ -144,5 +148,10 @@ public class Orders extends AppCompatActivity {
         intent.putExtra("zoneName",getIntent().getStringExtra("zoneName"));
         startActivity(intent);
         finish();
+    }
+
+    public void HideProgress()
+    {
+        progressOrders.setVisibility(View.INVISIBLE);
     }
 }

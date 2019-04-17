@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ public class Zones extends AppCompatActivity {
     List<String> listZonesName = new ArrayList<String>();
     TextView txtSelectedItem;
     TextView txtWarehouse;
+    ProgressBar progressZones;
 
 
     VoiceCmdReceiverZones mVoiceCmdReceiverZones;
@@ -37,9 +40,10 @@ public class Zones extends AppCompatActivity {
         txtSelectedItem = (TextView) findViewById(R.id.txtSelectedItem);
         txtWarehouse = (TextView) findViewById(R.id.textView_Warehouse);
         recyclerZones = (RecyclerView) findViewById(R.id.recyclerZones);
+        progressZones = (ProgressBar) findViewById(R.id.progressZones);
 
 
-
+        progressZones.setVisibility(View.VISIBLE);
         mVoiceCmdReceiverZones = new VoiceCmdReceiverZones(this);
         connectionZone = new ConnectionAPIZones(this, APIAdress);
 
@@ -48,6 +52,11 @@ public class Zones extends AppCompatActivity {
         getZone();
     }
 
+    @Override
+    protected void onDestroy() {
+        mVoiceCmdReceiverZones.unregister();
+        super.onDestroy();
+    }
 
     void SetOrderInfoText()
     {
@@ -140,5 +149,10 @@ public class Zones extends AppCompatActivity {
         intent.putExtra("WarehouseName",getIntent().getStringExtra("WarehouseName"));
         startActivity(intent);
         finish();
+    }
+
+    public void HideProgress()
+    {
+        progressZones.setVisibility(View.INVISIBLE);
     }
 }

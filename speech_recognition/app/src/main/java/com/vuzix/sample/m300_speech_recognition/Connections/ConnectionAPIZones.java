@@ -50,7 +50,7 @@ public class ConnectionAPIZones extends ConnectionAPI {
                 }
                 mZones.BindData();
                 mZones.CreateStringsZone();
-
+                mZones.HideProgress();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

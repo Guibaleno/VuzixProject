@@ -31,7 +31,6 @@ public class Box extends View {
     protected void onDraw(Canvas canvas) { // Override the onDraw() Method
         super.onDraw(canvas);
 
-        //paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.WHITE);
         paint.setTextSize(25);
         canvas.drawText("Order #" + orderNumber, 10, 20, paint);
@@ -40,13 +39,5 @@ public class Box extends View {
         canvas.drawText("Product code:" + productCode, 10, 86, paint);
         canvas.drawText("License plate:" + licensePlate, 10, 108, paint);
         canvas.drawText("Quantity:" + quantity, 10, 130, paint);
-
-        //canvas.drawText("Order #" + orderNumber + "\n" +
-        //                     "Bin:" + bin + "\n" +
-        //                     "Description:" + description + "\n" +
-        //                     "Product code:" + productCode + "\n" +
-        //                     "License plate:" + licensePlate + "\n" +
-        //                     "Quantity:" + quantity, 10,10,paint);
-
     }
 }

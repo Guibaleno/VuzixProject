@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ public class Warehouses extends AppCompatActivity {
     List<String> listIdWarehouse = new ArrayList<String>();
     List<String> listWarehouseName = new ArrayList<String>();
     TextView txtSelectedItem;
+    ProgressBar progressWarehouses;
 
     VoiceCmdReceiverWarehouses mVoiceCmdReceiverWarehouse;
     ConnectionAPIWarehouses connectionWarehouse;
@@ -34,11 +37,19 @@ public class Warehouses extends AppCompatActivity {
 
         txtSelectedItem = (TextView) findViewById(R.id.txtSelectedItem);
         recyclerWarehouses = (RecyclerView) findViewById(R.id.recyclerWarehouses);
+        progressWarehouses = (ProgressBar) findViewById(R.id.progressWarehouses);
+        progressWarehouses.setVisibility(View.VISIBLE);
 
         mVoiceCmdReceiverWarehouse = new VoiceCmdReceiverWarehouses(this);
         connectionWarehouse = new ConnectionAPIWarehouses(this, APIAdress);
 
         getWarehouse();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mVoiceCmdReceiverWarehouse.unregister();
+        super.onDestroy();
     }
 
     public void BindData()
@@ -126,5 +137,10 @@ public class Warehouses extends AppCompatActivity {
 
        startActivity(intent);
         finish();
+    }
+
+    public void HideProgress()
+    {
+        progressWarehouses.setVisibility(View.INVISIBLE);
     }
 }

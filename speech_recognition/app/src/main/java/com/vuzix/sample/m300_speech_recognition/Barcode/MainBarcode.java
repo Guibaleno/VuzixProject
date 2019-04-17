@@ -218,6 +218,12 @@ public class MainBarcode extends Activity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        mVoiceCmdReceiverScanBarcode.unregister();
+        super.onDestroy();
+    }
+
     /**
      * Opens the camera
      */

@@ -184,10 +184,10 @@ public class VoiceCmdReceiverLicensePlate extends VoiceCmdReceiver {
     public void unregister() {
         try {
             mLicensePLate.unregisterReceiver(this);
-            Log.i(mLicensePLate.LOG_TAG, "Custom vocab removed");
+
             mLicensePLate = null;
         }catch (Exception e) {
-            Log.e(mLicensePLate.LOG_TAG, "Custom vocab died " + e.getMessage());
+
         }
     }
 }

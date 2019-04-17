@@ -49,7 +49,7 @@ public class ConnectionAPIOrders extends ConnectionAPI {
                 }
 
                 mOrders.BindData();
-
+                mOrders.HideProgress();
 
             } catch (JSONException e) {
                 e.printStackTrace();
