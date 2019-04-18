@@ -144,6 +144,7 @@ public class Zones extends AppCompatActivity {
     public void Reload()
     {
         mVoiceCmdReceiverZones.unregister();
+        connectionZone.HideAlert();
         Intent intent = new Intent(this, Zones.class);
         intent.putExtra("idwareHouse",getIntent().getStringExtra("idwareHouse"));
         intent.putExtra("WarehouseName",getIntent().getStringExtra("WarehouseName"));

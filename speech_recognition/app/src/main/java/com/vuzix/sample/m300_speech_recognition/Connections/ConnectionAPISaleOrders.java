@@ -35,7 +35,7 @@ public class ConnectionAPISaleOrders extends ConnectionAPI {
 
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-
+    
                         if (jsonObject.has("idProduct")) {
                             String newBin = jsonObject.getString("name");
                             String newDescription = jsonObject.getString("productName");

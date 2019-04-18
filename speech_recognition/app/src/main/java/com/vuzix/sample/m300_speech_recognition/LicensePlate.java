@@ -105,10 +105,12 @@ public class LicensePlate extends AppCompatActivity {
     public void Reload()
     {
             Intent intent = new Intent(this, LicensePlate.class);
+            connection.HideAlert();
             intent.putExtra("zoneName",txtZone.getText().toString());
             intent.putExtra("idOrder",txtOrder.getText().toString());
             intent.putExtra("idwareHouse", getIntent().getStringExtra("idwareHouse"));
             intent.putExtra("licensePlateNo",txtLicensePlate.getText().toString());
+            mVoiceCmdReceiverLicensePlate.unregister();
             finish();
             startActivity(intent);
     }

@@ -143,6 +143,7 @@ public class Orders extends AppCompatActivity {
     public void Reload()
     {
         mVoiceCmdReceiverOrders.unregister();
+        connectionOrder.HideAlert();
         Intent intent = new Intent(this, Orders.class);
         intent.putExtra("idZone",getIntent().getStringExtra("idZone"));
         intent.putExtra("zoneName",getIntent().getStringExtra("zoneName"));

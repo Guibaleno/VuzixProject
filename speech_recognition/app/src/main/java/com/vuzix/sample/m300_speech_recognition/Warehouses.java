@@ -133,6 +133,7 @@ public class Warehouses extends AppCompatActivity {
     public void Reload()
     {
         mVoiceCmdReceiverWarehouse.unregister();
+        connectionWarehouse.HideAlert();
        Intent intent = new Intent(this, Warehouses.class);
 
        startActivity(intent);

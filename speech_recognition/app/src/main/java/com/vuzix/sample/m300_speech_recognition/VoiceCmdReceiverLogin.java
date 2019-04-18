@@ -214,7 +214,7 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
                     }
                     else if (phrase.equals(MATCH_DISMISS_LOGIN))
                     {
-                        mLogin.Dimiss();
+                        mLogin.Dismiss();
                     }
                 }
             }

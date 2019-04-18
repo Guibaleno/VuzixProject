@@ -115,12 +115,13 @@ public class Login extends AppCompatActivity {
         intent.putExtra("username",txtUsername.getText().toString());
         intent.putExtra("password",txtPassword.getText().toString());
         mVoiceCmdReceiver.unregister();
+        Dismiss();
         finish();
 
         startActivity(intent);
     }
 
-    public void Dimiss(){
+    public void Dismiss(){
         connection.HideAlert();
     }
 
