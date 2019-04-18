@@ -440,8 +440,16 @@ public class MainBarcode extends Activity {
     {
         String idOrder = getIntent().getStringExtra("idOrder");
         String licensePlateNo = getIntent().getStringExtra("licensePlateNo");
+        CurrentBarcode.setBarcodeToScan(newBin);
         box = new Box(this,idOrder,newBin,newDescription,
                 newProductCode,licensePlateNo,newQuantity);
         addContentView(box, new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
+    }
+
+    public void ShowNextItem()
+    {
+        connection = null;
+        connection = new ConnectionAPISaleOrders(this, getAPIAdress());
+        connection.execute();
     }
 }
