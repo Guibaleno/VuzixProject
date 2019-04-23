@@ -31,6 +31,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.vuzix.sample.m300_speech_recognition.Box;
+import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPIConfirmItemOrder;
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPISaleOrders;
 import com.vuzix.sample.m300_speech_recognition.HeaderInfo;
 import com.vuzix.sample.m300_speech_recognition.OrderInfo;
@@ -73,6 +74,7 @@ public class MainBarcode extends Activity {
     VoiceCmdReceiverScanBarcode mVoiceCmdReceiverScanBarcode;
 
     ConnectionAPISaleOrders connection;
+    ConnectionAPIConfirmItemOrder connectionConfirmItemOrder;
 
     /**
      * Registers the UI handlers and threads, and creates the barcode scanner object
@@ -141,10 +143,10 @@ public class MainBarcode extends Activity {
         // Create the class that will handle the image and process for barcodes
         mBarcodeProcessor = new BarcodeFinder(this);
 
-        connection = new ConnectionAPISaleOrders(this, getAPIAdress(),getAPITransfertBatchID());
+        connection = new ConnectionAPISaleOrders(this, getAPIAdress(),getAPIAdressBatchTransfertID());
+        connectionConfirmItemOrder = new ConnectionAPIConfirmItemOrder(this, getAPIAdress(),getAPIAdressLicensePlateID());
         connection.execute();
 
-        getAPITransfertBatchID();
     }
 
     /**
@@ -452,9 +454,23 @@ public class MainBarcode extends Activity {
         return  "https://216.226.53.29/V5/API/SaleOrders%28" + orderNo +"%29/Pickroutes";
     }
 
-    public String getAPITransfertBatchID()
+    public String getAPIAdressBatchTransfertID()
     {
         return  "https://216.226.53.29/V5/API/InventoryTransfer/BatchTransferId";
+    }
+
+    public String getAPIAdressItemOrderConfirm(String IDLine)
+    {
+        String orderNo = getIntent().getStringExtra("idOrder");
+        return  "https://216.226.53.29/V5/API/SaleOrders%28" + orderNo +
+        "%29/Pickroutes/PickLines%28" + IDLine + "%29.Confirm";
+    }
+
+    public String getAPIAdressLicensePlateID()
+    {
+        String orderNo = getIntent().getStringExtra("idOrder");
+        return  "https://216.226.53.29/V5/API/Warehouses%28" + HeaderInfo.getIdWarehouse() +
+         "%29/Licenseplates%28" + getIntent().getStringExtra("licensePlateNo") + "%29";
     }
 
     public void setCanvasInfo(String newBin,String newDescription,
@@ -471,7 +487,7 @@ public class MainBarcode extends Activity {
     public void ShowNextItem()
     {
         connection = null;
-        connection = new ConnectionAPISaleOrders(this, getAPIAdress(),getAPITransfertBatchID());
+        connection = new ConnectionAPISaleOrders(this, getAPIAdress(),getAPIAdressBatchTransfertID());
         connection.execute();
     }
 
@@ -498,5 +514,10 @@ public class MainBarcode extends Activity {
                 addContentView(box, new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
             }
         });
+    }
+
+    public void setItemQuantity()
+    {
+        box.setItemQuantity();
     }
 }

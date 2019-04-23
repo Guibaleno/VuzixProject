@@ -4,7 +4,9 @@ public class HeaderInfo {
     static String token;
     static String idWarehouse;
     static String idZone;
-
+    static String BatchTransfertID;
+    static String LicensePlateID;
+    static String itemQuantity;
 
     public static void setToken(String newToken)
     {
@@ -32,6 +34,34 @@ public class HeaderInfo {
     public static String getIdZone()
     {
         return idZone;
+    }
+
+
+    public static void setBatchTransfertID(String newBatchTransfertID)
+    {
+        BatchTransfertID = newBatchTransfertID;
+    }
+    public static String getBatchTransfertID()
+    {
+        return BatchTransfertID;
+    }
+
+    public static void setLicensePlateID(String newLicensePlateID)
+    {
+        LicensePlateID = newLicensePlateID;
+    }
+    public static String getLicensePlateID()
+    {
+        return LicensePlateID;
+    }
+
+    public static void setItemQuantity(String newItemQuantity)
+    {
+        itemQuantity = newItemQuantity;
+    }
+    public static String getItemQuantity()
+    {
+        return itemQuantity;
     }
 
 }

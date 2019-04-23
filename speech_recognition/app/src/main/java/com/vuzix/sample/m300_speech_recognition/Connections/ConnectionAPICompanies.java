@@ -89,6 +89,7 @@ public class ConnectionAPICompanies extends ConnectionAPI {
             if (buffer.length() == 0) {
                 return null;
             }
+            connection.disconnect();
             return buffer.toString();
         }
         catch (MalformedURLException e)

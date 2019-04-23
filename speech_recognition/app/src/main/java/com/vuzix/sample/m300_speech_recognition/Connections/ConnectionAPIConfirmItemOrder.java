@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.vuzix.sample.m300_speech_recognition.Barcode.MainBarcode;
+import com.vuzix.sample.m300_speech_recognition.Box;
 import com.vuzix.sample.m300_speech_recognition.HeaderInfo;
 import com.vuzix.sample.m300_speech_recognition.R;
 
@@ -20,49 +21,26 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-public class ConnectionAPISaleOrders extends ConnectionAPI {
+public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
     MainBarcode mMainBarcode;
-    public String APIAdressBatchTransfertID;
-    public ConnectionAPISaleOrders(MainBarcode mainBarcode, String apiAdress, String apiAdressBatchTransfertID) {
+    public String APIAdressLicensePlateID;
+    public ConnectionAPIConfirmItemOrder(MainBarcode mainBarcode, String apiAdress, String apiAdressLicencePlateID) {
         super();
         mMainBarcode = mainBarcode;
         APIAdress = apiAdress;
-        APIAdressBatchTransfertID = apiAdressBatchTransfertID;
     }
 
 
-    @Override
-    protected void onPostExecute(String response) {
-        if (checknetwork(mMainBarcode)) {
-            if (response != null) {
 
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-    
-                        if (jsonObject.has("idProduct")) {
-                            String newBin = jsonObject.getString("name");
-                            String newDescription = jsonObject.getString("productName");
-                            String newProductCode = jsonObject.getString("internIdProduct");
-                            String newCustomerOrder = jsonObject.getString("idCustomerOrder");
-                            String newQuantity = jsonObject.getString("qtyToPick");
-                            mMainBarcode.setCanvasInfo(newBin,
-                                    newDescription, newProductCode, newQuantity);
-                        }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 
     @Override
     public String ManageConnection() {
         StringBuffer jsonString = new StringBuffer();
         try {
             URL url = new URL(APIAdress);
-            URL urlBatchTransfertID = new URL(APIAdressBatchTransfertID);
+            URL urlLicensePlateID = new URL(APIAdressLicensePlateID);
 
-            connection = (HttpURLConnection) urlBatchTransfertID.openConnection();
+            connection = (HttpURLConnection) urlLicensePlateID.openConnection();
             connection.setRequestMethod("GET");
             connection.setInstanceFollowRedirects(false);
             connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -85,7 +63,7 @@ public class ConnectionAPISaleOrders extends ConnectionAPI {
             }
             connection.disconnect();
             if (buffer.length() != 0) {
-                HeaderInfo.setBatchTransfertID(buffer.toString());
+                HeaderInfo.setLicensePlateID(buffer.toString());
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoInput(true);
@@ -94,11 +72,11 @@ public class ConnectionAPISaleOrders extends ConnectionAPI {
                 connection.setRequestProperty("jwt", HeaderInfo.getToken());
                 connection.connect();
                 HashMap<String, String> params = new HashMap<String, String>();
-
-                params.put("resetPickRoute", "false");
-                params.put("zoneId", HeaderInfo.getIdZone());
-                params.put("warehouseId", HeaderInfo.getIdWarehouse());
-                params.put("reversePickRoute", "false");
+                params.put("LicensePlateId", HeaderInfo.getLicensePlateID());
+                params.put("batchNumber", "");
+                params.put("serialNumber", "");
+                params.put("batchTransferId", HeaderInfo.getBatchTransfertID());
+                params.put("quantity", HeaderInfo.getItemQuantity());
 
                 JSONObject obj = new JSONObject(params);
                 String payload = obj.toString();
@@ -118,6 +96,7 @@ public class ConnectionAPISaleOrders extends ConnectionAPI {
                 br.close();
                 connection.disconnect();
             }
+
         }
         catch (Exception e){}
         return jsonString.toString();
