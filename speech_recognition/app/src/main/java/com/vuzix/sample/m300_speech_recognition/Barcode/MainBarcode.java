@@ -65,6 +65,9 @@ public class MainBarcode extends Activity {
     private Handler mBackgroundHandler;
     private Handler mUiThreadHandler;
 
+    private String customerId;
+    private String lineId;
+
     BarcodeFinder mBarcodeProcessor;
 
     private boolean mTakingPicture;   // Prevents multiple requests at one time
@@ -144,7 +147,6 @@ public class MainBarcode extends Activity {
         mBarcodeProcessor = new BarcodeFinder(this);
 
         connection = new ConnectionAPISaleOrders(this, getAPIAdress(),getAPIAdressBatchTransfertID());
-        connectionConfirmItemOrder = new ConnectionAPIConfirmItemOrder(this, getAPIAdress(),getAPIAdressLicensePlateID());
         connection.execute();
 
     }
@@ -459,16 +461,21 @@ public class MainBarcode extends Activity {
         return  "https://216.226.53.29/V5/API/InventoryTransfer/BatchTransferId";
     }
 
-    public String getAPIAdressItemOrderConfirm(String IDLine)
+    public String getAPIAdressItemOrderConfirm()
     {
-        String orderNo = getIntent().getStringExtra("idOrder");
-        return  "https://216.226.53.29/V5/API/SaleOrders%28" + orderNo +
-        "%29/Pickroutes/PickLines%28" + IDLine + "%29.Confirm";
+        return  "https://216.226.53.29/V5/API/SaleOrders%28" + customerId +
+                "%29/Pickroutes/PickLines%28" + lineId + "%29.Confirm";
+    }
+
+    public void setAPIAdressItemOrderConfirm(String IDLine, String IDCustomer)
+    {
+
+        customerId  = IDCustomer;
+        lineId = IDLine;
     }
 
     public String getAPIAdressLicensePlateID()
     {
-        String orderNo = getIntent().getStringExtra("idOrder");
         return  "https://216.226.53.29/V5/API/Warehouses%28" + HeaderInfo.getIdWarehouse() +
          "%29/Licenseplates%28" + getIntent().getStringExtra("licensePlateNo") + "%29";
     }
@@ -518,6 +525,15 @@ public class MainBarcode extends Activity {
 
     public void setItemQuantity()
     {
-        box.setItemQuantity();
+        if (box.setItemQuantity())
+        {
+            connectionConfirmItemOrder = new ConnectionAPIConfirmItemOrder(this, getAPIAdressItemOrderConfirm(),getAPIAdressLicensePlateID());
+            connectionConfirmItemOrder.execute();
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "Enter a valid quantity", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

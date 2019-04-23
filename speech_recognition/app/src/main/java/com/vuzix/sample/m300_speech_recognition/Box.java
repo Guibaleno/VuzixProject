@@ -75,8 +75,13 @@ public class Box extends View {
         canvas.drawText("Quantity Entered : " + qtyEntered,200,42,paint);
     }
 
-    public void setItemQuantity()
+    public boolean setItemQuantity()
     {
-        HeaderInfo.setItemQuantity(qtyEntered);
+        if (Float.parseFloat(qtyEntered) > 0)
+        {
+            HeaderInfo.setItemQuantity(qtyEntered);
+            return true;
+        }
+        return false;
     }
 }

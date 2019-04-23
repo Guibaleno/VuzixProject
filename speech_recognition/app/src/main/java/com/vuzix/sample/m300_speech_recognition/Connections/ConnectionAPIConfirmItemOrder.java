@@ -24,10 +24,10 @@ import java.util.HashMap;
 public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
     MainBarcode mMainBarcode;
     public String APIAdressLicensePlateID;
-    public ConnectionAPIConfirmItemOrder(MainBarcode mainBarcode, String apiAdress, String apiAdressLicencePlateID) {
+    public ConnectionAPIConfirmItemOrder(MainBarcode mainBarcode, String apiAdressItemOrderConfirm, String apiAdressLicencePlateID) {
         super();
         mMainBarcode = mainBarcode;
-        APIAdress = apiAdress;
+        APIAdress = apiAdressItemOrderConfirm;
         APIAdressLicensePlateID = apiAdressLicencePlateID;
     }
 

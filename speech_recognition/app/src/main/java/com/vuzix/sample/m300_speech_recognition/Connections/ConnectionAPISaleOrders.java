@@ -22,12 +22,12 @@ import java.util.HashMap;
 
 public class ConnectionAPISaleOrders extends ConnectionAPI {
     MainBarcode mMainBarcode;
-    public String APIAdressBatchTransfertID;
-    public ConnectionAPISaleOrders(MainBarcode mainBarcode, String apiAdress, String apiAdressBatchTransfertID) {
+    public String APIAdressBatchTransferID;
+    public ConnectionAPISaleOrders(MainBarcode mainBarcode, String apiAdress, String apiAdressBatchTransferID) {
         super();
         mMainBarcode = mainBarcode;
         APIAdress = apiAdress;
-        APIAdressBatchTransfertID = apiAdressBatchTransfertID;
+        APIAdressBatchTransferID = apiAdressBatchTransferID;
     }
 
 
@@ -44,9 +44,11 @@ public class ConnectionAPISaleOrders extends ConnectionAPI {
                             String newDescription = jsonObject.getString("productName");
                             String newProductCode = jsonObject.getString("internIdProduct");
                             String newCustomerOrder = jsonObject.getString("idCustomerOrder");
+                            String newIDLine = jsonObject.getString("idLine");
                             String newQuantity = jsonObject.getString("qtyToPick");
                             mMainBarcode.setCanvasInfo(newBin,
                                     newDescription, newProductCode, newQuantity);
+                            mMainBarcode.setAPIAdressItemOrderConfirm(newIDLine, newCustomerOrder);
                         }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -60,7 +62,7 @@ public class ConnectionAPISaleOrders extends ConnectionAPI {
         StringBuffer jsonString = new StringBuffer();
         try {
             URL url = new URL(APIAdress);
-            URL urlBatchTransfertID = new URL(APIAdressBatchTransfertID);
+            URL urlBatchTransfertID = new URL(APIAdressBatchTransferID);
 
             connection = (HttpURLConnection) urlBatchTransfertID.openConnection();
             connection.setRequestMethod("GET");

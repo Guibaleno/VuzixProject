@@ -47,10 +47,8 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
             sc.defineIntent(TOAST_EVENT, customToastIntent );
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
             sc.insertPhrase(MATCH_RETURN, MATCH_RETURN_TO_LICENSE);
-            sc.insertPhrase(MATCH_NEXT, MATCH_NEXT);
             sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_BARCODE);
             sc.insertPhrase(MATCH_SCAN, MATCH_SCAN);
-            sc.insertPhrase(MATCH_NEXT, MATCH_NEXT);
 
             // See what we've done
 
@@ -152,6 +150,7 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
         }
         sc.insertPhrase("point", MATCH_POINT);
         sc.insertPhrase("erase", MATCH_ERASE);
+        sc.insertPhrase(MATCH_NEXT, MATCH_NEXT);
     }
 
 
