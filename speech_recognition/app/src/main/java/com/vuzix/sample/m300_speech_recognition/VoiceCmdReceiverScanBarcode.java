@@ -23,7 +23,7 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
     public final String MATCH_RETURN_TO_LICENSE = "ReturnToLicense";
     public final String MATCH_RELOAD_BARCODE = "RealoadMainBarcode";
     public final String MATCH_SCAN = "Scan";
-    public final String MATCH_DOT = "Dot";
+    public final String MATCH_POINT = "Point";
     public final String MATCH_ERASE = "erase";
     List<String> quantityPossible = new ArrayList<>();
     public VoiceCmdReceiverScanBarcode(MainBarcode iActivity)
@@ -50,6 +50,7 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
             sc.insertPhrase(MATCH_NEXT, MATCH_NEXT);
             sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_BARCODE);
             sc.insertPhrase(MATCH_SCAN, MATCH_SCAN);
+            sc.insertPhrase(MATCH_NEXT, MATCH_NEXT);
 
             // See what we've done
 
@@ -94,7 +95,6 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
 
                     // Determine the specific phrase that was recognized and act accordingly
 
-                    Log.d("OrdersPenis", phrase);
                     if (phrase.equals(MATCH_NEXT))
                     {
                         //mainBarcode.MoveToLicensePlate();
@@ -111,6 +111,10 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
                     {
                         mainBarcode.takeStillPicture();
                     }
+                    else if(phrase.equals(MATCH_NEXT))
+                    {
+                        mainBarcode.setItemQuantity();
+                    }
                     else {
                         for (int cptNumber = 0;cptNumber < numbers.length; cptNumber ++)
                         {
@@ -119,7 +123,7 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
                                 mainBarcode.setTextQty(cptNumber);
                             }
                         }
-                        if (phrase.equals(MATCH_DOT))
+                        if (phrase.equals(MATCH_POINT))
                         {
                             mainBarcode.addDot();
                         }
@@ -146,7 +150,7 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
         {
             sc.insertPhrase(numbers[cptNumber], numbers[cptNumber]);
         }
-        sc.insertPhrase("dot", MATCH_DOT);
+        sc.insertPhrase("point", MATCH_POINT);
         sc.insertPhrase("erase", MATCH_ERASE);
     }
 

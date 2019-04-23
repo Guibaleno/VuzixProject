@@ -74,4 +74,9 @@ public class Box extends View {
         canvas.drawText( scanText,200,20,paint);
         canvas.drawText("Quantity Entered : " + qtyEntered,200,42,paint);
     }
+
+    public void setItemQuantity()
+    {
+        HeaderInfo.setItemQuantity(qtyEntered);
+    }
 }

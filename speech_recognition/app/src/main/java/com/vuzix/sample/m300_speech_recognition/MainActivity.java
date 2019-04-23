@@ -87,7 +87,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
         recyclerCompanies = (RecyclerView) findViewById(R.id.recyclerCompanies);
         txtSelectedItem = (TextView) findViewById(R.id.txtSelectedItem);
         txtInstructions = (TextView) findViewById(R.id.txtInstructions);
@@ -102,6 +101,7 @@ public class MainActivity extends Activity {
 
         // Create the voice command receiver class
         progressCompanies.setVisibility(View.VISIBLE);
+        mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
         connection = new ConnectionAPICompanies(this, APIAdress);
         // Now register another intent handler to demonstrate intents sent from the service
        // myIntentReceiver = new MyIntentReceiver();
@@ -193,7 +193,8 @@ public class MainActivity extends Activity {
 
     public void SelectItemInRecyclerViewCompanies(int selectedIndex)
     {
-        if (recyclerCompanies.getAdapter().getItemCount() > selectedIndex)
+
+        if (recyclerCompanies.getAdapter().getItemCount() > selectedIndex && selectedIndex > -1)
         {
             recyclerCompanies.setFocusable(true);
             recyclerCompanies.requestFocus(selectedIndex);
@@ -208,6 +209,7 @@ public class MainActivity extends Activity {
 
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
+            mVoiceCmdReceiver.unregister();
             String stringToRemove = "Selected item : ";
             int indexOfString = listName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, Login.class);
@@ -245,5 +247,17 @@ public class MainActivity extends Activity {
         progressCompanies.setVisibility(View.INVISIBLE);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d( "etee",txtSelectedItem.getText().toString());
+        //If we say "return"
+        if (!txtSelectedItem.getText().equals("Select a Company"))
+        {
+            mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
+            mVoiceCmdReceiver.CreateStrings(recyclerCompanies, getResources().getString(R.string.Companies));
+        }
+        txtSelectedItem.setText("Select a Company");
+    }
 }
 

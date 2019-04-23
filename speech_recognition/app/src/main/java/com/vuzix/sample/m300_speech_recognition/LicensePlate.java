@@ -87,6 +87,7 @@ public class LicensePlate extends AppCompatActivity {
 
     public void MoveToScanner() {
         Intent scannerIntent = new Intent(ScannerIntent.ACTION);
+        mVoiceCmdReceiverLicensePlate.unregister();
             //startActivityForResult(scannerIntent, REQUEST_CODE_SCAN);
             Intent intent = new Intent(this, MainBarcode.class);
             intent.putExtra("idOrder", getIntent().getStringExtra("idOrder"));

@@ -151,7 +151,7 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
             Log.i(mWarehouse.LOG_TAG, "Custom vocab removed");
             mWarehouse = null;
         }catch (Exception e) {
-            Log.e(mWarehouse.LOG_TAG, "Custom vocab died " + e.getMessage());
+            //Log.e(mWarehouse.LOG_TAG, "Custom vocab died " + e.getMessage());
         }
     }
 

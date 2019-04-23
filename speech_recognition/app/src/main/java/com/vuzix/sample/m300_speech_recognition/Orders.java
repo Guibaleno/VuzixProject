@@ -94,6 +94,7 @@ public class Orders extends AppCompatActivity {
     {
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
+            mVoiceCmdReceiverOrders.unregister();
             String stringToRemove = "Selected order : ";
             int indexOfString = listIdOrders.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, LicensePlate.class);

@@ -83,6 +83,7 @@ public class Login extends AppCompatActivity {
 
     public void MoveToWarehouse()
     {
+       // mVoiceCmdReceiver.unregister();
         Intent intent = new Intent(this, Warehouses.class);
         startActivity(intent);
     }
@@ -103,7 +104,7 @@ public class Login extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        mVoiceCmdReceiver.unregister();
+        //mVoiceCmdReceiver.unregister();
         super.onDestroy();
     }
 

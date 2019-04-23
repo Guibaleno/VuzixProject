@@ -81,6 +81,7 @@ public class Warehouses extends AppCompatActivity {
 
     public void SelectItemInRecyclerViewWarehouse(int selectedIndex)
     {
+
         recyclerWarehouses.setFocusable(true);
         recyclerWarehouses.requestFocus(selectedIndex);
         recyclerWarehouses.smoothScrollToPosition(selectedIndex);
@@ -95,6 +96,7 @@ public class Warehouses extends AppCompatActivity {
     {
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
+            mVoiceCmdReceiverWarehouse.unregister();
             String stringToRemove = "Selected item : ";
             int indexOfString = listWarehouseName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, Zones.class);
