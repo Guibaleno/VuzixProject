@@ -16,6 +16,9 @@ public class Box extends View {
     public String productCode;
     public String licensePlate;
     public String quantity;
+    public String scanText;
+    public String qtyEntered;
+
     public Box(Context context, String newOrderNumber,String newBin,String newDescription,
                String newProductCode,String newLicensePlate,String newQuantity) {
         super(context);
@@ -25,7 +28,36 @@ public class Box extends View {
         productCode = newProductCode;
         licensePlate = newLicensePlate;
         quantity = newQuantity;
+        setScanText("Scan BIN");
+        qtyEntered = "";
     }
+
+    public void setScanText(String Text){
+        scanText = Text;
+    }
+
+    public String getScanText(){
+        return scanText;
+    }
+
+    public void setQuantityEntered(int Qty){
+        qtyEntered += String.valueOf(Qty);
+    }
+
+    public void addDot(){
+        if (qtyEntered.indexOf(",") == -1)
+        {
+            qtyEntered += ",";
+        }
+    }
+
+    public void removeCharachterFromQtyEntered(){
+        if (qtyEntered.length() > 0)
+        {
+            qtyEntered = qtyEntered.substring(0, qtyEntered.length() - 1);
+        }
+    }
+
     private ConnectionAPISaleOrders connection;
     @Override
     protected void onDraw(Canvas canvas) { // Override the onDraw() Method
@@ -39,5 +71,7 @@ public class Box extends View {
         canvas.drawText("Product code:" + productCode, 10, 86, paint);
         canvas.drawText("License plate:" + licensePlate, 10, 108, paint);
         canvas.drawText("Quantity:" + quantity, 10, 130, paint);
+        canvas.drawText( scanText,200,20,paint);
+        canvas.drawText("Quantity Entered : " + qtyEntered,200,42,paint);
     }
 }

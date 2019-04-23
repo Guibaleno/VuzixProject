@@ -164,10 +164,8 @@ public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
                 int currentDigit = Character.getNumericValue(currentOrderArray[cptDigits]);
                 phrase += numbers[currentDigit];
             }
-            Log.d(phrase,phrase);
             sc.insertPhrase(phrase, phrase);
         }
-        Log.i("Reinhart Auer", sc.dump());
 
     }
 

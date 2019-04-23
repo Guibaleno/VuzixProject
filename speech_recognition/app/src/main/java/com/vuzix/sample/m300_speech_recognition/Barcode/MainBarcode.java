@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Surface;
 import android.view.TextureView;
+import android.view.ViewManager;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -140,9 +141,10 @@ public class MainBarcode extends Activity {
         // Create the class that will handle the image and process for barcodes
         mBarcodeProcessor = new BarcodeFinder(this);
 
-        connection = new ConnectionAPISaleOrders(this, getAPIAdress());
+        connection = new ConnectionAPISaleOrders(this, getAPIAdress(),getAPITransfertBatchID());
         connection.execute();
-        //box = new Box(this);
+
+        getAPITransfertBatchID();
     }
 
     /**
@@ -401,7 +403,22 @@ public class MainBarcode extends Activity {
 
         // Show the user
         Log.i(LOG_TAG, "Result: " + dataToShow );
-        Toast.makeText(MainBarcode.this, dataToShow , Toast.LENGTH_LONG).show();
+        if(CurrentBarcode.getBarcodeToScan().equals(dataToShow)){
+            Toast.makeText(MainBarcode.this, dataToShow , Toast.LENGTH_LONG).show();
+            if (box.getScanText().equals("Scan BIN"))
+            {
+                box.setScanText("Scan Product Code");
+                CurrentBarcode.setBarcodeToScan(box.productCode);
+            }
+            else if (box.getScanText().equals("Scan Product Code"))
+            {
+                box.setScanText("Say Quantity");
+                mVoiceCmdReceiverScanBarcode.createQuantityNumbers();
+            }
+
+            RefreshCanvas();
+        }
+
 
         Message msg = mUiThreadHandler.obtainMessage();
         msg.what = TAKE_PICTURE_COMPLETED;
@@ -435,6 +452,11 @@ public class MainBarcode extends Activity {
         return  "https://216.226.53.29/V5/API/SaleOrders%28" + orderNo +"%29/Pickroutes";
     }
 
+    public String getAPITransfertBatchID()
+    {
+        return  "https://216.226.53.29/V5/API/InventoryTransfer/BatchTransferId";
+    }
+
     public void setCanvasInfo(String newBin,String newDescription,
                               String newProductCode,String newQuantity)
     {
@@ -451,5 +473,30 @@ public class MainBarcode extends Activity {
         connection = null;
         connection = new ConnectionAPISaleOrders(this, getAPIAdress());
         connection.execute();
+    }
+
+    public void setTextQty(int qtyPhrase){
+        box.setQuantityEntered(qtyPhrase);
+        RefreshCanvas();
+    }
+
+    public void addDot(){
+        box.addDot();
+        RefreshCanvas();
+    }
+
+    public void removeCharacterQtyEntered(){
+        box.removeCharachterFromQtyEntered();
+        RefreshCanvas();
+    }
+
+    public void RefreshCanvas(){
+        box.post(new Runnable() {
+            @Override
+            public void run() {
+                ((ViewManager)box.getParent()).removeView(box);
+                addContentView(box, new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
+            }
+        });
     }
 }

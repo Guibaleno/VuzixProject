@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 public class ConnectionAPISaleOrders extends ConnectionAPI {
     MainBarcode mMainBarcode;
-    public ConnectionAPISaleOrders(MainBarcode mainBarcode, String apiAdress) {
+    public ConnectionAPISaleOrders(MainBarcode mainBarcode, String apiAdress, String api) {
         super();
         mMainBarcode = mainBarcode;
         APIAdress = apiAdress;
@@ -95,4 +95,6 @@ public class ConnectionAPISaleOrders extends ConnectionAPI {
         catch (Exception e){}
         return jsonString.toString();
     }
+
+
 }

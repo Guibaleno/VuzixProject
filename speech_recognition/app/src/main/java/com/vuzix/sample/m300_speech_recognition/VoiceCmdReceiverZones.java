@@ -150,7 +150,7 @@ public class VoiceCmdReceiverZones extends VoiceCmdReceiver {
             Log.i(mZone.LOG_TAG, "Custom vocab removed");
             mZone = null;
         }catch (Exception e) {
-            Log.e(mZone.LOG_TAG, "Custom vocab died " + e.getMessage());
+            //Log.e(mZone.LOG_TAG, "Custom vocab died " + e.getMessage());
         }
     }
 

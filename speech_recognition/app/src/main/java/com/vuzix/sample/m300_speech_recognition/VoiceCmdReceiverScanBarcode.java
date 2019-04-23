@@ -21,8 +21,11 @@ import static java.lang.Integer.parseInt;
 public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
     private MainBarcode mainBarcode;
     public final String MATCH_RETURN_TO_LICENSE = "ReturnToLicense";
-    public final String MATCH_RELOAD_BARCODE= "RealoadMainBarcode";
-    public final String MATCH_SCAN= "Scan";
+    public final String MATCH_RELOAD_BARCODE = "RealoadMainBarcode";
+    public final String MATCH_SCAN = "Scan";
+    public final String MATCH_DOT = "Dot";
+    public final String MATCH_ERASE = "erase";
+    List<String> quantityPossible = new ArrayList<>();
     public VoiceCmdReceiverScanBarcode(MainBarcode iActivity)
     {
         mainBarcode = iActivity;
@@ -108,6 +111,23 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
                     {
                         mainBarcode.takeStillPicture();
                     }
+                    else {
+                        for (int cptNumber = 0;cptNumber < numbers.length; cptNumber ++)
+                        {
+                            if (numbers[cptNumber].equals(phrase))
+                            {
+                                mainBarcode.setTextQty(cptNumber);
+                            }
+                        }
+                        if (phrase.equals(MATCH_DOT))
+                        {
+                            mainBarcode.addDot();
+                        }
+                        if (phrase.equals(MATCH_ERASE))
+                        {
+                            mainBarcode.removeCharacterQtyEntered();
+                        }
+                    }
                 }
             }
         }
@@ -121,20 +141,14 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
         }
     }
 
-    public void CreateStringsOrders(String currentOrderNumber)
-    {
-        if (currentOrderNumber.length() > 0) {
-            String phrase = "";
-            char[] currentOrderArray= currentOrderNumber.toCharArray();
-            for (int cptDigits = 0; cptDigits < currentOrderNumber.length(); cptDigits++) {
-                int currentDigit = Character.getNumericValue(currentOrderArray[cptDigits]);
-                phrase += numbers[currentDigit];
-            }
-            Log.d(phrase,phrase);
-            sc.insertPhrase(phrase, phrase);
+    public void createQuantityNumbers(){
+        for (int cptNumber = 0; cptNumber < numbers.length; cptNumber ++)
+        {
+            sc.insertPhrase(numbers[cptNumber], numbers[cptNumber]);
         }
-        Log.i("Reinhart Auer", sc.dump());
-
+        sc.insertPhrase("dot", MATCH_DOT);
+        sc.insertPhrase("erase", MATCH_ERASE);
     }
+
 
 }

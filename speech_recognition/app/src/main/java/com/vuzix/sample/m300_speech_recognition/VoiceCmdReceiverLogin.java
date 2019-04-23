@@ -226,7 +226,7 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
             Log.i(mLogin.LOG_TAG, "Custom vocab removed");
             mLogin = null;
         }catch (Exception e) {
-            Log.e(mLogin.LOG_TAG, "Custom vocab died " + e.getMessage());
+            //Log.e(mLogin.LOG_TAG, "Custom vocab died " + e.getMessage());
         }
     }
 }
