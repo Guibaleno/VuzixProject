@@ -28,6 +28,7 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
         super();
         mMainBarcode = mainBarcode;
         APIAdress = apiAdress;
+        APIAdressLicensePlateID = apiAdressLicencePlateID;
     }
 
 
