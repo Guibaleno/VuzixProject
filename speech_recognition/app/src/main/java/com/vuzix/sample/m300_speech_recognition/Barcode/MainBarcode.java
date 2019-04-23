@@ -471,7 +471,7 @@ public class MainBarcode extends Activity {
     public void ShowNextItem()
     {
         connection = null;
-        connection = new ConnectionAPISaleOrders(this, getAPIAdress());
+        connection = new ConnectionAPISaleOrders(this, getAPIAdress(),getAPITransfertBatchID());
         connection.execute();
     }
 

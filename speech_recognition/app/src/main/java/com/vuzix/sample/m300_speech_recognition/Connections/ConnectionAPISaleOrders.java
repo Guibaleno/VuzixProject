@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 public class ConnectionAPISaleOrders extends ConnectionAPI {
     MainBarcode mMainBarcode;
-    public ConnectionAPISaleOrders(MainBarcode mainBarcode, String apiAdress, String api) {
+    public ConnectionAPISaleOrders(MainBarcode mainBarcode, String apiAdress, String apiAdressTransfertBatchID) {
         super();
         mMainBarcode = mainBarcode;
         APIAdress = apiAdress;
