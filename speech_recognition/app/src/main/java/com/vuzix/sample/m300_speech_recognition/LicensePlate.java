@@ -111,7 +111,7 @@ public class LicensePlate extends AppCompatActivity {
             intent.putExtra("idOrder",txtOrder.getText().toString());
             intent.putExtra("idwareHouse", getIntent().getStringExtra("idwareHouse"));
             intent.putExtra("licensePlateNo",txtLicensePlate.getText().toString());
-            mVoiceCmdReceiverLicensePlate.unregister();
+            //mVoiceCmdReceiverLicensePlate.unregister();
             finish();
             startActivity(intent);
     }

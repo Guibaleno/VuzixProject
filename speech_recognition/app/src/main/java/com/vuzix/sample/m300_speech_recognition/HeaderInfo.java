@@ -4,9 +4,10 @@ public class HeaderInfo {
     static String token;
     static String idWarehouse;
     static String idZone;
-    static String BatchTransfertID;
+    static String BatchTransfertID = "";
     static String LicensePlateID;
     static String itemQuantity;
+    static String idLocation;
 
     public static void setToken(String newToken)
     {
@@ -62,6 +63,15 @@ public class HeaderInfo {
     public static String getItemQuantity()
     {
         return itemQuantity;
+    }
+
+    public static void setIdLocation(String newIdLocation)
+    {
+        idLocation = newIdLocation;
+    }
+    public static String getIdLocation()
+    {
+        return idLocation;
     }
 
 }

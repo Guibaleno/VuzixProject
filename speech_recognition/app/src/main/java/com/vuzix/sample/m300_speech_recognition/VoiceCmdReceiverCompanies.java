@@ -152,6 +152,7 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
         try {
             mMainActivity.unregisterReceiver(this);
             Log.i(mMainActivity.LOG_TAG, "Custom vocab removed");
+            Log.i(mMainActivity.LOG_TAG, "Custom vocab removed");
             mMainActivity = null;
         }catch (Exception e) {
             //Log.e(mMainActivity.LOG_TAG, "Custom vocab died " + e.getMessage());

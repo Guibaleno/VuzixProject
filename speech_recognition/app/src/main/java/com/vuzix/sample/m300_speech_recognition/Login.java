@@ -123,7 +123,10 @@ public class Login extends AppCompatActivity {
     }
 
     public void Dismiss(){
-        connection.HideAlert();
+        if (connection != null)
+        {
+            connection.HideAlert();
+        }
     }
 
     public void ClearPasswordTextbox(){

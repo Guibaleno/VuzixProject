@@ -115,6 +115,7 @@ public class MainActivity extends Activity {
      */
     @Override
     protected void onDestroy() {
+        Log.d("test1", "test333");
         mVoiceCmdReceiver.unregister();
         super.onDestroy();
     }
@@ -209,6 +210,7 @@ public class MainActivity extends Activity {
 
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
+            Log.d("test1", "test");
             mVoiceCmdReceiver.unregister();
             String stringToRemove = "Selected item : ";
             int indexOfString = listName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
@@ -251,9 +253,11 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         Log.d( "etee",txtSelectedItem.getText().toString());
-        //If we say "return"
+        //If we say "return" in the login screen
         if (!txtSelectedItem.getText().equals("Select a Company"))
         {
+            Log.d( "etee",txtSelectedItem.getText().toString());
+            mVoiceCmdReceiver = null;
             mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
             mVoiceCmdReceiver.CreateStrings(recyclerCompanies, getResources().getString(R.string.Companies));
         }

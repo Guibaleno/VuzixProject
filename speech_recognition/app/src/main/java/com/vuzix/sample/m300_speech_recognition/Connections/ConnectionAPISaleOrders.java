@@ -35,21 +35,37 @@ public class ConnectionAPISaleOrders extends ConnectionAPI {
     protected void onPostExecute(String response) {
         if (checknetwork(mMainBarcode)) {
             if (response != null) {
-
+                    Log.d("123", response);
                 try {
-                    JSONObject jsonObject = new JSONObject(response);
-    
-                        if (jsonObject.has("idProduct")) {
-                            String newBin = jsonObject.getString("name");
-                            String newDescription = jsonObject.getString("productName");
-                            String newProductCode = jsonObject.getString("internIdProduct");
-                            String newCustomerOrder = jsonObject.getString("idCustomerOrder");
-                            String newIDLine = jsonObject.getString("idLine");
-                            String newQuantity = jsonObject.getString("qtyToPick");
-                            mMainBarcode.setCanvasInfo(newBin,
-                                    newDescription, newProductCode, newQuantity);
-                            mMainBarcode.setAPIAdressItemOrderConfirm(newIDLine, newCustomerOrder);
-                        }
+                    if (!response.contains("[") && !response.contains("]"))
+                    {
+                            JSONObject jsonObject = new JSONObject(response);
+                            if (jsonObject.has("idProduct")) {
+                                String newBin = jsonObject.getString("name");
+                                String newDescription = jsonObject.getString("productName");
+                                String newProductCode = jsonObject.getString("internIdProduct");
+                                String newCustomerOrder = jsonObject.getString("idCustomerOrder");
+                                String newIDLine = jsonObject.getString("idLine");
+                                String newQuantity = jsonObject.getString("qtyToPick");
+                                HeaderInfo.setIdLocation(jsonObject.getString("idLocation"));
+                                mMainBarcode.setCanvasInfo(newBin,
+                                        newDescription, newProductCode, newQuantity);
+                                mMainBarcode.setAPIAdressItemOrderConfirm(newIDLine, newCustomerOrder);
+                            }
+                            else//quantity bigger than the quantity wanted
+                            {
+                                mMainBarcode.overQuantity(response);
+                            }
+                    }
+                    else //order completed
+                    {
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject orderCompleteMessage = new JSONObject(jsonArray.getJSONObject(0).toString());
+                            if (orderCompleteMessage.has("english"))
+                            {
+                                mMainBarcode.orderCompleted(orderCompleteMessage.get("english").toString());
+                            }
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -62,32 +78,37 @@ public class ConnectionAPISaleOrders extends ConnectionAPI {
         StringBuffer jsonString = new StringBuffer();
         try {
             URL url = new URL(APIAdress);
-            URL urlBatchTransfertID = new URL(APIAdressBatchTransferID);
-
-            connection = (HttpURLConnection) urlBatchTransfertID.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setInstanceFollowRedirects(false);
-            connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            connection.setRequestProperty("jwt", HeaderInfo.getToken());
-            connection.connect();
-            InputStream inputStream = connection.getInputStream();
             StringBuffer buffer = new StringBuffer();
+            //Creates the batch transferId on the first item
+            if (HeaderInfo.getBatchTransfertID().equals("")) {
+                URL urlBatchTransfertID = new URL(APIAdressBatchTransferID);
+                connection = (HttpURLConnection) urlBatchTransfertID.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setInstanceFollowRedirects(false);
+                connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                connection.setRequestProperty("jwt", HeaderInfo.getToken());
+                connection.connect();
+                InputStream inputStream = connection.getInputStream();
 
 
-            if (inputStream == null) {
-                return null;
+
+                if (inputStream == null) {
+                    return null;
+                }
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+                String lineBatchTransfertID;
+                while ((lineBatchTransfertID = reader.readLine()) != null) {
+                    buffer.append(lineBatchTransfertID + "\n");
+                }
+                if (buffer.length() == 0) {
+                    return null;
+                }
+                if (buffer.length() != 0) {
+                    HeaderInfo.setBatchTransfertID(buffer.toString());
+                }
+                connection.disconnect();
             }
-            reader = new BufferedReader(new InputStreamReader(inputStream));
-            String lineBatchTransfertID;
-            while ((lineBatchTransfertID = reader.readLine()) != null) {
-                buffer.append(lineBatchTransfertID + "\n");
-            }
-            if (buffer.length() == 0) {
-                return null;
-            }
-            connection.disconnect();
-            if (buffer.length() != 0) {
-                HeaderInfo.setBatchTransfertID(buffer.toString());
+
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoInput(true);
@@ -119,7 +140,6 @@ public class ConnectionAPISaleOrders extends ConnectionAPI {
                 }
                 br.close();
                 connection.disconnect();
-            }
         }
         catch (Exception e){}
         return jsonString.toString();

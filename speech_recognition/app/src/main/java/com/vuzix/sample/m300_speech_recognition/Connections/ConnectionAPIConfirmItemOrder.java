@@ -32,7 +32,10 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
     }
 
 
-
+    @Override
+    protected void onPostExecute(String s) {
+        mMainBarcode.ShowNextItem();
+    }
 
     @Override
     public String ManageConnection() {
@@ -42,29 +45,38 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
             URL urlLicensePlateID = new URL(APIAdressLicensePlateID);
 
             connection = (HttpURLConnection) urlLicensePlateID.openConnection();
-            connection.setRequestMethod("GET");
+            connection.setRequestMethod("POST");
+            connection.setDoInput(true);
             connection.setInstanceFollowRedirects(false);
             connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             connection.setRequestProperty("jwt", HeaderInfo.getToken());
             connection.connect();
-            InputStream inputStream = connection.getInputStream();
-            StringBuffer buffer = new StringBuffer();
+            HashMap<String, String> paramsLicensePlate = new HashMap<String, String>();
+            paramsLicensePlate.put("ZoneId", HeaderInfo.getIdZone());
 
-
-            if (inputStream == null) {
-                return null;
+            JSONObject objLicensePlate = new JSONObject(paramsLicensePlate);
+            String payloadLicensePlate = objLicensePlate.toString();
+            OutputStreamWriter osLicensePlate = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
+            osLicensePlate.write(payloadLicensePlate);
+            osLicensePlate.close();
+            BufferedReader brLicensePlate;
+            Log.i("error", String.valueOf(connection.getResponseCode()));
+            if (connection.getResponseCode() == 200) {
+                brLicensePlate = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            } else {
+                brLicensePlate = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
             }
-            reader = new BufferedReader(new InputStreamReader(inputStream));
-            String lineBatchTransfertID;
-            while ((lineBatchTransfertID = reader.readLine()) != null) {
-                buffer.append(lineBatchTransfertID + "\n");
+            String lineLicensePlate;
+            while ((lineLicensePlate = brLicensePlate.readLine()) != null) {
+                jsonString.append(lineLicensePlate);
             }
-            if (buffer.length() == 0) {
-                return null;
-            }
+            brLicensePlate.close();
             connection.disconnect();
-            if (buffer.length() != 0) {
-                HeaderInfo.setLicensePlateID(buffer.toString());
+
+
+            if (jsonString.length() != 0) {
+                HeaderInfo.setLicensePlateID(jsonString.toString());
+                Log.i("123", HeaderInfo.getBatchTransfertID());
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoInput(true);
@@ -85,6 +97,7 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
                 os.write(payload);
                 os.close();
                 BufferedReader br;
+                Log.i("error", String.valueOf(connection.getResponseCode()));
                 if (connection.getResponseCode() == 200) {
                     br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 } else {

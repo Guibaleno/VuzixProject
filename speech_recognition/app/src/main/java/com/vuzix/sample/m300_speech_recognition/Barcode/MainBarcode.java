@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.vuzix.sample.m300_speech_recognition.Box;
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPIConfirmItemOrder;
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPISaleOrders;
+import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPISkipItem;
 import com.vuzix.sample.m300_speech_recognition.HeaderInfo;
 import com.vuzix.sample.m300_speech_recognition.OrderInfo;
 import com.vuzix.sample.m300_speech_recognition.R;
@@ -78,6 +79,7 @@ public class MainBarcode extends Activity {
 
     ConnectionAPISaleOrders connection;
     ConnectionAPIConfirmItemOrder connectionConfirmItemOrder;
+    ConnectionAPISkipItem connectionAPISkipItem;
 
     /**
      * Registers the UI handlers and threads, and creates the barcode scanner object
@@ -87,7 +89,7 @@ public class MainBarcode extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main_barcode);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
@@ -173,9 +175,9 @@ public class MainBarcode extends Activity {
         switch (keycode) {
             case KeyEvent.KEYCODE_DPAD_RIGHT:
             case KeyEvent.KEYCODE_DPAD_LEFT:
-            //case KeyEvent.KEYCODE_ENTER:
-               //takeStillPicture();
-               // return true;
+            case KeyEvent.KEYCODE_ENTER:
+               takeStillPicture();
+                return true;
             case KeyEvent.KEYCODE_BACK:
                 finish();
         }
@@ -226,7 +228,7 @@ public class MainBarcode extends Activity {
 
     @Override
     protected void onDestroy() {
-        mVoiceCmdReceiverScanBarcode.unregister();
+        //mVoiceCmdReceiverScanBarcode.unregister();
         super.onDestroy();
     }
 
@@ -406,8 +408,7 @@ public class MainBarcode extends Activity {
         }
 
         // Show the user
-        Log.i(LOG_TAG, "Result: " + dataToShow );
-        if(CurrentBarcode.getBarcodeToScan().equals(dataToShow)){
+        if(CurrentBarcode.getBarcodeToScan().trim().equals(dataToShow.trim())){
             Toast.makeText(MainBarcode.this, dataToShow , Toast.LENGTH_LONG).show();
             if (box.getScanText().equals("Scan BIN"))
             {
@@ -419,7 +420,6 @@ public class MainBarcode extends Activity {
                 box.setScanText("Say Quantity");
                 mVoiceCmdReceiverScanBarcode.createQuantityNumbers();
             }
-
             RefreshCanvas();
         }
 
@@ -480,6 +480,11 @@ public class MainBarcode extends Activity {
          "%29/Licenseplates%28" + getIntent().getStringExtra("licensePlateNo") + "%29";
     }
 
+    public String getAPISkip()
+    {
+        return  "https://216.226.53.29/V5/API/SaleOrders%28" + customerId + "%29/Pickroutes/PickLines%28" + lineId +"%29.Skip";
+    }
+
     public void setCanvasInfo(String newBin,String newDescription,
                               String newProductCode,String newQuantity)
     {
@@ -489,10 +494,16 @@ public class MainBarcode extends Activity {
         box = new Box(this,idOrder,newBin,newDescription,
                 newProductCode,licensePlateNo,newQuantity);
         addContentView(box, new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
+        RefreshCanvas();
     }
 
-    public void ShowNextItem()
+    public void ChangeCurrentItem()
     {
+        if (!box.quantityEqualToQuantityEntered())
+        {
+            connectionAPISkipItem = new ConnectionAPISkipItem(this,getAPISkip());
+            connectionAPISkipItem.execute();
+        }
         connection = null;
         connection = new ConnectionAPISaleOrders(this, getAPIAdress(),getAPIAdressBatchTransfertID());
         connection.execute();
@@ -514,6 +525,7 @@ public class MainBarcode extends Activity {
     }
 
     public void RefreshCanvas(){
+
         box.post(new Runnable() {
             @Override
             public void run() {
@@ -535,5 +547,21 @@ public class MainBarcode extends Activity {
             Toast.makeText(getApplicationContext(), "Enter a valid quantity", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    public void ShowNextItem()
+    {
+        box.ClearView();
+        ChangeCurrentItem();
+    }
+
+    public void orderCompleted(String message)
+    {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    public void overQuantity(String message)
+    {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 }

@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPISaleOrders;
 
@@ -45,9 +46,9 @@ public class Box extends View {
     }
 
     public void addDot(){
-        if (qtyEntered.indexOf(",") == -1)
+        if (qtyEntered.indexOf(".") == -1)
         {
-            qtyEntered += ",";
+            qtyEntered += ".";
         }
     }
 
@@ -77,11 +78,20 @@ public class Box extends View {
 
     public boolean setItemQuantity()
     {
-        if (Float.parseFloat(qtyEntered) > 0)
-        {
-            HeaderInfo.setItemQuantity(qtyEntered);
-            return true;
+        if (!qtyEntered.equals("")) {
+                HeaderInfo.setItemQuantity(qtyEntered);
+                return true;
         }
         return false;
+    }
+
+    public boolean quantityEqualToQuantityEntered()
+    {
+        return quantity.equals(qtyEntered);
+    }
+
+    public void ClearView()
+    {
+        ((ViewGroup)getParent()).removeView(this);
     }
 }

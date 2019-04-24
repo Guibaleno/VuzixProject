@@ -50,6 +50,7 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
             sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_BARCODE);
             sc.insertPhrase(MATCH_SCAN, MATCH_SCAN);
 
+
             // See what we've done
 
             // The recognizer may not yet be enabled in Settings. We can enable this directly
@@ -92,10 +93,10 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
                     String phrase = intent.getStringExtra(VuzixSpeechClient.PHRASE_STRING_EXTRA);
 
                     // Determine the specific phrase that was recognized and act accordingly
-
+                    Log.i("ici",phrase);
                     if (phrase.equals(MATCH_NEXT))
                     {
-                        //mainBarcode.MoveToLicensePlate();
+                        mainBarcode.setItemQuantity();
                     }
                     else if (phrase.equals(MATCH_RETURN_TO_LICENSE))
                     {
@@ -109,11 +110,8 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
                     {
                         mainBarcode.takeStillPicture();
                     }
-                    else if(phrase.equals(MATCH_NEXT))
-                    {
-                        mainBarcode.setItemQuantity();
-                    }
                     else {
+
                         for (int cptNumber = 0;cptNumber < numbers.length; cptNumber ++)
                         {
                             if (numbers[cptNumber].equals(phrase))
@@ -151,6 +149,7 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
         sc.insertPhrase("point", MATCH_POINT);
         sc.insertPhrase("erase", MATCH_ERASE);
         sc.insertPhrase(MATCH_NEXT, MATCH_NEXT);
+        Log.i("ici",sc.dump());
     }
 
 
