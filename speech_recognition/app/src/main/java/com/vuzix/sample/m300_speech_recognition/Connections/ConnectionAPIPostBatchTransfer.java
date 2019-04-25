@@ -20,10 +20,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-public class ConnectionAPIPostBatchTransfert extends ConnectionAPI {
+public class ConnectionAPIPostBatchTransfer extends ConnectionAPI {
     MainBarcode mMainBarcode;
     public String APIAdressPostBatchTransferID;
-    public ConnectionAPIPostBatchTransfert(MainBarcode mainBarcode, String apiAdressPostBatchTransferID) {
+    public ConnectionAPIPostBatchTransfer(MainBarcode mainBarcode, String apiAdressPostBatchTransferID) {
         super();
         mMainBarcode = mainBarcode;
         APIAdressPostBatchTransferID = apiAdressPostBatchTransferID;
@@ -39,12 +39,12 @@ public class ConnectionAPIPostBatchTransfert extends ConnectionAPI {
     public String ManageConnection() {
         StringBuffer jsonString = new StringBuffer();
         try {
-            URL urlPostBatchTransfertID = new URL(APIAdressPostBatchTransferID);
+            URL urlPostBatchTransferID = new URL(APIAdressPostBatchTransferID);
 
             StringBuffer buffer = new StringBuffer();
             //Send the batch transferId after the order is completed
-            if (HeaderInfo.getBatchTransfertID().equals("")) {
-                connection = (HttpURLConnection) urlPostBatchTransfertID.openConnection();
+            if (HeaderInfo.getBatchTransferID().equals("")) {
+                connection = (HttpURLConnection) urlPostBatchTransferID.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoInput(true);
                 connection.setInstanceFollowRedirects(false);
@@ -52,7 +52,7 @@ public class ConnectionAPIPostBatchTransfert extends ConnectionAPI {
                 connection.setRequestProperty("jwt", HeaderInfo.getToken());
                 connection.connect();
                 HashMap<String, String> params = new HashMap<String, String>();
-                params.put("batchTransferId", HeaderInfo.getBatchTransfertID());
+                params.put("batchTransferId", HeaderInfo.getBatchTransferID());
 
                 JSONObject obj = new JSONObject(params);
                 String payload = obj.toString();

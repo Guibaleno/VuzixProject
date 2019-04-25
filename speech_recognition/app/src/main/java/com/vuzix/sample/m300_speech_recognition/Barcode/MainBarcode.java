@@ -32,6 +32,8 @@ import android.widget.Toast;
 
 import com.vuzix.sample.m300_speech_recognition.Box;
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPIConfirmItemOrder;
+import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPIPostBatchTransfer;
+import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPIResetSkip;
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPISaleOrders;
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPISkipItem;
 import com.vuzix.sample.m300_speech_recognition.HeaderInfo;
@@ -80,6 +82,8 @@ public class MainBarcode extends Activity {
     ConnectionAPISaleOrders connection;
     ConnectionAPIConfirmItemOrder connectionConfirmItemOrder;
     ConnectionAPISkipItem connectionAPISkipItem;
+    ConnectionAPIPostBatchTransfer connectionAPIPostBatchTransfer;
+    ConnectionAPIResetSkip connectionAPIResetSkip;
 
     /**
      * Registers the UI handlers and threads, and creates the barcode scanner object
@@ -461,6 +465,11 @@ public class MainBarcode extends Activity {
         return  "https://216.226.53.29/V5/API/InventoryTransfer/BatchTransferId";
     }
 
+    public String getAPIAdressPostBatchTransfertID()
+    {
+        return  "https://216.226.53.29/V5/API/InventoryTransfer/PostStockTransfer";
+    }
+
     public String getAPIAdressItemOrderConfirm()
     {
         return  "https://216.226.53.29/V5/API/SaleOrders%28" + customerId +
@@ -483,6 +492,11 @@ public class MainBarcode extends Activity {
     public String getAPISkip()
     {
         return  "https://216.226.53.29/V5/API/SaleOrders%28" + customerId + "%29/Pickroutes/PickLines%28" + lineId +"%29.Skip";
+    }
+
+    public String getAPIRestSkip()
+    {
+        return  "https://216.226.53.29/V5/API/SaleOrders/PickRoutes/Employees.ResetSkip";
     }
 
     public void setCanvasInfo(String newBin,String newDescription,
@@ -557,6 +571,10 @@ public class MainBarcode extends Activity {
 
     public void orderCompleted(String message)
     {
+        connectionAPIPostBatchTransfer = new ConnectionAPIPostBatchTransfer(this,getAPIAdressPostBatchTransfertID());
+        connectionAPIPostBatchTransfer.execute();
+        connectionAPIResetSkip = new ConnectionAPIResetSkip(this,getAPIRestSkip());
+        connectionAPIPostBatchTransfer.execute();
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 

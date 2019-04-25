@@ -80,7 +80,7 @@ public class ConnectionAPISaleOrders extends ConnectionAPI {
             URL url = new URL(APIAdress);
             StringBuffer buffer = new StringBuffer();
             //Creates the batch transferId on the first item
-            if (HeaderInfo.getBatchTransfertID().equals("")) {
+            if (HeaderInfo.getBatchTransferID().equals("")) {
                 URL urlBatchTransfertID = new URL(APIAdressBatchTransferID);
                 connection = (HttpURLConnection) urlBatchTransfertID.openConnection();
                 connection.setRequestMethod("GET");
@@ -104,7 +104,7 @@ public class ConnectionAPISaleOrders extends ConnectionAPI {
                     return null;
                 }
                 if (buffer.length() != 0) {
-                    HeaderInfo.setBatchTransfertID(buffer.toString());
+                    HeaderInfo.setBatchTransferID(buffer.toString());
                 }
                 connection.disconnect();
             }

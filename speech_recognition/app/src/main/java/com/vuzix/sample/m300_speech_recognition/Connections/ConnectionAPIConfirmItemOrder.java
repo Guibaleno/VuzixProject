@@ -76,7 +76,7 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
 
             if (jsonString.length() != 0) {
                 HeaderInfo.setLicensePlateID(jsonString.toString());
-                Log.i("123", HeaderInfo.getBatchTransfertID());
+                Log.i("123", HeaderInfo.getBatchTransferID());
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoInput(true);
@@ -88,7 +88,7 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
                 params.put("LicensePlateId", HeaderInfo.getLicensePlateID());
                 params.put("batchNumber", "");
                 params.put("serialNumber", "");
-                params.put("batchTransferId", HeaderInfo.getBatchTransfertID());
+                params.put("batchTransferId", HeaderInfo.getBatchTransferID());
                 params.put("quantity", HeaderInfo.getItemQuantity());
 
                 JSONObject obj = new JSONObject(params);

@@ -4,7 +4,7 @@ public class HeaderInfo {
     static String token;
     static String idWarehouse;
     static String idZone;
-    static String BatchTransfertID = "";
+    static String BatchTransferID = "";
     static String LicensePlateID;
     static String itemQuantity;
     static String idLocation;
@@ -38,13 +38,13 @@ public class HeaderInfo {
     }
 
 
-    public static void setBatchTransfertID(String newBatchTransfertID)
+    public static void setBatchTransferID(String newBatchTransferID)
     {
-        BatchTransfertID = newBatchTransfertID;
+        BatchTransferID = newBatchTransferID;
     }
-    public static String getBatchTransfertID()
+    public static String getBatchTransferID()
     {
-        return BatchTransfertID;
+        return BatchTransferID;
     }
 
     public static void setLicensePlateID(String newLicensePlateID)
