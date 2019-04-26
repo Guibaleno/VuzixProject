@@ -26,18 +26,15 @@ import android.view.KeyEvent;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.ViewManager;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.vuzix.sample.m300_speech_recognition.Box;
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPIConfirmItemOrder;
-import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPIPostBatchTransfer;
-import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPIResetSkip;
+import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPIEndOrder;
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPISaleOrders;
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPISkipItem;
 import com.vuzix.sample.m300_speech_recognition.HeaderInfo;
-import com.vuzix.sample.m300_speech_recognition.OrderInfo;
 import com.vuzix.sample.m300_speech_recognition.R;
 import com.vuzix.sample.m300_speech_recognition.VoiceCmdReceiverScanBarcode;
 
@@ -82,8 +79,7 @@ public class MainBarcode extends Activity {
     ConnectionAPISaleOrders connection;
     ConnectionAPIConfirmItemOrder connectionConfirmItemOrder;
     ConnectionAPISkipItem connectionAPISkipItem;
-    ConnectionAPIPostBatchTransfer connectionAPIPostBatchTransfer;
-    ConnectionAPIResetSkip connectionAPIResetSkip;
+    ConnectionAPIEndOrder connectionAPIEndOrder;
 
     /**
      * Registers the UI handlers and threads, and creates the barcode scanner object
@@ -151,7 +147,8 @@ public class MainBarcode extends Activity {
 
         // Create the class that will handle the image and process for barcodes
         mBarcodeProcessor = new BarcodeFinder(this);
-
+        Log.d("guillaume le laite", HeaderInfo.getIdWarehouse());
+        Log.d("guillaume le laite", HeaderInfo.getIdZone());
         connection = new ConnectionAPISaleOrders(this, getAPIAdress(),getAPIAdressBatchTransfertID());
         connection.execute();
 
@@ -412,20 +409,23 @@ public class MainBarcode extends Activity {
         }
 
         // Show the user
-        if(CurrentBarcode.getBarcodeToScan().trim().equals(dataToShow.trim())){
-            Toast.makeText(MainBarcode.this, dataToShow , Toast.LENGTH_LONG).show();
-            if (box.getScanText().equals("Scan BIN"))
-            {
-                box.setScanText("Scan Product Code");
-                CurrentBarcode.setBarcodeToScan(box.productCode);
+        if (CurrentBarcode.getBarcodeToScan() != null && dataToShow != null){
+            if(CurrentBarcode.getBarcodeToScan().trim().equals(dataToShow.trim())){
+                Toast.makeText(MainBarcode.this, dataToShow , Toast.LENGTH_LONG).show();
+                if (box.getScanText().equals("Scan BIN"))
+                {
+                    box.setScanText("Scan Product Code");
+                    CurrentBarcode.setBarcodeToScan(box.productCode);
+                }
+                else if (box.getScanText().equals("Scan Product Code"))
+                {
+                    box.setScanText("Say Quantity");
+                    mVoiceCmdReceiverScanBarcode.createQuantityNumbers();
+                }
+                RefreshCanvas();
             }
-            else if (box.getScanText().equals("Scan Product Code"))
-            {
-                box.setScanText("Say Quantity");
-                mVoiceCmdReceiverScanBarcode.createQuantityNumbers();
-            }
-            RefreshCanvas();
         }
+
 
 
         Message msg = mUiThreadHandler.obtainMessage();
@@ -571,10 +571,15 @@ public class MainBarcode extends Activity {
 
     public void orderCompleted(String message)
     {
-        connectionAPIPostBatchTransfer = new ConnectionAPIPostBatchTransfer(this,getAPIAdressPostBatchTransfertID());
-        connectionAPIPostBatchTransfer.execute();
-        connectionAPIResetSkip = new ConnectionAPIResetSkip(this,getAPIRestSkip());
-        connectionAPIPostBatchTransfer.execute();
+        Log.d("add", getAPIAdress());
+        Log.d("add", getAPIAdressBatchTransfertID());
+        Log.d("add", getAPIAdressItemOrderConfirm());
+        Log.d("add", getAPIAdressPostBatchTransfertID());
+        Log.d("add", getAPIAdressLicensePlateID());
+        Log.d("add", getAPIRestSkip());
+        Log.d("add", getAPISkip());
+        connectionAPIEndOrder = new ConnectionAPIEndOrder(this,getAPIAdressPostBatchTransfertID(),getAPIRestSkip());
+        connectionAPIEndOrder.execute();
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 

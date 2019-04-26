@@ -20,12 +20,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-public class ConnectionAPIPostBatchTransfer extends ConnectionAPI {
+public class ConnectionAPIEndOrder extends ConnectionAPI {
     MainBarcode mMainBarcode;
     public String APIAdressPostBatchTransferID;
-    public ConnectionAPIPostBatchTransfer(MainBarcode mainBarcode, String apiAdressPostBatchTransferID) {
+    public ConnectionAPIEndOrder(MainBarcode mainBarcode, String apiAdressPostBatchTransferID, String apiAdress) {
         super();
         mMainBarcode = mainBarcode;
+        APIAdress = apiAdress;
         APIAdressPostBatchTransferID = apiAdressPostBatchTransferID;
     }
 
@@ -43,7 +44,7 @@ public class ConnectionAPIPostBatchTransfer extends ConnectionAPI {
 
             StringBuffer buffer = new StringBuffer();
             //Send the batch transferId after the order is completed
-            if (HeaderInfo.getBatchTransferID().equals("")) {
+            if (!HeaderInfo.getBatchTransferID().equals("")) {
                 connection = (HttpURLConnection) urlPostBatchTransferID.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoInput(true);
@@ -73,6 +74,32 @@ public class ConnectionAPIPostBatchTransfer extends ConnectionAPI {
                 br.close();
                 connection.disconnect();
             }
+            URL url = new URL(APIAdress);
+
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("DELETE");
+            connection.setInstanceFollowRedirects(false);
+            connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            connection.setRequestProperty("jwt", HeaderInfo.getToken());
+            connection.connect();
+
+            InputStream inputStream = connection.getInputStream();
+            StringBuffer bufferSkip = new StringBuffer();
+
+
+            if (inputStream == null) {
+                return null;
+            }
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                bufferSkip.append(line + "\n");
+            }
+            if (bufferSkip.length() == 0) {
+                return null;
+            }
+            connection.disconnect();
+            return bufferSkip.toString();
         }
         catch (Exception e){}
         return jsonString.toString();
