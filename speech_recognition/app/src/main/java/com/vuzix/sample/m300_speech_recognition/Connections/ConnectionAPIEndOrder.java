@@ -23,11 +23,13 @@ import java.util.HashMap;
 public class ConnectionAPIEndOrder extends ConnectionAPI {
     MainBarcode mMainBarcode;
     public String APIAdressPostBatchTransferID;
-    public ConnectionAPIEndOrder(MainBarcode mainBarcode, String apiAdressPostBatchTransferID, String apiAdress) {
+    public String APIAdressEmployeeRemove;
+    public ConnectionAPIEndOrder(MainBarcode mainBarcode, String apiAdressPostBatchTransferID, String apiAdress, String apiEmployee) {
         super();
         mMainBarcode = mainBarcode;
         APIAdress = apiAdress;
         APIAdressPostBatchTransferID = apiAdressPostBatchTransferID;
+        APIAdressEmployeeRemove = apiEmployee;
     }
 
 
@@ -41,6 +43,7 @@ public class ConnectionAPIEndOrder extends ConnectionAPI {
         StringBuffer jsonString = new StringBuffer();
         try {
             URL urlPostBatchTransferID = new URL(APIAdressPostBatchTransferID);
+            URL urlEmployeeRemove= new URL(APIAdressEmployeeRemove);
 
             StringBuffer buffer = new StringBuffer();
             //Send the batch transferId after the order is completed
@@ -99,7 +102,32 @@ public class ConnectionAPIEndOrder extends ConnectionAPI {
                 return null;
             }
             connection.disconnect();
-            return bufferSkip.toString();
+
+            connection = (HttpURLConnection) urlEmployeeRemove.openConnection();
+            connection.setRequestMethod("DELETE");
+            connection.setInstanceFollowRedirects(false);
+            connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            connection.setRequestProperty("jwt", HeaderInfo.getToken());
+            connection.connect();
+
+            InputStream inputStreamEmployeeRemove = connection.getInputStream();
+            StringBuffer bufferEmployeeRemove = new StringBuffer();
+
+
+            if (inputStream == null) {
+                return null;
+            }
+            reader = new BufferedReader(new InputStreamReader(inputStreamEmployeeRemove));
+            String lineEmployeeRemove;
+            while ((lineEmployeeRemove = reader.readLine()) != null) {
+                bufferEmployeeRemove.append(lineEmployeeRemove + "\n");
+            }
+            if (bufferEmployeeRemove.length() == 0) {
+                return null;
+            }
+            connection.disconnect();
+            mMainBarcode.NextOrder();
+            return bufferEmployeeRemove.toString();
         }
         catch (Exception e){}
         return jsonString.toString();

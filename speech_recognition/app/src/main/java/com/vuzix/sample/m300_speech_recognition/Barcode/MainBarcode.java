@@ -3,6 +3,7 @@ package com.vuzix.sample.m300_speech_recognition.Barcode;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
@@ -35,6 +36,7 @@ import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPIEndOrde
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPISaleOrders;
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPISkipItem;
 import com.vuzix.sample.m300_speech_recognition.HeaderInfo;
+import com.vuzix.sample.m300_speech_recognition.Orders;
 import com.vuzix.sample.m300_speech_recognition.R;
 import com.vuzix.sample.m300_speech_recognition.VoiceCmdReceiverScanBarcode;
 
@@ -499,6 +501,12 @@ public class MainBarcode extends Activity {
         return  "https://216.226.53.29/V5/API/SaleOrders/PickRoutes/Employees.ResetSkip";
     }
 
+    public String getAPIEmployeeRemove()
+    {
+        return  "https://216.226.53.29/V5/API/SaleOrders/PickRoutes/Employees.Remove";
+    }
+
+
     public void setCanvasInfo(String newBin,String newDescription,
                               String newProductCode,String newQuantity)
     {
@@ -571,14 +579,7 @@ public class MainBarcode extends Activity {
 
     public void orderCompleted(String message)
     {
-        Log.d("add", getAPIAdress());
-        Log.d("add", getAPIAdressBatchTransfertID());
-        Log.d("add", getAPIAdressItemOrderConfirm());
-        Log.d("add", getAPIAdressPostBatchTransfertID());
-        Log.d("add", getAPIAdressLicensePlateID());
-        Log.d("add", getAPIRestSkip());
-        Log.d("add", getAPISkip());
-        connectionAPIEndOrder = new ConnectionAPIEndOrder(this,getAPIAdressPostBatchTransfertID(),getAPIRestSkip());
+        connectionAPIEndOrder = new ConnectionAPIEndOrder(this,getAPIAdressPostBatchTransfertID(),getAPIRestSkip(),getAPIEmployeeRemove());
         connectionAPIEndOrder.execute();
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
@@ -586,5 +587,11 @@ public class MainBarcode extends Activity {
     public void overQuantity(String message)
     {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    public void NextOrder()
+    {
+        Intent intent = new Intent(getApplicationContext(), Orders.class);
+        startActivity(intent);
     }
 }
