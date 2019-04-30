@@ -149,8 +149,7 @@ public class MainBarcode extends Activity {
 
         // Create the class that will handle the image and process for barcodes
         mBarcodeProcessor = new BarcodeFinder(this);
-        Log.d("guillaume le laite", HeaderInfo.getIdWarehouse());
-        Log.d("guillaume le laite", HeaderInfo.getIdZone());
+
         connection = new ConnectionAPISaleOrders(this, getAPIAdress(),getAPIAdressBatchTransfertID());
         connection.execute();
 
@@ -178,9 +177,9 @@ public class MainBarcode extends Activity {
         switch (keycode) {
             case KeyEvent.KEYCODE_DPAD_RIGHT:
             case KeyEvent.KEYCODE_DPAD_LEFT:
-            case KeyEvent.KEYCODE_ENTER:
-               takeStillPicture();
-                return true;
+           // case KeyEvent.KEYCODE_ENTER:
+            //   takeStillPicture();
+           //     return true;
             case KeyEvent.KEYCODE_BACK:
                 finish();
         }

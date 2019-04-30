@@ -65,7 +65,7 @@ public class ConnectionAPIEndOrder extends ConnectionAPI {
                 os.close();
                 BufferedReader br;
                 Log.i("error", String.valueOf(connection.getResponseCode()));
-                if (connection.getResponseCode() == 200) {
+                if (connection.getResponseCode() == 204) {
                     br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 } else {
                     br = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
@@ -89,17 +89,10 @@ public class ConnectionAPIEndOrder extends ConnectionAPI {
             InputStream inputStream = connection.getInputStream();
             StringBuffer bufferSkip = new StringBuffer();
 
-
-            if (inputStream == null) {
-                return null;
-            }
             reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
             while ((line = reader.readLine()) != null) {
                 bufferSkip.append(line + "\n");
-            }
-            if (bufferSkip.length() == 0) {
-                return null;
             }
             connection.disconnect();
 
@@ -114,16 +107,10 @@ public class ConnectionAPIEndOrder extends ConnectionAPI {
             StringBuffer bufferEmployeeRemove = new StringBuffer();
 
 
-            if (inputStream == null) {
-                return null;
-            }
             reader = new BufferedReader(new InputStreamReader(inputStreamEmployeeRemove));
             String lineEmployeeRemove;
             while ((lineEmployeeRemove = reader.readLine()) != null) {
                 bufferEmployeeRemove.append(lineEmployeeRemove + "\n");
-            }
-            if (bufferEmployeeRemove.length() == 0) {
-                return null;
             }
             connection.disconnect();
             mMainBarcode.NextOrder();

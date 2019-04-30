@@ -131,7 +131,15 @@ public class Orders extends AppCompatActivity {
     {
 
         String idWarehouse = HeaderInfo.getIdWarehouse();
-        String idZone = getIntent().getStringExtra("idZone");
+        String idZone;
+        if (HeaderInfo.getIdZone() == null)
+        {
+            idZone = getIntent().getStringExtra("idZone");
+        }
+        else
+        {
+            idZone = HeaderInfo.getIdZone();
+        }
         return  "https://216.226.53.29/V5/API/Zones%28" + idZone
                 + "%29/Orders?idWarehouse=" + idWarehouse
                 + "&resetPickRoute=false";
