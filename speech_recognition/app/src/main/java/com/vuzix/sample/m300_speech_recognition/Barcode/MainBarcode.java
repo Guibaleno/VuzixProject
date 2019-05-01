@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.vuzix.sample.m300_speech_recognition.Box;
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPIConfirmItemOrder;
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPIEndOrder;
+import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPIGetSerialBatchNumbers;
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPISaleOrders;
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPISkipItem;
 import com.vuzix.sample.m300_speech_recognition.HeaderInfo;
@@ -69,6 +70,8 @@ public class MainBarcode extends Activity {
 
     private String customerId;
     private String lineId;
+    private String locationId;
+    private String productId;
 
     BarcodeFinder mBarcodeProcessor;
 
@@ -82,6 +85,7 @@ public class MainBarcode extends Activity {
     ConnectionAPIConfirmItemOrder connectionConfirmItemOrder;
     ConnectionAPISkipItem connectionAPISkipItem;
     ConnectionAPIEndOrder connectionAPIEndOrder;
+    ConnectionAPIGetSerialBatchNumbers connectionAPIGetSerialBatchNumbers;
 
     /**
      * Registers the UI handlers and threads, and creates the barcode scanner object
@@ -420,6 +424,11 @@ public class MainBarcode extends Activity {
                 }
                 else if (box.getScanText().equals("Scan Product Code"))
                 {
+                    connectionAPIGetSerialBatchNumbers = new ConnectionAPIGetSerialBatchNumbers(this,getAPIAdressBatchOrSerailNumbers());
+                    Log.d("barcode", CurrentBarcode.getBarcodeToScan());
+                    box.changeScanText();
+
+                }else if (box.getScanText().equals("Scan Batch Number")||box.getScanText().equals("Scan Serial Number")){
                     box.setScanText("Say Quantity");
                     mVoiceCmdReceiverScanBarcode.createQuantityNumbers();
                 }
@@ -482,6 +491,18 @@ public class MainBarcode extends Activity {
 
         customerId  = IDCustomer;
         lineId = IDLine;
+    }
+
+    public String getAPIAdressBatchOrSerailNumbers()
+    {
+        return  "https://216.226.53.29/V5/API/Locations%28" + locationId +"%29/Products%28" + productId +"%29/BatchNumbers";
+    }
+
+    public void setAPIAdressBatchOrSerialNumbers(String IDLocation, String IDProduct)
+    {
+
+        locationId  = IDLocation;
+        productId = IDProduct;
     }
 
     public String getAPIAdressLicensePlateID()
@@ -574,6 +595,11 @@ public class MainBarcode extends Activity {
     {
         box.ClearView();
         ChangeCurrentItem();
+    }
+
+    public void ifIsDifferentScan(String isSerial, String isBatch)
+    {
+        box.isDifferentScan(isSerial, isBatch);
     }
 
     public void orderCompleted(String message)

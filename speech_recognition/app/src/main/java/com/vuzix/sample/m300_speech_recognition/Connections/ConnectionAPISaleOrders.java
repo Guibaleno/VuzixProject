@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.vuzix.sample.m300_speech_recognition.Barcode.MainBarcode;
+import com.vuzix.sample.m300_speech_recognition.Box;
 import com.vuzix.sample.m300_speech_recognition.HeaderInfo;
 import com.vuzix.sample.m300_speech_recognition.R;
 
@@ -47,10 +48,16 @@ public class ConnectionAPISaleOrders extends ConnectionAPI {
                                 String newCustomerOrder = jsonObject.getString("idCustomerOrder");
                                 String newIDLine = jsonObject.getString("idLine");
                                 String newQuantity = jsonObject.getString("qtyToPick");
+                                String isSerial = jsonObject.getString("manSerialNum");
+                                String isBatch = jsonObject.getString("manBtchNum");
+                                String newIdProduct = jsonObject.getString("idProduct");
+                                String newIdLocation = jsonObject.getString("idLocation");
                                 HeaderInfo.setIdLocation(jsonObject.getString("idLocation"));
                                 mMainBarcode.setCanvasInfo(newBin,
                                         newDescription, newProductCode, newQuantity);
                                 mMainBarcode.setAPIAdressItemOrderConfirm(newIDLine, newCustomerOrder);
+                                mMainBarcode.ifIsDifferentScan(isSerial,isBatch);
+                                mMainBarcode.setAPIAdressBatchOrSerialNumbers(newIdLocation, newIdProduct);
                             }
                             else//quantity bigger than the quantity wanted
                             {

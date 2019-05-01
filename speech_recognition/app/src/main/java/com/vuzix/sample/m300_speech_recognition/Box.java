@@ -19,6 +19,8 @@ public class Box extends View {
     public String quantity;
     public String scanText;
     public String qtyEntered;
+    public String serialNumber;
+    public String batchNumber;
 
     public Box(Context context, String newOrderNumber,String newBin,String newDescription,
                String newProductCode,String newLicensePlate,String newQuantity) {
@@ -72,8 +74,8 @@ public class Box extends View {
         canvas.drawText("Product code:" + productCode, 10, 86, paint);
         canvas.drawText("License plate:" + licensePlate, 10, 108, paint);
         canvas.drawText("Quantity:" + quantity, 10, 130, paint);
-        canvas.drawText( scanText,200,20,paint);
-        canvas.drawText("Quantity Entered : " + qtyEntered,200,42,paint);
+        canvas.drawText( scanText,300,20,paint);
+        canvas.drawText("Quantity Entered : " + qtyEntered,300,42,paint);
     }
 
     public boolean setItemQuantity()
@@ -93,5 +95,21 @@ public class Box extends View {
     public void ClearView()
     {
         ((ViewGroup)getParent()).removeView(this);
+    }
+
+    public void isDifferentScan(String isSerial, String isBatch){
+        serialNumber = isSerial;
+        batchNumber = isBatch;
+
+    }
+
+    public void changeScanText(){
+        if(batchNumber.contains("true")){
+            setScanText("Scan Batch Number");
+        }
+        else if(serialNumber.contains("true")){
+            setScanText("Scan Serial Number");
+        }
+
     }
 }
