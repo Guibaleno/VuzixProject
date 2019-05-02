@@ -415,6 +415,7 @@ public class MainBarcode extends Activity {
 
         // Show the user
         if (CurrentBarcode.getBarcodeToScan() != null && dataToShow != null){
+            Log.d("barcode", CurrentBarcode.getBarcodeToScan());
             if(CurrentBarcode.getBarcodeToScan().trim().equals(dataToShow.trim())){
                 Toast.makeText(MainBarcode.this, dataToShow , Toast.LENGTH_LONG).show();
                 if (box.getScanText().equals("Scan BIN"))
@@ -425,10 +426,11 @@ public class MainBarcode extends Activity {
                 else if (box.getScanText().equals("Scan Product Code"))
                 {
                     connectionAPIGetSerialBatchNumbers = new ConnectionAPIGetSerialBatchNumbers(this,getAPIAdressBatchOrSerailNumbers());
-                    Log.d("barcode", CurrentBarcode.getBarcodeToScan());
+                    connectionAPIGetSerialBatchNumbers.execute();
                     box.changeScanText();
+                    Log.d("Scantext", box.getScanText());
 
-                }else if (box.getScanText().equals("Scan Batch Number")||box.getScanText().equals("Scan Serial Number")){
+                }else if (box.getScanText().equals("Scan Batch Number")|| box.getScanText().equals("Scan Serial Number")){
                     box.setScanText("Say Quantity");
                     mVoiceCmdReceiverScanBarcode.createQuantityNumbers();
                 }
