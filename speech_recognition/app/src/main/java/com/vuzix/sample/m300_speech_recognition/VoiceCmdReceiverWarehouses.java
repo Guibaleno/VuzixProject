@@ -137,7 +137,7 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
                                 numberString += String.valueOf(numberToFind.get(cptDigit));
                             }
                             mWarehouse.SelectItemInRecyclerViewWarehouse(parseInt(numberString) - 1);
-                            mWarehouse.MoveToZones();
+                            //mWarehouse.MoveToZones();
                         }
                     }
                 }

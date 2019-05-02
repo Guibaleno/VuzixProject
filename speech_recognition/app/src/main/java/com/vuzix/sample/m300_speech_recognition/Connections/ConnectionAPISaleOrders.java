@@ -52,10 +52,6 @@ public class ConnectionAPISaleOrders extends ConnectionAPI {
                                         newDescription, newProductCode, newQuantity);
                                 mMainBarcode.setAPIAdressItemOrderConfirm(newIDLine, newCustomerOrder);
                             }
-                            else//quantity bigger than the quantity wanted
-                            {
-                                mMainBarcode.overQuantity(response);
-                            }
                     }
                     else //order completed
                     {
@@ -105,6 +101,7 @@ public class ConnectionAPISaleOrders extends ConnectionAPI {
                 }
                 if (buffer.length() != 0) {
                     HeaderInfo.setBatchTransferID(buffer.toString());
+                    Log.d("batchPOST", buffer.toString());
                 }
                 connection.disconnect();
             }

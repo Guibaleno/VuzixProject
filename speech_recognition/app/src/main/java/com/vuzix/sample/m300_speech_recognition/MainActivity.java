@@ -32,7 +32,9 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.vuzix.sample.m300_speech_recognition;
 
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -76,7 +78,7 @@ public class MainActivity extends Activity {
     List<String> listId = new ArrayList<String>();
     List<String> listName = new ArrayList<String>();
 
-    VoiceCmdReceiverCompanies mVoiceCmdReceiver;
+        //VoiceCmdReceiverCompanies mVoiceCmdReceiver;
     private boolean mRecognizerActive = false;
 
     /**
@@ -101,8 +103,13 @@ public class MainActivity extends Activity {
 
         // Create the voice command receiver class
         progressCompanies.setVisibility(View.VISIBLE);
-        mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
+        Log.d("ici", "ici");
+        VoiceManager voiceManager = new VoiceManager(this);
+        Log.d("ici2", "ici2");
+        //mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
+        Log.d("ici3", "ici3");
         connection = new ConnectionAPICompanies(this, APIAdress);
+        Log.d("ici3", "ici3");
         // Now register another intent handler to demonstrate intents sent from the service
        // myIntentReceiver = new MyIntentReceiver();
         //registerReceiver(myIntentReceiver , new IntentFilter(CUSTOM_SDK_INTENT));
@@ -116,7 +123,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         Log.d("test1", "test333");
-        mVoiceCmdReceiver.unregister();
+        //mVoiceCmdReceiver.unregister();
         super.onDestroy();
     }
 
@@ -201,6 +208,7 @@ public class MainActivity extends Activity {
             recyclerCompanies.requestFocus(selectedIndex);
             recyclerCompanies.smoothScrollToPosition(selectedIndex);
             txtSelectedItem.setText("Selected Item : " + listName.get(selectedIndex));
+            Next();
         }
 
     }
@@ -211,7 +219,7 @@ public class MainActivity extends Activity {
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
             Log.d("test1", "test");
-            mVoiceCmdReceiver.unregister();
+            //mVoiceCmdReceiver.unregister();
             String stringToRemove = "Selected item : ";
             int indexOfString = listName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, Login.class);
@@ -228,12 +236,12 @@ public class MainActivity extends Activity {
 
     public void CreateStringsCompanies()
     {
-        mVoiceCmdReceiver.CreateStrings(recyclerCompanies, getResources().getString(R.string.Companies));
+       // mVoiceCmdReceiver.CreateStrings(recyclerCompanies, getResources().getString(R.string.Companies));
     }
 
     public void Scroll(boolean scrollDown)
     {
-        mVoiceCmdReceiver.scrollRecyclerView(recyclerCompanies, scrollDown);
+        //mVoiceCmdReceiver.scrollRecyclerView(recyclerCompanies, scrollDown);
     }
 
     public void Reload() {
@@ -252,14 +260,14 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d( "etee",txtSelectedItem.getText().toString());
+        VoiceManager.setCurrentActivity("CompaniesActivity");
         //If we say "return" in the login screen
         if (!txtSelectedItem.getText().equals("Select a Company"))
         {
             Log.d( "etee",txtSelectedItem.getText().toString());
-            mVoiceCmdReceiver = null;
-            mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
-            mVoiceCmdReceiver.CreateStrings(recyclerCompanies, getResources().getString(R.string.Companies));
+            //mVoiceCmdReceiver = null;
+            //mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
+            //mVoiceCmdReceiver.CreateStrings(recyclerCompanies, getResources().getString(R.string.Companies));
         }
         txtSelectedItem.setText("Select a Company");
     }

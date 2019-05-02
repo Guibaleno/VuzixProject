@@ -67,53 +67,53 @@ public class VoiceCmdReceiverLicensePlate extends VoiceCmdReceiver {
             sc.deletePhrase("*");
 
             // Now add any new strings.  If you put a substitution in the second argument, you will be passed that string instead of the full string
-            sc.insertKeycodePhrase("A", KEYCODE_A );
-            sc.insertKeycodePhrase("Bee", KEYCODE_B);
-            sc.insertKeycodePhrase("Cee", KEYCODE_C);
-            sc.insertKeycodePhrase("Dee", KEYCODE_D);
-            sc.insertKeycodePhrase("Ee", KEYCODE_E);
-            sc.insertKeycodePhrase("Eff", KEYCODE_F);
-            sc.insertKeycodePhrase("Gee", KEYCODE_G);
-            sc.insertKeycodePhrase("aich", KEYCODE_H);
-            sc.insertKeycodePhrase("I", KEYCODE_I);
-            sc.insertKeycodePhrase("Jay", KEYCODE_J);
-            sc.insertKeycodePhrase("Kay", KEYCODE_K);
-            sc.insertKeycodePhrase("Ell", KEYCODE_L);
-            sc.insertKeycodePhrase("El", KEYCODE_L);
-            sc.insertKeycodePhrase("Em", KEYCODE_M);
-            sc.insertKeycodePhrase("En", KEYCODE_N);
-            sc.insertKeycodePhrase("O", KEYCODE_O);
-            sc.insertKeycodePhrase("Pee", KEYCODE_P);
-            sc.insertKeycodePhrase("Cue", KEYCODE_Q);
-            sc.insertKeycodePhrase("Ar", KEYCODE_R);
-            sc.insertKeycodePhrase("Ess", KEYCODE_S);
-            sc.insertKeycodePhrase("Tee", KEYCODE_T);
-            sc.insertKeycodePhrase("U", KEYCODE_U);
-            sc.insertKeycodePhrase("Vee", KEYCODE_V);
-            sc.insertKeycodePhrase("Double-u", KEYCODE_W);
-            sc.insertKeycodePhrase("Ex", KEYCODE_X);
-            sc.insertKeycodePhrase("Wy", KEYCODE_Y);
-            sc.insertKeycodePhrase("Zed", KEYCODE_Z);
-            sc.insertKeycodePhrase("Zee", KEYCODE_Z);
-            sc.insertKeycodePhrase("Space", KEYCODE_SPACE);
-            sc.insertKeycodePhrase("shift", KEYCODE_SHIFT_LEFT);
-            sc.insertKeycodePhrase("caps lock", KEYCODE_CAPS_LOCK);
-            sc.insertKeycodePhrase("at sign", KEYCODE_AT);
-            sc.insertKeycodePhrase("period", KEYCODE_PERIOD);
-            sc.insertKeycodePhrase("erase", KEYCODE_DEL);
-            sc.insertKeycodePhrase("enter", KEYCODE_ENTER);
-            sc.insertKeycodePhrase("hyphen", KEYCODE_MINUS);
-
-            // Insert a custom intent.  Note: these are sent with sendBroadcastAsUser() from the service
-            // If you are sending an event to another activity, be sure to test it from the adb shell
-            // using: am broadcast -a "<your intent string>"
-            // This example sends it to ourself, and we are sure we are active and registered for it
-            Intent customToastIntent = new Intent(mLicensePLate.CUSTOM_SDK_INTENT);
-            sc.defineIntent(TOAST_EVENT, customToastIntent );
-            sc.insertIntentPhrase("canned toast", TOAST_EVENT);
-            sc.insertPhrase(MATCH_RETURN, MATCH_RETURN_TO_ORDERS);
-            sc.insertPhrase(MATCH_NEXT, MATCH_NEXT_INFOORDERS);
-            sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_LICENSEPLATE);
+           // sc.insertKeycodePhrase("A", KEYCODE_A );
+           // sc.insertKeycodePhrase("Bee", KEYCODE_B);
+           // sc.insertKeycodePhrase("Cee", KEYCODE_C);
+           // sc.insertKeycodePhrase("Dee", KEYCODE_D);
+           // sc.insertKeycodePhrase("Ee", KEYCODE_E);
+           // sc.insertKeycodePhrase("Eff", KEYCODE_F);
+           // sc.insertKeycodePhrase("Gee", KEYCODE_G);
+           // sc.insertKeycodePhrase("aich", KEYCODE_H);
+           // sc.insertKeycodePhrase("I", KEYCODE_I);
+           // sc.insertKeycodePhrase("Jay", KEYCODE_J);
+           // sc.insertKeycodePhrase("Kay", KEYCODE_K);
+           // sc.insertKeycodePhrase("Ell", KEYCODE_L);
+           // sc.insertKeycodePhrase("El", KEYCODE_L);
+           // sc.insertKeycodePhrase("Em", KEYCODE_M);
+           // sc.insertKeycodePhrase("En", KEYCODE_N);
+           // sc.insertKeycodePhrase("O", KEYCODE_O);
+           // sc.insertKeycodePhrase("Pee", KEYCODE_P);
+           // sc.insertKeycodePhrase("Cue", KEYCODE_Q);
+           // sc.insertKeycodePhrase("Ar", KEYCODE_R);
+           // sc.insertKeycodePhrase("Ess", KEYCODE_S);
+           // sc.insertKeycodePhrase("Tee", KEYCODE_T);
+           // sc.insertKeycodePhrase("U", KEYCODE_U);
+           // sc.insertKeycodePhrase("Vee", KEYCODE_V);
+           // sc.insertKeycodePhrase("Double-u", KEYCODE_W);
+           // sc.insertKeycodePhrase("Ex", KEYCODE_X);
+           // sc.insertKeycodePhrase("Wy", KEYCODE_Y);
+           // sc.insertKeycodePhrase("Zed", KEYCODE_Z);
+           // sc.insertKeycodePhrase("Zee", KEYCODE_Z);
+           // sc.insertKeycodePhrase("Space", KEYCODE_SPACE);
+           // sc.insertKeycodePhrase("shift", KEYCODE_SHIFT_LEFT);
+           // sc.insertKeycodePhrase("caps lock", KEYCODE_CAPS_LOCK);
+           // sc.insertKeycodePhrase("at sign", KEYCODE_AT);
+           // sc.insertKeycodePhrase("period", KEYCODE_PERIOD);
+           // sc.insertKeycodePhrase("erase", KEYCODE_DEL);
+           // sc.insertKeycodePhrase("enter", KEYCODE_ENTER);
+           // sc.insertKeycodePhrase("hyphen", KEYCODE_MINUS);
+//
+           // // Insert a custom intent.  Note: these are sent with sendBroadcastAsUser() from the service
+           // // If you are sending an event to another activity, be sure to test it from the adb shell
+           // // using: am broadcast -a "<your intent string>"
+           // // This example sends it to ourself, and we are sure we are active and registered for it
+           // Intent customToastIntent = new Intent(mLicensePLate.CUSTOM_SDK_INTENT);
+           // sc.defineIntent(TOAST_EVENT, customToastIntent );
+           // sc.insertIntentPhrase("canned toast", TOAST_EVENT);
+           // sc.insertPhrase(MATCH_RETURN, MATCH_RETURN_TO_ORDERS);
+           // sc.insertPhrase(MATCH_NEXT, MATCH_NEXT_INFOORDERS);
+           // sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_LICENSEPLATE);
             Log.i("", sc.toString());
 
 

@@ -62,6 +62,8 @@ public class VoiceCmdReceiver  extends BroadcastReceiver {
     final String MATCH_SCROLLUP = "ScrollUp";
     final String MATCH_RETURN = "Return";
     final String MATCH_DISMISS = "Dismiss";
+    final String MATCH_USERNAME = "Username";
+    final String MATCH_PASSWORD = "Password";
 
 
 
@@ -88,9 +90,11 @@ public class VoiceCmdReceiver  extends BroadcastReceiver {
                 phrase += numbers[currentDigit];
 
             }
-            sc.insertPhrase(phrase, phrase + currentActivity);
-            Log.d("Strings", phrase);
+            VoiceManager.insertPhrase(phrase);
+            Log.d("william",phrase);
+            //sc.insertPhrase(phrase, phrase + currentActivity);
         }
+        VoiceManager.showAllStrings();
     }
 
     public void scrollRecyclerView(RecyclerView currentRecyclerView, boolean scrollDown)

@@ -22,7 +22,7 @@ public class Login extends AppCompatActivity {
     EditText txtUsername;
     EditText txtPassword;
 
-    VoiceCmdReceiverLogin mVoiceCmdReceiver;
+    //VoiceCmdReceiverLogin mVoiceCmdReceiver;
     ConnectionAPILogin connection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,8 @@ public class Login extends AppCompatActivity {
         txtPassword = (EditText) findViewById(R.id.txtPassword);
         progressLogin = (ProgressBar) findViewById(R.id.progressLogin);
         SetCompanyText();
-        mVoiceCmdReceiver = new VoiceCmdReceiverLogin(this);
+        VoiceManager voiceManager = new VoiceManager(this);
+        //mVoiceCmdReceiver = new VoiceCmdReceiverLogin(this);
         progressLogin.setVisibility(View.INVISIBLE);
 
         WritePreviousData();
@@ -70,8 +71,8 @@ public class Login extends AppCompatActivity {
 
     void FinishActivity()
     {
-        mVoiceCmdReceiver.unregister();
-        mVoiceCmdReceiver = null;
+        //mVoiceCmdReceiver.unregister();
+        //mVoiceCmdReceiver = null;
         finish();
     }
 
@@ -115,7 +116,7 @@ public class Login extends AppCompatActivity {
         intent.putExtra("lisadbName",txtCompany.getText().toString());
         intent.putExtra("username",txtUsername.getText().toString());
         intent.putExtra("password",txtPassword.getText().toString());
-        mVoiceCmdReceiver.unregister();
+        //mVoiceCmdReceiver.unregister();
         Dismiss();
         finish();
 
@@ -131,6 +132,20 @@ public class Login extends AppCompatActivity {
 
     public void ClearPasswordTextbox(){
         txtPassword.setText("");
+    }
+
+    public void WriteNumberLogin(int numberToWrite)
+    {
+        if (txtPassword.hasFocus())
+        {
+            txtPassword.setText(txtPassword.getText() + String.valueOf(numberToWrite));
+            txtPassword.setSelection(txtPassword.getText().length());
+        }
+        else
+        {
+            txtUsername.setText(txtUsername.getText() + String.valueOf(numberToWrite));
+            txtUsername.setSelection(txtUsername.getText().length());
+        }
     }
 
 }

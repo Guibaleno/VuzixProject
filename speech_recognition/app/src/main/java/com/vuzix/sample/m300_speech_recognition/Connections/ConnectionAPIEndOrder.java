@@ -48,6 +48,7 @@ public class ConnectionAPIEndOrder extends ConnectionAPI {
             StringBuffer buffer = new StringBuffer();
             //Send the batch transferId after the order is completed
             if (!HeaderInfo.getBatchTransferID().equals("")) {
+                Log.d("batchPOST", HeaderInfo.getBatchTransferID());
                 connection = (HttpURLConnection) urlPostBatchTransferID.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoInput(true);

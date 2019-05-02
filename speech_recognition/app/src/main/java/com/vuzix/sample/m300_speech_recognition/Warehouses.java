@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,7 +28,7 @@ public class Warehouses extends AppCompatActivity {
     TextView txtSelectedItem;
     ProgressBar progressWarehouses;
 
-    VoiceCmdReceiverWarehouses mVoiceCmdReceiverWarehouse;
+    //VoiceCmdReceiverWarehouses mVoiceCmdReceiverWarehouse;
     ConnectionAPIWarehouses connectionWarehouse;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +40,8 @@ public class Warehouses extends AppCompatActivity {
         recyclerWarehouses = (RecyclerView) findViewById(R.id.recyclerWarehouses);
         progressWarehouses = (ProgressBar) findViewById(R.id.progressWarehouses);
         progressWarehouses.setVisibility(View.VISIBLE);
-
-        mVoiceCmdReceiverWarehouse = new VoiceCmdReceiverWarehouses(this);
+        VoiceManager voiceManager = new VoiceManager(this);
+        //mVoiceCmdReceiverWarehouse = new VoiceCmdReceiverWarehouses(this);
         connectionWarehouse = new ConnectionAPIWarehouses(this, APIAdress);
 
         getWarehouse();
@@ -48,7 +49,7 @@ public class Warehouses extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        mVoiceCmdReceiverWarehouse.unregister();
+        //mVoiceCmdReceiverWarehouse.unregister();
         super.onDestroy();
     }
 
@@ -85,9 +86,11 @@ public class Warehouses extends AppCompatActivity {
         recyclerWarehouses.setFocusable(true);
         recyclerWarehouses.requestFocus(selectedIndex);
         recyclerWarehouses.smoothScrollToPosition(selectedIndex);
+        Log.d("selectedindex", String.valueOf(selectedIndex));
         if (selectedIndex < listWarehouseName.size())
         {
             txtSelectedItem.setText("Selected Item : " + listWarehouseName.get(selectedIndex));
+            MoveToZones();
         }
 
     }
@@ -96,7 +99,7 @@ public class Warehouses extends AppCompatActivity {
     {
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
-            mVoiceCmdReceiverWarehouse.unregister();
+            //mVoiceCmdReceiverWarehouse.unregister();
             String stringToRemove = "Selected item : ";
             int indexOfString = listWarehouseName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, Zones.class);
@@ -112,8 +115,8 @@ public class Warehouses extends AppCompatActivity {
 
     void FinishActivity()
     {
-        mVoiceCmdReceiverWarehouse.unregister();
-        mVoiceCmdReceiverWarehouse = null;
+        //mVoiceCmdReceiverWarehouse.unregister();
+        //mVoiceCmdReceiverWarehouse = null;
         finish();
     }
 
@@ -124,17 +127,17 @@ public class Warehouses extends AppCompatActivity {
 
     public void CreateStringsWarehouse()
     {
-        mVoiceCmdReceiverWarehouse.CreateStrings(recyclerWarehouses, getResources().getString(R.string.Warehouses));
+        //mVoiceCmdReceiverWarehouse.CreateStrings(recyclerWarehouses, getResources().getString(R.string.Warehouses));
     }
 
     public void Scroll(boolean scrollDown)
     {
-        mVoiceCmdReceiverWarehouse.scrollRecyclerView(recyclerWarehouses, scrollDown);
+        //mVoiceCmdReceiverWarehouse.scrollRecyclerView(recyclerWarehouses, scrollDown);
     }
 
     public void Reload()
     {
-        mVoiceCmdReceiverWarehouse.unregister();
+        //mVoiceCmdReceiverWarehouse.unregister();
         connectionWarehouse.HideAlert();
        Intent intent = new Intent(this, Warehouses.class);
 

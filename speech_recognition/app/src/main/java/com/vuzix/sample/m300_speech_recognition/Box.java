@@ -79,8 +79,10 @@ public class Box extends View {
     public boolean setItemQuantity()
     {
         if (!qtyEntered.equals("")) {
+            if (Float.parseFloat(qtyEntered) <= Float.parseFloat(quantity)) {
                 HeaderInfo.setItemQuantity(qtyEntered);
                 return true;
+            }
         }
         return false;
     }

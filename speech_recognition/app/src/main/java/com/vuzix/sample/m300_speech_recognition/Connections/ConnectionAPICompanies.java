@@ -1,5 +1,7 @@
 package com.vuzix.sample.m300_speech_recognition.Connections;
 
+import android.util.Log;
+
 import com.vuzix.sample.m300_speech_recognition.MainActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,7 +46,9 @@ public class ConnectionAPICompanies extends ConnectionAPI {
                     String lisadbName = (cptObjects + 1) + " - " + object.getString("lisadbName");
                     mMainActivity.InsertDataIntoCompanies(idCompany, lisadbName);
                     mMainActivity.BindData();
+                    Log.d("one", "one");
                     mMainActivity.CreateStringsCompanies();
+                    Log.d("one", "one445444");
                 }
                 mMainActivity.HideProgress();
             }

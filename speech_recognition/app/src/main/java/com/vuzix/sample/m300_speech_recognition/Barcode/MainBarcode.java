@@ -92,7 +92,7 @@ public class MainBarcode extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main_barcode);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
@@ -407,10 +407,13 @@ public class MainBarcode extends Activity {
 
         if(dataToShow == null) {
             dataToShow = getResources().getString(R.string.no_barcode_in_image);
+            Toast.makeText(MainBarcode.this, dataToShow , Toast.LENGTH_LONG).show();
         }
-
-        // Show the user
+        //Log.d("getBarcode1", dataToShow);
+        else// Show the user
         if (CurrentBarcode.getBarcodeToScan() != null && dataToShow != null){
+            Log.d("getBarcode", CurrentBarcode.getBarcodeToScan());
+            Log.d("getBarcode", dataToShow);
             if(CurrentBarcode.getBarcodeToScan().trim().equals(dataToShow.trim())){
                 Toast.makeText(MainBarcode.this, dataToShow , Toast.LENGTH_LONG).show();
                 if (box.getScanText().equals("Scan BIN"))
@@ -424,6 +427,10 @@ public class MainBarcode extends Activity {
                     mVoiceCmdReceiverScanBarcode.createQuantityNumbers();
                 }
                 RefreshCanvas();
+            }
+            else
+            {
+                Toast.makeText(MainBarcode.this, "Did not scan the right item", Toast.LENGTH_LONG).show();
             }
         }
 

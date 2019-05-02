@@ -46,10 +46,13 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
             Intent customToastIntent = new Intent(mMainActivity.CUSTOM_SDK_INTENT);
             sc.defineIntent(TOAST_EVENT, customToastIntent );
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
-            sc.insertPhrase(MATCH_SCROLLDOWN, MATCH_SCROLLDOWN_COMPANIES);
-            sc.insertPhrase(MATCH_SCROLLUP, MATCH_SCROLLUP_COMPANIES);
-            sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_COMPANIES);
-            Log.i("REALOAD", "RELOAD");
+            //sc.insertPhrase(MATCH_SCROLLDOWN, MATCH_SCROLLDOWN_COMPANIES);
+            //sc.insertPhrase(MATCH_SCROLLUP, MATCH_SCROLLUP_COMPANIES);
+            //sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_COMPANIES);
+
+            VoiceManager.insertPhrase(MATCH_SCROLLDOWN);
+            VoiceManager.insertPhrase(MATCH_SCROLLUP);
+            VoiceManager.insertPhrase(MATCH_RELOAD);
             // See what we've done
             //Log.i(mMainActivity.LOG_TAG, sc.dump());
             // The recognizer may not yet be enabled in Settings. We can enable this directly
@@ -78,74 +81,74 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.e(mMainActivity.LOG_TAG, mMainActivity.getMethodName());
+        //Log.e(mMainActivity.LOG_TAG, mMainActivity.getMethodName());
         // All phrases registered with insertPhrase() match ACTION_VOICE_COMMAND as do
         // recognizer status updates
-        if (intent.getAction().equals(VuzixSpeechClient.ACTION_VOICE_COMMAND)) {
-            Bundle extras = intent.getExtras();
-            if (extras != null) {
-                // We will determine what type of message this is based upon the extras provided
-                if (extras.containsKey(VuzixSpeechClient.PHRASE_STRING_EXTRA)) {
-                    // If we get a phrase string extra, this was a recognized spoken phrase.
-                    // The extra will contain the text that was recognized, unless a substitution
-                    // was provided.  All phrases in this example have substitutions as it is
-                    // considered best practice
-                    String phrase = intent.getStringExtra(VuzixSpeechClient.PHRASE_STRING_EXTRA);
-                    Log.e(mMainActivity.LOG_TAG, mMainActivity.getMethodName() + " \"" + phrase + "\"");
-
-                    // Determine the specific phrase that was recognized and act accordingly
-
-                    if (phrase.equals(MATCH_SCROLLDOWN_COMPANIES))
-                    {
-                        mMainActivity.Scroll(true);
-                    }
-                    else if (phrase.equals(MATCH_SCROLLUP_COMPANIES))
-                    {
-                        mMainActivity.Scroll(false);
-                    }
-                    else if (phrase.equals(MATCH_RELOAD_COMPANIES))
-                    {
-                        mMainActivity.Reload();
-                    }
-                    else
-                    {
-                        List<Integer> numberToFind = new ArrayList<Integer>();
-                        String endingString = context.getResources().getString(R.string.Companies);
-                        for (int cptNumbers = 0; cptNumbers < Arrays.asList(numbers).size(); cptNumbers ++)
-                        {
-                            //We will get a phrase like "OneZeroCompanies", we have to check if the phrase does not
-                            //begin with "Companies"
-                            if (phrase.indexOf(endingString) != 0)
-                            {
-                                if (phrase.indexOf(numbers[cptNumbers]) == 0)
-                                {
-                                    int currentDigit = cptNumbers;
-                                    numberToFind.add(currentDigit);
-                                    phrase = phrase.substring(numbers[cptNumbers].length());
-                                    //We have to look into the full array after we find a number
-                                    cptNumbers = -1;
-                                }
-                            }
-                        }
-                        if (numberToFind.size() > 0)
-                        {
-                            String numberString = "";
-                            for (int cptDigit = 0; cptDigit < numberToFind.size(); cptDigit ++)
-                            {
-                                numberString += String.valueOf(numberToFind.get(cptDigit));
-                            }
-                            mMainActivity.SelectItemInRecyclerViewCompanies(parseInt(numberString) - 1);
-                            mMainActivity.Next();
-                        }
-                    }
-                } else if (extras.containsKey(VuzixSpeechClient.RECOGNIZER_ACTIVE_BOOL_EXTRA)) {
-                    // if we get a recognizer active bool extra, it means the recognizer was
-                    // activated or stopped
-                    boolean isRecognizerActive = extras.getBoolean(VuzixSpeechClient.RECOGNIZER_ACTIVE_BOOL_EXTRA, false);
-                    mMainActivity.GetAPIValues(isRecognizerActive);
-                }
-            }
-        }
+        //if (intent.getAction().equals(VuzixSpeechClient.ACTION_VOICE_COMMAND)) {
+        //    Bundle extras = intent.getExtras();
+        //    if (extras != null) {
+        //        // We will determine what type of message this is based upon the extras provided
+        //        if (extras.containsKey(VuzixSpeechClient.PHRASE_STRING_EXTRA)) {
+        //            // If we get a phrase string extra, this was a recognized spoken phrase.
+        //            // The extra will contain the text that was recognized, unless a substitution
+        //            // was provided.  All phrases in this example have substitutions as it is
+        //            // considered best practice
+        //            String phrase = intent.getStringExtra(VuzixSpeechClient.PHRASE_STRING_EXTRA);
+        //            Log.e(mMainActivity.LOG_TAG, mMainActivity.getMethodName() + " \"" + phrase + "\"");
+//
+        //            // Determine the specific phrase that was recognized and act accordingly
+//
+        //            if (phrase.equals(MATCH_SCROLLDOWN_COMPANIES))
+        //            {
+        //                mMainActivity.Scroll(true);
+        //            }
+        //            else if (phrase.equals(MATCH_SCROLLUP_COMPANIES))
+        //            {
+        //                mMainActivity.Scroll(false);
+        //            }
+        //            else if (phrase.equals(MATCH_RELOAD_COMPANIES))
+        //            {
+        //                mMainActivity.Reload();
+        //            }
+        //            else
+        //            {
+        //                List<Integer> numberToFind = new ArrayList<Integer>();
+        //                String endingString = context.getResources().getString(R.string.Companies);
+        //                for (int cptNumbers = 0; cptNumbers < Arrays.asList(numbers).size(); cptNumbers ++)
+        //                {
+        //                    //We will get a phrase like "OneZeroCompanies", we have to check if the phrase does not
+        //                    //begin with "Companies"
+        //                    if (phrase.indexOf(endingString) != 0)
+        //                    {
+        //                        if (phrase.indexOf(numbers[cptNumbers]) == 0)
+        //                        {
+        //                            int currentDigit = cptNumbers;
+        //                            numberToFind.add(currentDigit);
+        //                            phrase = phrase.substring(numbers[cptNumbers].length());
+        //                            //We have to look into the full array after we find a number
+        //                            cptNumbers = -1;
+        //                        }
+        //                    }
+        //                }
+        //                if (numberToFind.size() > 0)
+        //                {
+        //                    String numberString = "";
+        //                    for (int cptDigit = 0; cptDigit < numberToFind.size(); cptDigit ++)
+        //                    {
+        //                        numberString += String.valueOf(numberToFind.get(cptDigit));
+        //                    }
+        //                    mMainActivity.SelectItemInRecyclerViewCompanies(parseInt(numberString) - 1);
+        //                    mMainActivity.Next();
+        //                }
+        //            }
+        //        } else if (extras.containsKey(VuzixSpeechClient.RECOGNIZER_ACTIVE_BOOL_EXTRA)) {
+        //            // if we get a recognizer active bool extra, it means the recognizer was
+        //            // activated or stopped
+        //            boolean isRecognizerActive = extras.getBoolean(VuzixSpeechClient.RECOGNIZER_ACTIVE_BOOL_EXTRA, false);
+        //            mMainActivity.GetAPIValues(isRecognizerActive);
+        //        }
+        //    }
+        //}
     }
 
     public void unregister() {
