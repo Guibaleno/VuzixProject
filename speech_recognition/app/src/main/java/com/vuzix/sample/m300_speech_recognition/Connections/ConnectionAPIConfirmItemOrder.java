@@ -34,7 +34,10 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
 
     @Override
     protected void onPostExecute(String s) {
-        mMainBarcode.ShowNextItem();
+        if (s.equals("true"))
+        {
+            mMainBarcode.ShowNextItem();
+        }
     }
 
     @Override
@@ -86,8 +89,8 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
                 connection.connect();
                 HashMap<String, String> params = new HashMap<String, String>();
                 params.put("LicensePlateId", HeaderInfo.getLicensePlateID());
-                params.put("batchNumber", "");
-                params.put("serialNumber", "");
+                params.put("batchNumber", HeaderInfo.getBatchBarcode());
+                params.put("serialNumber", HeaderInfo.getSerialBarcode());
                 params.put("batchTransferId", HeaderInfo.getBatchTransferID());
                 params.put("quantity", HeaderInfo.getItemQuantity());
 
@@ -113,7 +116,7 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
 
         }
         catch (Exception e){}
-        return jsonString.toString();
+        return String.valueOf(HeaderInfo.getSerialBarcode() == "");
     }
 
 

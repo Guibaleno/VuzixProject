@@ -20,7 +20,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ConnectionAPIGetSerialBatchNumbers extends ConnectionAPI {
     MainBarcode mMainBarcode;
@@ -36,23 +38,25 @@ public class ConnectionAPIGetSerialBatchNumbers extends ConnectionAPI {
         if (checknetwork(mMainBarcode)) {
             JSONArray jsonRoot = null;
             if (response != null) {
-                Log.d("123", response);
                 try{
                     jsonRoot = new JSONArray(response);
-
+                    CurrentBarcode.refreshSerialNumbers();
                     for (int cptObjects = 0; cptObjects < jsonRoot.length(); cptObjects ++)
                     {
                         JSONObject object = jsonRoot.getJSONObject(cptObjects);
                         if(object.has("batchNumber")){
                             String batchNumber = object.getString("batchNumber");
                             CurrentBarcode.setBarcodeToScan(batchNumber);
+                            HeaderInfo.setBatchBarcode(batchNumber);
                         }else if(object.has("serialNumber"))
                         {
                             String serialNumber = object.getString("serialNumber");
-                            CurrentBarcode.setBarcodeToScan(serialNumber);
+                            CurrentBarcode.addSerialNumberToScan(serialNumber);
+                            Log.d("serial numer to scan", serialNumber);
                         }
 
                     }
+
                 }
             catch (JSONException e){e.printStackTrace();}
 
@@ -62,11 +66,9 @@ public class ConnectionAPIGetSerialBatchNumbers extends ConnectionAPI {
 
     @Override
     public String ManageConnection() {
-        StringBuffer jsonString = new StringBuffer();
+        StringBuffer buffer = new StringBuffer();
         try {
             URL urlBatch = new URL(APIAdress);
-
-            StringBuffer buffer = new StringBuffer();
 
             connection = (HttpURLConnection) urlBatch.openConnection();
             connection.setRequestMethod("GET");
@@ -74,9 +76,11 @@ public class ConnectionAPIGetSerialBatchNumbers extends ConnectionAPI {
             connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             connection.setRequestProperty("jwt", HeaderInfo.getToken());
             connection.connect();
+
             InputStream inputStream = connection.getInputStream();
             if (inputStream == null) {
                 return null;
+
             }
             reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
@@ -91,7 +95,7 @@ public class ConnectionAPIGetSerialBatchNumbers extends ConnectionAPI {
 
         }
         catch (Exception e){}
-        return jsonString.toString();
+        return buffer.toString();
     }
 
 

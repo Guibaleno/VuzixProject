@@ -113,6 +113,7 @@ public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
                     }
                     else
                     {
+                        phrase = "fiveonethree";
                         List<Integer> numberToFind = new ArrayList<Integer>();
                         String endingString = context.getResources().getString(R.string.Orders);
                         for (int cptNumbers = 0; cptNumbers < Arrays.asList(numbers).size(); cptNumbers ++)

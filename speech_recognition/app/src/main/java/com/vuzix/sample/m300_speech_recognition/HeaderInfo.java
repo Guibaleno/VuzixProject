@@ -8,6 +8,8 @@ public class HeaderInfo {
     static String LicensePlateID;
     static String itemQuantity;
     static String idLocation;
+    static String batchBarcode = "";
+    static String serialBarcode = "";
 
     public static void setToken(String newToken)
     {
@@ -72,6 +74,27 @@ public class HeaderInfo {
     public static String getIdLocation()
     {
         return idLocation;
+    }
+
+    public static void setBatchBarcode(String newBatchBarcode)
+    {
+        batchBarcode = newBatchBarcode;
+    }
+    public static String getBatchBarcode()
+    {
+        setItemQuantity("1");
+        setSerialBarcode("");
+        return batchBarcode;
+    }
+
+    public static void setSerialBarcode(String newSerialBarcode)
+    {
+        serialBarcode = newSerialBarcode;
+    }
+    public static String getSerialBarcode()
+    {
+        setBatchBarcode("");
+        return serialBarcode;
     }
 
 }

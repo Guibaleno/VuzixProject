@@ -48,12 +48,16 @@ public class Orders extends AppCompatActivity {
         APIAdress = getAPIAdress();
         connectionOrder = new ConnectionAPIOrders(this, APIAdress);
         getOrder();
-        HeaderInfo.setIdZone(getIntent().getStringExtra("idZone"));
+        if (HeaderInfo.getIdZone() == null)
+        {
+            HeaderInfo.setIdZone(getIntent().getStringExtra("idZone"));
+        }
     }
 
     void SetSelectedZoneText()
     {
         String zoneName = getIntent().getStringExtra("zoneName");
+
         txtSelectedZone.setText(txtSelectedZone.getText().toString() + zoneName);
     }
 

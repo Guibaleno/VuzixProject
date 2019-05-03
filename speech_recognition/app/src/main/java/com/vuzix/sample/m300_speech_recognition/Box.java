@@ -110,6 +110,16 @@ public class Box extends View {
         else if(serialNumber.contains("true")){
             setScanText("Scan Serial Number");
         }
+        else
+        {
+            setScanText("Say Quantity");
+        }
 
+    }
+
+    public boolean changeQuantityLeftSerial(){
+        quantity = String.valueOf(Float.parseFloat(quantity) - 1);
+        HeaderInfo.setItemQuantity(quantity);
+        return quantity == "0.0";
     }
 }

@@ -73,6 +73,8 @@ public class MainBarcode extends Activity {
     private String locationId;
     private String productId;
 
+
+
     BarcodeFinder mBarcodeProcessor;
 
     private boolean mTakingPicture;   // Prevents multiple requests at one time
@@ -181,9 +183,9 @@ public class MainBarcode extends Activity {
         switch (keycode) {
             case KeyEvent.KEYCODE_DPAD_RIGHT:
             case KeyEvent.KEYCODE_DPAD_LEFT:
-           // case KeyEvent.KEYCODE_ENTER:
-            //   takeStillPicture();
-           //     return true;
+            case KeyEvent.KEYCODE_ENTER:
+             takeStillPicture();
+                return true;
             case KeyEvent.KEYCODE_BACK:
                 finish();
         }
@@ -416,7 +418,7 @@ public class MainBarcode extends Activity {
         // Show the user
         if (CurrentBarcode.getBarcodeToScan() != null && dataToShow != null){
             Log.d("barcode", CurrentBarcode.getBarcodeToScan());
-            if(CurrentBarcode.getBarcodeToScan().trim().equals(dataToShow.trim())){
+            if(CurrentBarcode.getBarcodeToScan().trim().equals(dataToShow.trim()) || CurrentBarcode.verifySerialNumber(dataToShow)){
                 Toast.makeText(MainBarcode.this, dataToShow , Toast.LENGTH_LONG).show();
                 if (box.getScanText().equals("Scan BIN"))
                 {
@@ -425,13 +427,37 @@ public class MainBarcode extends Activity {
                 }
                 else if (box.getScanText().equals("Scan Product Code"))
                 {
-                    connectionAPIGetSerialBatchNumbers = new ConnectionAPIGetSerialBatchNumbers(this,getAPIAdressBatchOrSerailNumbers());
-                    connectionAPIGetSerialBatchNumbers.execute();
                     box.changeScanText();
+                    if(box.getScanText().equals("Scan Batch Number")){
+                        connectionAPIGetSerialBatchNumbers = new ConnectionAPIGetSerialBatchNumbers(this,getAPIAdressBatch());
+                        connectionAPIGetSerialBatchNumbers.execute();
+                    }
+                    else if (box.getScanText().equals("Scan Serial Number"))
+                    {
+                        connectionAPIGetSerialBatchNumbers = new ConnectionAPIGetSerialBatchNumbers(this,getAPIAdressSerialNumbers());
+                        connectionAPIGetSerialBatchNumbers.execute();
+                    }
+                    else
+                    {
+                        mVoiceCmdReceiverScanBarcode.createQuantityNumbers();
+                    }
                     Log.d("Scantext", box.getScanText());
 
                 }else if (box.getScanText().equals("Scan Batch Number")|| box.getScanText().equals("Scan Serial Number")){
-                    box.setScanText("Say Quantity");
+                    if (box.getScanText().equals("Scan Serial Number"))
+                    {
+                        connectionConfirmItemOrder = new ConnectionAPIConfirmItemOrder(this, getAPIAdressItemOrderConfirm(),getAPIAdressLicensePlateID());
+                        connectionConfirmItemOrder.execute();
+                        if(box.changeQuantityLeftSerial())
+                        {
+                            connectionConfirmItemOrder = new ConnectionAPIConfirmItemOrder(this, getAPIAdressItemOrderConfirm(),getAPIAdressLicensePlateID());
+                            connectionConfirmItemOrder.execute();
+                        }
+                    }
+                    else
+                    {
+                        box.setScanText("Say Quantity");
+                    }
                     mVoiceCmdReceiverScanBarcode.createQuantityNumbers();
                 }
                 RefreshCanvas();
@@ -495,10 +521,16 @@ public class MainBarcode extends Activity {
         lineId = IDLine;
     }
 
-    public String getAPIAdressBatchOrSerailNumbers()
+    public String getAPIAdressBatch()
     {
         return  "https://216.226.53.29/V5/API/Locations%28" + locationId +"%29/Products%28" + productId +"%29/BatchNumbers";
     }
+
+    public String getAPIAdressSerialNumbers()
+    {
+        return  "https://216.226.53.29/V5/API/Locations%28" + locationId +"%29/Products%28" + productId +"%29/SerialNumbers";
+    }
+
 
     public void setAPIAdressBatchOrSerialNumbers(String IDLocation, String IDProduct)
     {
@@ -619,6 +651,7 @@ public class MainBarcode extends Activity {
     public void NextOrder()
     {
         Intent intent = new Intent(getApplicationContext(), Orders.class);
+        intent.putExtra("zoneName",getIntent().getStringExtra("zoneName"));
         startActivity(intent);
     }
 }

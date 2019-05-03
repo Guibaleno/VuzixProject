@@ -92,6 +92,7 @@ public class LicensePlate extends AppCompatActivity {
             Intent intent = new Intent(this, MainBarcode.class);
             intent.putExtra("idOrder", getIntent().getStringExtra("idOrder"));
             intent.putExtra("licensePlateNo",txtLicensePlate.getText().toString());
+            intent.putExtra("zoneName",getIntent().getStringExtra("zoneName"));
             startActivity(intent);
     }
 
