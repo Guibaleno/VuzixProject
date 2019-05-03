@@ -2,6 +2,7 @@ package com.vuzix.sample.m300_speech_recognition;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -61,24 +62,40 @@ import static android.view.KeyEvent.KEYCODE_Y;
 import static android.view.KeyEvent.KEYCODE_Z;
 import static java.lang.Integer.parseInt;
 
-public class VoiceManager extends VoiceCmdReceiver
+public class VoiceManager extends BroadcastReceiver
 {
-    static MainActivity mMainActivity;
-    static Login mLogin;
-    static Warehouses mWarehouses;
+    public static final String[] numbers = {"zero","one","two","three","four","five","six","seven","eight","nine"};
+    public static final String MATCH_NEXT = "Next";
+    public static final String MATCH_RELOAD = "Reload";
+    public static final String MATCH_SCROLLDOWN = "Scrolldown";
+    public static final String MATCH_SCROLLUP = "ScrollUp";
+    public static final String MATCH_RETURN = "Return";
+    public static final String MATCH_DISMISS = "Dismiss";
+    public static final String MATCH_USERNAME = "Username";
+    public static final String MATCH_PASSWORD = "Password";
+
+     MainActivity mMainActivity;
+     Login mLogin;
+     Warehouses mWarehouses;
+     VuzixSpeechClient sc;
+     VoiceCmdReceiver currentReceiver;
+
+     //String currentActivity;
+     Activity currentActivity;
+  // static VoiceCmdReceiver voiceCmdReceiver = new VoiceCmdReceiver();
 
 
-    static String currentActivity;
-    static VoiceCmdReceiver voiceCmdReceiver = new VoiceCmdReceiver();
-
-    public VoiceManager(MainActivity newMainActivity)
+    public VoiceManager(Activity activity)
     {
         Log.d("ici", "ici");
         try {
-            mMainActivity = newMainActivity;
-            mMainActivity.registerReceiver(this, new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
-            voiceCmdReceiver.sc = new VuzixSpeechClient(newMainActivity);
-            voiceCmdReceiver.sc.deletePhrase("*");
+            currentActivity = activity;
+            mMainActivity = (MainActivity) activity;
+            //mMainActivity.registerReceiver(this, new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
+            sc = new VuzixSpeechClient(activity);
+
+            sc.deletePhrase("*");
+
             insertPhrase(MATCH_SCROLLDOWN);
             insertPhrase(MATCH_SCROLLUP);
             insertPhrase(MATCH_RELOAD);
@@ -88,13 +105,27 @@ public class VoiceManager extends VoiceCmdReceiver
             insertPhrase(MATCH_PASSWORD);
             insertPhrase(MATCH_DISMISS);
             insertPhrase(MATCH_RETURN);
-            currentActivity = "CompaniesActivity";
+            //currentActivity = "CompaniesActivity";
             createCharacterPhrase();
-            showAllStrings();
+            //showAllStrings();
             Log.d("ici", "ici");
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+    }
+
+    public void SetReceiver(VoiceCmdReceiver newCmdReceiver){
+        currentReceiver = newCmdReceiver;
+
+    }
+
+    public void SetCurrentActivity(Activity newActivity){
+        Log.d("SetCurrentActivity", "SetCurrentActivity");
+        currentActivity = newActivity;
+        //newActivity.registerReceiver(this, new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
+        currentActivity . registerReceiver(this,
+                new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND))
+        ;
     }
     public VoiceManager(Login newLogin)
     {
@@ -103,7 +134,7 @@ public class VoiceManager extends VoiceCmdReceiver
             //
                 mLogin = newLogin;
             //}
-            currentActivity = "LoginActivity";
+           // currentActivity = "LoginActivity";
             Log.d("newAct", "newAct");
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,24 +143,24 @@ public class VoiceManager extends VoiceCmdReceiver
     public VoiceManager(Warehouses newWarehouse)
     {
         mWarehouses = newWarehouse;
-        currentActivity = "WarehouseActivity";
-        Log.d(currentActivity, currentActivity);
-        Log.d("test", voiceCmdReceiver.sc.dump());
+       /* currentActivity = "WarehouseActivity";
+        Log.d(currentActivity, currentActivity);*/
+        Log.d("testWarehouse", sc.dump());
     }
 
-    public static void insertPhrase(String phrase)
+    public  void insertPhrase(String phrase)
     {
-        voiceCmdReceiver.sc.insertPhrase(phrase, phrase);
+       sc.insertPhrase(phrase, phrase);
     }
 
-    public static void showAllStrings()
+    public void showAllStrings()
     {
-        Log.d("william,", voiceCmdReceiver.sc.dump());
+        Log.d("william,", sc.dump());
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
+            Log.d("RECEIVEVOICEMANAGER", "HELLO VUZIX");
             if (intent.getAction().equals(VuzixSpeechClient.ACTION_VOICE_COMMAND)) {
                 Bundle extras = intent.getExtras();
                 if (extras != null) {
@@ -141,83 +172,22 @@ public class VoiceManager extends VoiceCmdReceiver
                         // considered best practice
                         String phrase = intent.getStringExtra(VuzixSpeechClient.PHRASE_STRING_EXTRA);
                         Log.e(mMainActivity.LOG_TAG, mMainActivity.getMethodName() + " \"" + phrase + "\"");
-                        Log.d("currentActivity", currentActivity);
+                        //Log.d("currentActivity", currentActivity);
+                        Log.d("currentActivity", phrase);
                         //region Companies
-                        if (currentActivity.equals("CompaniesActivity"))
+                       /* if (currentActivity.equals("CompaniesActivity"))
                         {
-                            int cptPhrases = 0;
-                            boolean phraseFound = false;
-                            if (phrase.equals(MATCH_SCROLLDOWN)) {
-                                mMainActivity.Scroll(true);
-                            } else if (phrase.equals(MATCH_SCROLLUP)) {
-                                mMainActivity.Scroll(false);
-                            } else if (phrase.equals(MATCH_RELOAD)) {
-                               mMainActivity.Reload();
-                            } else {
-                                phrase = "one";
-                                List<Integer> numberToFind = new ArrayList<Integer>();
-                                String endingString = context.getResources().getString(R.string.Companies);
-                                for (int cptNumbers = 0; cptNumbers < Arrays.asList(numbers).size(); cptNumbers++) {
-                                    //We will get a phrase like "OneZeroCompanies", we have to check if the phrase does not
-                                    //begin with "Companies"
-                                    if (phrase.indexOf(endingString) != 0) {
-                                        if (phrase.indexOf(numbers[cptNumbers]) == 0) {
-                                            int currentDigit = cptNumbers;
-                                            numberToFind.add(currentDigit);
-                                            phrase = phrase.substring(numbers[cptNumbers].length());
-                                            //We have to look into the full array after we find a number
-                                            cptNumbers = -1;
-                                        }
-                                    }
-                                }
-                                if (numberToFind.size() > 0) {
-                                    String numberString = "";
-                                    for (int cptDigit = 0; cptDigit < numberToFind.size(); cptDigit++) {
-                                        numberString += String.valueOf(numberToFind.get(cptDigit));
-                                    }
-                                    mMainActivity.SelectItemInRecyclerViewCompanies(parseInt(numberString) - 1);
-                                }
-                            }
+                            //ok
                         }
                         //endregion
                         //region Login
                         else if (currentActivity.equals("LoginActivity"))
                         {
-                            Log.d("test432",phrase);
-                            if (phrase.equals(MATCH_RETURN))
-                            {
-                                mLogin.FinishActivity();
-                            }
-                            else if (phrase.equals(MATCH_PASSWORD))
-                            {
-                                mLogin.GoToPassword();
-                            }
-                            else if (phrase.equals(MATCH_USERNAME))
-                            {
-                                mLogin.GoToUsername();
-                            }
-                            else if (phrase.equals(MATCH_NEXT))
-                            {
-                                mLogin.ShowProgress();
-                                mLogin.TryToConnect();
-                            }
-                            else if (phrase.equals(MATCH_RELOAD))
-                            {
-                                Log.d("test432","test");
-                                mLogin.Reload();
-                            }
-                            else if (phrase.equals(MATCH_DISMISS))
-                            {
-                                mLogin.Dismiss();
-                            }
-                            else
-                            {
-                                mLogin.WriteNumberLogin(Arrays.asList(numbers).indexOf(phrase));
-                            }
-                        }
+                            currentReceiver.onReceive(currentActivity,intent,phrase);
+                        }*/
                         //endregion
                         //region Warehouses
-                        else if (currentActivity.equals("WarehouseActivity"))
+                         if (currentActivity.equals("WarehouseActivity"))
                         {
                             if (phrase.equals(MATCH_SCROLLDOWN)) {
                                 mWarehouses.Scroll(true);
@@ -231,6 +201,9 @@ public class VoiceManager extends VoiceCmdReceiver
                                 Log.d("four", phrase);
                                 mWarehouses.SelectItemInRecyclerViewWarehouse(Arrays.asList(numbers).indexOf(phrase) - 1);
                             }
+                        }else{
+
+                            currentReceiver.onReceive(currentActivity,intent,phrase);
                         }
                         //endregion
                     } else if (extras.containsKey(VuzixSpeechClient.RECOGNIZER_ACTIVE_BOOL_EXTRA)) {
@@ -252,57 +225,58 @@ public class VoiceManager extends VoiceCmdReceiver
 
     private void createCharacterPhrase()
     {
-        voiceCmdReceiver.sc.insertKeycodePhrase("Alfa", KEYCODE_A );
-        voiceCmdReceiver.sc.insertKeycodePhrase("Bravo", KEYCODE_B);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Charlie", KEYCODE_C);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Delta", KEYCODE_D);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Echo", KEYCODE_E);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Foxtrot", KEYCODE_F);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Golf", KEYCODE_G);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Hotel", KEYCODE_H);
-        voiceCmdReceiver.sc.insertKeycodePhrase("India", KEYCODE_I);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Juliett", KEYCODE_J);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Kilo", KEYCODE_K);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Lima", KEYCODE_L);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Mike", KEYCODE_M);
-        voiceCmdReceiver.sc.insertKeycodePhrase("November", KEYCODE_N);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Oscar", KEYCODE_O);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Papa", KEYCODE_P);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Quebec", KEYCODE_Q);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Romeo", KEYCODE_R);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Sierra", KEYCODE_S);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Tango", KEYCODE_T);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Uniform", KEYCODE_U);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Victor", KEYCODE_V);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Whiskey", KEYCODE_W);
-        voiceCmdReceiver.sc.insertKeycodePhrase("X-Ray", KEYCODE_X);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Yankee", KEYCODE_Y);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Zulu", KEYCODE_Z);
-        voiceCmdReceiver.sc.insertKeycodePhrase("Space", KEYCODE_SPACE);
-        voiceCmdReceiver.sc.insertKeycodePhrase("shift", KEYCODE_SHIFT_LEFT);
-        voiceCmdReceiver.sc.insertKeycodePhrase("caps lock", KEYCODE_CAPS_LOCK);
-        voiceCmdReceiver.sc.insertKeycodePhrase("at sign", KEYCODE_AT);
-        voiceCmdReceiver.sc.insertKeycodePhrase("period", KEYCODE_PERIOD);
-        voiceCmdReceiver.sc.insertKeycodePhrase("erase", KEYCODE_DEL);
-        voiceCmdReceiver.sc.insertKeycodePhrase("enter", KEYCODE_ENTER);
-        voiceCmdReceiver.sc.insertKeycodePhrase("hyphen", KEYCODE_MINUS);
-        voiceCmdReceiver.sc.insertKeycodePhrase("zero", KEYCODE_0);
-        voiceCmdReceiver.sc.insertPhrase("one", "one");
-        voiceCmdReceiver.sc.insertPhrase("two", "two");
-        voiceCmdReceiver.sc.insertPhrase("three", "three");
-        voiceCmdReceiver.sc.insertPhrase("four", "four");
-        voiceCmdReceiver.sc.insertPhrase("five", "five");
-        voiceCmdReceiver.sc.insertPhrase("six", "six");
-        voiceCmdReceiver.sc.insertPhrase("seven", "seven");
-        voiceCmdReceiver.sc.insertPhrase("eight", "eight");
-        voiceCmdReceiver.sc.insertPhrase("nine", "nine");
+
+        sc.insertKeycodePhrase("Alfa", KEYCODE_A );
+        sc.insertKeycodePhrase("Bravo", KEYCODE_B);
+        sc.insertKeycodePhrase("Charlie", KEYCODE_C);
+        sc.insertKeycodePhrase("Delta", KEYCODE_D);
+        sc.insertKeycodePhrase("Echo", KEYCODE_E);
+        sc.insertKeycodePhrase("Foxtrot", KEYCODE_F);
+        sc.insertKeycodePhrase("Golf", KEYCODE_G);
+        sc.insertKeycodePhrase("Hotel", KEYCODE_H);
+        sc.insertKeycodePhrase("India", KEYCODE_I);
+        sc.insertKeycodePhrase("Juliett", KEYCODE_J);
+        sc.insertKeycodePhrase("Kilo", KEYCODE_K);
+        sc.insertKeycodePhrase("Lima", KEYCODE_L);
+        sc.insertKeycodePhrase("Mike", KEYCODE_M);
+        sc.insertKeycodePhrase("November", KEYCODE_N);
+        sc.insertKeycodePhrase("Oscar", KEYCODE_O);
+        sc.insertKeycodePhrase("Papa", KEYCODE_P);
+        sc.insertKeycodePhrase("Quebec", KEYCODE_Q);
+        sc.insertKeycodePhrase("Romeo", KEYCODE_R);
+        sc.insertKeycodePhrase("Sierra", KEYCODE_S);
+        sc.insertKeycodePhrase("Tango", KEYCODE_T);
+        sc.insertKeycodePhrase("Uniform", KEYCODE_U);
+        sc.insertKeycodePhrase("Victor", KEYCODE_V);
+        sc.insertKeycodePhrase("Whiskey", KEYCODE_W);
+        sc.insertKeycodePhrase("X-Ray", KEYCODE_X);
+        sc.insertKeycodePhrase("Yankee", KEYCODE_Y);
+        sc.insertKeycodePhrase("Zulu", KEYCODE_Z);
+        sc.insertKeycodePhrase("Space", KEYCODE_SPACE);
+        sc.insertKeycodePhrase("shift", KEYCODE_SHIFT_LEFT);
+        sc.insertKeycodePhrase("caps lock", KEYCODE_CAPS_LOCK);
+        sc.insertKeycodePhrase("at sign", KEYCODE_AT);
+        sc.insertKeycodePhrase("period", KEYCODE_PERIOD);
+        sc.insertKeycodePhrase("erase", KEYCODE_DEL);
+        sc.insertKeycodePhrase("enter", KEYCODE_ENTER);
+        sc.insertKeycodePhrase("hyphen", KEYCODE_MINUS);
+        sc.insertKeycodePhrase("zero", KEYCODE_0);
+        sc.insertPhrase("one", "one");
+        sc.insertPhrase("two", "two");
+        sc.insertPhrase("three", "three");
+        sc.insertPhrase("four", "four");
+        sc.insertPhrase("five", "five");
+        sc.insertPhrase("six", "six");
+        sc.insertPhrase("seven", "seven");
+        sc.insertPhrase("eight", "eight");
+        sc.insertPhrase("nine", "nine");
         showAllStrings();
     }
 
-    public static void setCurrentActivity(String newCurrentActivity)
+    /*public void setCurrentActivity(String newCurrentActivity)
     {
         currentActivity = newCurrentActivity;
-    }
+    }*/
 
 }
 

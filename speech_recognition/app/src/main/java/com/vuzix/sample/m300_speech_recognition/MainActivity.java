@@ -77,8 +77,8 @@ public class MainActivity extends Activity {
 
     List<String> listId = new ArrayList<String>();
     List<String> listName = new ArrayList<String>();
-
-        //VoiceCmdReceiverCompanies mVoiceCmdReceiver;
+    VoiceManager voiceManager;
+    //VoiceCmdReceiverCompanies mVoiceCmdReceiver;
     private boolean mRecognizerActive = false;
 
     /**
@@ -103,13 +103,8 @@ public class MainActivity extends Activity {
 
         // Create the voice command receiver class
         progressCompanies.setVisibility(View.VISIBLE);
-        Log.d("ici", "ici");
-        VoiceManager voiceManager = new VoiceManager(this);
-        Log.d("ici2", "ici2");
-        //mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
-        Log.d("ici3", "ici3");
+        voiceManager =  VoiceManagerSingleton.getInstance(this);
         connection = new ConnectionAPICompanies(this, APIAdress);
-        Log.d("ici3", "ici3");
         // Now register another intent handler to demonstrate intents sent from the service
        // myIntentReceiver = new MyIntentReceiver();
         //registerReceiver(myIntentReceiver , new IntentFilter(CUSTOM_SDK_INTENT));
@@ -260,7 +255,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        VoiceManager.setCurrentActivity("CompaniesActivity");
+        voiceManager.SetCurrentActivity(this);
         //If we say "return" in the login screen
         if (!txtSelectedItem.getText().equals("Select a Company"))
         {

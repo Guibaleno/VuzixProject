@@ -18,7 +18,7 @@ import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
+public class VoiceCmdReceiverScanBarcode {
     private MainBarcode mainBarcode;
     public final String MATCH_RETURN_TO_LICENSE = "ReturnToLicense";
     public final String MATCH_RELOAD_BARCODE = "RealoadMainBarcode";
@@ -26,9 +26,8 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
     public final String MATCH_POINT = "Point";
     public final String MATCH_ERASE = "erase";
     List<String> quantityPossible = new ArrayList<>();
-    public VoiceCmdReceiverScanBarcode(MainBarcode iActivity)
-    {
-        mainBarcode = iActivity;
+    public VoiceCmdReceiverScanBarcode(MainBarcode iActivity) {
+        /*mainBarcode = iActivity;
         mainBarcode.registerReceiver(this, new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
         //Log.d(mWarehouse.LOG_TAG, "Connecting to M300 SDK");
 
@@ -77,7 +76,7 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
      * @param context Context in which the phrase is handled
      * @param intent Intent associated with the recognized phrase
      */
-    @Override
+    /*@Override
     public void onReceive(Context context, Intent intent) {
         // All phrases registered with insertPhrase() match ACTION_VOICE_COMMAND as do
         // recognizer status updates
@@ -154,3 +153,5 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
 
 
 }
+*/
+    }}

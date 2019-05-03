@@ -16,7 +16,7 @@ import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
+public class VoiceCmdReceiverWarehouses  {/*
     private Warehouses mWarehouse;
     public final String MATCH_RETURN_TO_LOGIN = "ReturnToLogin";
     public final String MATCH_SCROLLDOWN_WAREHOUSES = "ScrollDownWarehouses";
@@ -77,7 +77,7 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
      * @param context Context in which the phrase is handled
      * @param intent Intent associated with the recognized phrase
      */
-    @Override
+    /*@Override
     public void onReceive(Context context, Intent intent) {
         // All phrases registered with insertPhrase() match ACTION_VOICE_COMMAND as do
         // recognizer status updates
@@ -155,4 +155,4 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
         }
     }
 
-}
+}*/}

@@ -44,7 +44,7 @@ public class Zones extends AppCompatActivity {
 
 
         progressZones.setVisibility(View.VISIBLE);
-        mVoiceCmdReceiverZones = new VoiceCmdReceiverZones(this);
+        //mVoiceCmdReceiverZones = new VoiceCmdReceiverZones(this);
         connectionZone = new ConnectionAPIZones(this, APIAdress);
 
         SetOrderInfoText();
@@ -54,7 +54,7 @@ public class Zones extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        mVoiceCmdReceiverZones.unregister();
+        //mVoiceCmdReceiverZones.unregister();
         super.onDestroy();
     }
 
@@ -107,7 +107,7 @@ public class Zones extends AppCompatActivity {
     {
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
-            mVoiceCmdReceiverZones.unregister();
+            //mVoiceCmdReceiverZones.unregister();
             String stringToRemove = "Selected Zone : ";
             int indexOfString = listZonesName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, Orders.class);
@@ -123,7 +123,7 @@ public class Zones extends AppCompatActivity {
 
     void FinishActivity()
     {
-        mVoiceCmdReceiverZones.unregister();
+        //mVoiceCmdReceiverZones.unregister();
         mVoiceCmdReceiverZones = null;
         finish();
     }
@@ -135,16 +135,16 @@ public class Zones extends AppCompatActivity {
 
     public void CreateStringsZone()
     {
-        mVoiceCmdReceiverZones.CreateStrings(recyclerZones, getResources().getString(R.string.Zones));
+        //mVoiceCmdReceiverZones.CreateStrings(recyclerZones, getResources().getString(R.string.Zones));
     }
 
     public void Scroll(boolean scrollDown)
     {
-        mVoiceCmdReceiverZones.scrollRecyclerView(recyclerZones, scrollDown);
+        //mVoiceCmdReceiverZones.scrollRecyclerView(recyclerZones, scrollDown);
     }
     public void Reload()
     {
-        mVoiceCmdReceiverZones.unregister();
+        //mVoiceCmdReceiverZones.unregister();
         connectionZone.HideAlert();
         Intent intent = new Intent(this, Zones.class);
         intent.putExtra("idwareHouse",getIntent().getStringExtra("idwareHouse"));

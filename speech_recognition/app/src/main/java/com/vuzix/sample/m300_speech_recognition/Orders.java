@@ -42,7 +42,7 @@ public class Orders extends AppCompatActivity {
         progressOrders = (ProgressBar) findViewById(R.id.progressOrders);
 
         progressOrders.setVisibility(View.VISIBLE);
-        mVoiceCmdReceiverOrders = new VoiceCmdReceiverOrders(this);
+        //mVoiceCmdReceiverOrders = new VoiceCmdReceiverOrders(this);
 
         SetSelectedZoneText();
         APIAdress = getAPIAdress();
@@ -94,7 +94,7 @@ public class Orders extends AppCompatActivity {
     {
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
-            mVoiceCmdReceiverOrders.unregister();
+            //mVoiceCmdReceiverOrders.unregister();
             String stringToRemove = "Selected order : ";
             int indexOfString = listIdOrders.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, LicensePlate.class);
@@ -111,7 +111,7 @@ public class Orders extends AppCompatActivity {
 
     void FinishActivity()
     {
-        mVoiceCmdReceiverOrders.unregister();
+        //mVoiceCmdReceiverOrders.unregister();
         mVoiceCmdReceiverOrders = null;
         finish();
     }
@@ -123,7 +123,7 @@ public class Orders extends AppCompatActivity {
 
     public void CreateStringsOrder(String currentOrderNumber)
     {
-        mVoiceCmdReceiverOrders.CreateStringsOrders(currentOrderNumber);
+        //mVoiceCmdReceiverOrders.CreateStringsOrders(currentOrderNumber);
     }
 
 
@@ -147,11 +147,11 @@ public class Orders extends AppCompatActivity {
 
     public void Scroll(boolean scrollDown)
     {
-        mVoiceCmdReceiverOrders.scrollRecyclerView(recyclerOrders, scrollDown);
+        //mVoiceCmdReceiverOrders.scrollRecyclerView(recyclerOrders, scrollDown);
     }
     public void Reload()
     {
-        mVoiceCmdReceiverOrders.unregister();
+        //mVoiceCmdReceiverOrders.unregister();
         connectionOrder.HideAlert();
         Intent intent = new Intent(this, Orders.class);
         intent.putExtra("idZone",getIntent().getStringExtra("idZone"));

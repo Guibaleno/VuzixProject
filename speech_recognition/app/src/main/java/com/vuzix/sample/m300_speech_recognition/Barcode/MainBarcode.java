@@ -424,7 +424,7 @@ public class MainBarcode extends Activity {
                 else if (box.getScanText().equals("Scan Product Code"))
                 {
                     box.setScanText("Say Quantity");
-                    mVoiceCmdReceiverScanBarcode.createQuantityNumbers();
+                    //mVoiceCmdReceiverScanBarcode.createQuantityNumbers();
                 }
                 RefreshCanvas();
             }

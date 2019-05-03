@@ -44,7 +44,7 @@ import static android.view.KeyEvent.KEYCODE_Z;
 import static android.view.KeyEvent.KEYCODE_MINUS;
 
 
-public class VoiceCmdReceiverLicensePlate extends VoiceCmdReceiver {
+public class VoiceCmdReceiverLicensePlate {/*
     private LicensePlate mLicensePLate;
     final String MATCH_RETURN_TO_ORDERS = "ReturnToOrders";
     public final String MATCH_RELOAD_LICENSEPLATE = "RealoadLicensePlate";
@@ -145,7 +145,7 @@ public class VoiceCmdReceiverLicensePlate extends VoiceCmdReceiver {
      * @param context Context in which the phrase is handled
      * @param intent Intent associated with the recognized phrase
      */
-    @Override
+    /*@Override
     public void onReceive(Context context, Intent intent) {
         // All phrases registered with insertPhrase() match ACTION_VOICE_COMMAND as do
         // recognizer status updates
@@ -190,4 +190,4 @@ public class VoiceCmdReceiverLicensePlate extends VoiceCmdReceiver {
 
         }
     }
-}
+}*/}

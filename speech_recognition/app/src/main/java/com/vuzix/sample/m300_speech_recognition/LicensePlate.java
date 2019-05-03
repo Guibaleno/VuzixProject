@@ -42,12 +42,12 @@ public class LicensePlate extends AppCompatActivity {
 
         SetOrderInfoText();
         WritePreviousData();
-        mVoiceCmdReceiverLicensePlate = new VoiceCmdReceiverLicensePlate(this);
+        //mVoiceCmdReceiverLicensePlate = new VoiceCmdReceiverLicensePlate(this);
     }
 
     @Override
     protected void onDestroy() {
-        mVoiceCmdReceiverLicensePlate.unregister();
+        //mVoiceCmdReceiverLicensePlate.unregister();
         super.onDestroy();
     }
 
@@ -71,14 +71,14 @@ public class LicensePlate extends AppCompatActivity {
 
     void FinishActivity()
     {
-        mVoiceCmdReceiverLicensePlate.unregister();
+        //mVoiceCmdReceiverLicensePlate.unregister();
         mVoiceCmdReceiverLicensePlate = null;
         finish();
     }
 
     void CreateLicencePlate()
     {
-        mVoiceCmdReceiverLicensePlate.unregister();
+       // mVoiceCmdReceiverLicensePlate.unregister();
         Toast.makeText(getApplicationContext(), "Next", Toast.LENGTH_SHORT).show();
         connection = new ConnectionAPILicensePlate(this, APIAdress);
         connection.execute();
@@ -87,7 +87,7 @@ public class LicensePlate extends AppCompatActivity {
 
     public void MoveToScanner() {
         Intent scannerIntent = new Intent(ScannerIntent.ACTION);
-        mVoiceCmdReceiverLicensePlate.unregister();
+       // mVoiceCmdReceiverLicensePlate.unregister();
             //startActivityForResult(scannerIntent, REQUEST_CODE_SCAN);
             Intent intent = new Intent(this, MainBarcode.class);
             intent.putExtra("idOrder", getIntent().getStringExtra("idOrder"));

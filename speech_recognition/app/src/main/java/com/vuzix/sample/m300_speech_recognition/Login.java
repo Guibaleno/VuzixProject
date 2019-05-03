@@ -21,11 +21,13 @@ public class Login extends AppCompatActivity {
 
     EditText txtUsername;
     EditText txtPassword;
+    VoiceManager voiceManager;
 
     //VoiceCmdReceiverLogin mVoiceCmdReceiver;
     ConnectionAPILogin connection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("LOGIN","ON CREATE");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         txtCompany = (TextView) findViewById(R.id.txtCompany);
@@ -33,7 +35,13 @@ public class Login extends AppCompatActivity {
         txtPassword = (EditText) findViewById(R.id.txtPassword);
         progressLogin = (ProgressBar) findViewById(R.id.progressLogin);
         SetCompanyText();
-        VoiceManager voiceManager = new VoiceManager(this);
+       // VoiceManager voiceManager = new VoiceManager(this);
+
+        voiceManager = VoiceManagerSingleton.getInstance(this);
+
+        voiceManager.SetCurrentActivity(this);
+        voiceManager.SetReceiver(new VoiceCmdReceiverLogin());
+        Log.d("Create", "Login");
         //mVoiceCmdReceiver = new VoiceCmdReceiverLogin(this);
         progressLogin.setVisibility(View.INVISIBLE);
 
@@ -148,4 +156,9 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //voiceManager.SetCurrentActivity(this);
+    }
 }

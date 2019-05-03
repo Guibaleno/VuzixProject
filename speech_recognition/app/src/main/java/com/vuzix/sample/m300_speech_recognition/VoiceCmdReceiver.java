@@ -32,6 +32,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.vuzix.sample.m300_speech_recognition;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -45,38 +46,15 @@ import com.vuzix.sdk.speechrecognitionservice.VuzixSpeechClient;
 /**
  * Class to encapsulate all voice commands
  */
-public class VoiceCmdReceiver  extends BroadcastReceiver {
+public abstract class VoiceCmdReceiver  {
     public VoiceCmdReceiver()
     {
 
     }
 
-    // Voice command substitutions. These substitutions are returned when phrases are recognized.
-    // This is done by registering a phrase with a substition. This eliminates localization issues
-    // and is encouraged
-    VuzixSpeechClient sc;
-    String[] numbers = {"zero","one","two","three","four","five","six","seven","eight","nine"};
-    final String MATCH_NEXT = "Next";
-    final String MATCH_RELOAD = "Reload";
-    final String MATCH_SCROLLDOWN = "Scrolldown";
-    final String MATCH_SCROLLUP = "ScrollUp";
-    final String MATCH_RETURN = "Return";
-    final String MATCH_DISMISS = "Dismiss";
-    final String MATCH_USERNAME = "Username";
-    final String MATCH_PASSWORD = "Password";
 
-
-
-    // Voice command custom intent names
-    final String TOAST_EVENT = "other_toast";
-
-    private Login mLogin;
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-
-    }
-
+    public abstract void onReceive(Activity activity, Intent intent, String phraseSaid);
+/*
     public void CreateStrings(RecyclerView currentRecyclerView, String currentActivity)
     {
         //This function creates strings from 1 to the RecyclerView's size.
@@ -96,7 +74,8 @@ public class VoiceCmdReceiver  extends BroadcastReceiver {
         }
         VoiceManager.showAllStrings();
     }
-
+*/
+/*
     public void scrollRecyclerView(RecyclerView currentRecyclerView, boolean scrollDown)
     {
 
@@ -127,5 +106,5 @@ public class VoiceCmdReceiver  extends BroadcastReceiver {
             }
         }
     }
-
+*/
 }
