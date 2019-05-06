@@ -52,10 +52,12 @@ public class Zones extends AppCompatActivity {
         getZone();
     }
 
+
     @Override
-    protected void onDestroy() {
+    protected void onResume() {
+        super.onResume();
         mVoiceCmdReceiverZones.unregister();
-        super.onDestroy();
+        mVoiceCmdReceiverZones = new VoiceCmdReceiverZones(this);
     }
 
     void SetOrderInfoText()

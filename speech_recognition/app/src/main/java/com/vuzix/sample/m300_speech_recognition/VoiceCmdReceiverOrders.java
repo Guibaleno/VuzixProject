@@ -152,7 +152,7 @@ public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
             Log.i(mOrder.LOG_TAG, "Custom vocab removed");
             mOrder = null;
         }catch (Exception e) {
-            Log.e(mOrder.LOG_TAG, "Custom vocab died " + e.getMessage());
+           // Log.e(mOrder.LOG_TAG, "Custom vocab died " + e.getMessage());
         }
     }
 

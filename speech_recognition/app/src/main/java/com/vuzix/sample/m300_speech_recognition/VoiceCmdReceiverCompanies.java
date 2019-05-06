@@ -158,6 +158,8 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
             //Log.e(mMainActivity.LOG_TAG, "Custom vocab died " + e.getMessage());
         }
     }
+
+
     public void TriggerRecognizerToListen(boolean bOnOrOff) {
         try {
             VuzixSpeechClient.TriggerVoiceAudio(mMainActivity, bOnOrOff);

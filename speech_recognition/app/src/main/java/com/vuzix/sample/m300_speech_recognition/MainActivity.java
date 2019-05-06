@@ -240,8 +240,9 @@ public class MainActivity extends Activity {
             connection.HideAlert();
             this.onDestroy();
             Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
             finish();
+            startActivity(intent);
+
     }
 
     public void HideProgress()
@@ -262,6 +263,9 @@ public class MainActivity extends Activity {
             mVoiceCmdReceiver.CreateStrings(recyclerCompanies, getResources().getString(R.string.Companies));
         }
         txtSelectedItem.setText("Select a Company");
+
+        mVoiceCmdReceiver.unregister();
+        mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
     }
 }
 

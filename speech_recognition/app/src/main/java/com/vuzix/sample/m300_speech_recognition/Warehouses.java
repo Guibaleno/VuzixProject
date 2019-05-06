@@ -48,8 +48,15 @@ public class Warehouses extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        mVoiceCmdReceiverWarehouse.unregister();
+        //mVoiceCmdReceiverWarehouse.unregister();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mVoiceCmdReceiverWarehouse.unregister();
+        mVoiceCmdReceiverWarehouse = new VoiceCmdReceiverWarehouses(this);
     }
 
     public void BindData()

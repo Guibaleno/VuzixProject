@@ -114,7 +114,7 @@ public class VoiceCmdReceiverLicensePlate extends VoiceCmdReceiver {
             sc.insertPhrase(MATCH_RETURN, MATCH_RETURN_TO_ORDERS);
             sc.insertPhrase(MATCH_NEXT, MATCH_NEXT_INFOORDERS);
             sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_LICENSEPLATE);
-            Log.i("", sc.toString());
+            Log.i("HAAAAAAAAA", sc.dump());
 
 
             // See what we've done

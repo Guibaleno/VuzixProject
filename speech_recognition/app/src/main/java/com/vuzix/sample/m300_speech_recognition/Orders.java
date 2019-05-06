@@ -164,6 +164,13 @@ public class Orders extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mVoiceCmdReceiverOrders.unregister();
+        mVoiceCmdReceiverOrders = new VoiceCmdReceiverOrders(this);
+    }
+
     public void HideProgress()
     {
         progressOrders.setVisibility(View.INVISIBLE);

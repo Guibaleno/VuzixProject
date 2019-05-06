@@ -47,8 +47,15 @@ public class LicensePlate extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        mVoiceCmdReceiverLicensePlate.unregister();
+//        mVoiceCmdReceiverLicensePlate.unregister();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mVoiceCmdReceiverLicensePlate.unregister();
+        mVoiceCmdReceiverLicensePlate = new VoiceCmdReceiverLicensePlate(this);
     }
 
     void SetOrderInfoText()
@@ -72,7 +79,6 @@ public class LicensePlate extends AppCompatActivity {
     void FinishActivity()
     {
         mVoiceCmdReceiverLicensePlate.unregister();
-        mVoiceCmdReceiverLicensePlate = null;
         finish();
     }
 
