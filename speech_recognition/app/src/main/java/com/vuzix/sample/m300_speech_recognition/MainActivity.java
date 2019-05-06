@@ -242,9 +242,10 @@ public class MainActivity extends Activity {
     public void Reload() {
             connection.HideAlert();
             this.onDestroy();
+            voiceManager.unregister();
             Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
             finish();
+            startActivity(intent);
     }
 
     public void HideProgress()

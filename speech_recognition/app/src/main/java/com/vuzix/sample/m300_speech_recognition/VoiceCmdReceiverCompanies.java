@@ -30,7 +30,6 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
         } else if (phraseSaid.equals(VoiceManager.MATCH_SCROLLUP)) {
             mainActivity.Scroll(false);
         } else if (phraseSaid.equals(VoiceManager.MATCH_RELOAD)) {
-            //mainActivity.unregisterReceiver(this);
             mainActivity.Reload();
         } else {
             phraseSaid = "one";

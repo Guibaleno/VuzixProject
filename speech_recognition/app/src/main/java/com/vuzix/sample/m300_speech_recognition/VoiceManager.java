@@ -116,30 +116,24 @@ public class VoiceManager extends BroadcastReceiver
 
     public void SetReceiver(VoiceCmdReceiver newCmdReceiver){
         currentReceiver = newCmdReceiver;
-
+        Log.d("SetCurrentReceiver", currentReceiver.toString());
     }
 
     public void SetCurrentActivity(Activity newActivity){
-        Log.d("SetCurrentActivity", "SetCurrentActivity");
+
         currentActivity = newActivity;
-        //newActivity.registerReceiver(this, new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
-        currentActivity . registerReceiver(this,
-                new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND))
-        ;
+
+        currentActivity.registerReceiver(this,
+                new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
+
+        Log.d("SetCurrentActivity", currentActivity.toString());
     }
-    public VoiceManager(Login newLogin)
+
+    public void unregister()
     {
-        try {
-            //f (mLogin == null)
-            //
-                mLogin = newLogin;
-            //}
-           // currentActivity = "LoginActivity";
-            Log.d("newAct", "newAct");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        currentActivity.unregisterReceiver(this);
     }
+
     public VoiceManager(Warehouses newWarehouse)
     {
         mWarehouses = newWarehouse;
@@ -202,7 +196,7 @@ public class VoiceManager extends BroadcastReceiver
                                 mWarehouses.SelectItemInRecyclerViewWarehouse(Arrays.asList(numbers).indexOf(phrase) - 1);
                             }
                         }else{
-
+                             Log.d("Else", "LoginCompanis");
                             currentReceiver.onReceive(currentActivity,intent,phrase);
                         }
                         //endregion
