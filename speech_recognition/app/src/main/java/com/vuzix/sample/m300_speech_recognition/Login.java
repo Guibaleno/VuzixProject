@@ -33,10 +33,17 @@ public class Login extends AppCompatActivity {
         txtPassword = (EditText) findViewById(R.id.txtPassword);
         progressLogin = (ProgressBar) findViewById(R.id.progressLogin);
         SetCompanyText();
+        CurrentActivity.setCurrentActivity("Login");
         mVoiceCmdReceiver = new VoiceCmdReceiverLogin(this);
         progressLogin.setVisibility(View.INVISIBLE);
 
         WritePreviousData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CurrentActivity.setCurrentActivity("Login");
     }
 
     void SetCompanyText()

@@ -39,7 +39,7 @@ public class Warehouses extends AppCompatActivity {
         recyclerWarehouses = (RecyclerView) findViewById(R.id.recyclerWarehouses);
         progressWarehouses = (ProgressBar) findViewById(R.id.progressWarehouses);
         progressWarehouses.setVisibility(View.VISIBLE);
-
+        CurrentActivity.setCurrentActivity("Warehouse");
         mVoiceCmdReceiverWarehouse = new VoiceCmdReceiverWarehouses(this);
         connectionWarehouse = new ConnectionAPIWarehouses(this, APIAdress);
 
@@ -55,8 +55,9 @@ public class Warehouses extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mVoiceCmdReceiverWarehouse.unregister();
-        mVoiceCmdReceiverWarehouse = new VoiceCmdReceiverWarehouses(this);
+        CurrentActivity.setCurrentActivity("Warehouse");
+        //mVoiceCmdReceiverWarehouse.unregister();
+        //mVoiceCmdReceiverWarehouse = new VoiceCmdReceiverWarehouses(this);
     }
 
     public void BindData()
@@ -103,7 +104,7 @@ public class Warehouses extends AppCompatActivity {
     {
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
-            mVoiceCmdReceiverWarehouse.unregister();
+           // mVoiceCmdReceiverWarehouse.unregister();
             String stringToRemove = "Selected item : ";
             int indexOfString = listWarehouseName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, Zones.class);

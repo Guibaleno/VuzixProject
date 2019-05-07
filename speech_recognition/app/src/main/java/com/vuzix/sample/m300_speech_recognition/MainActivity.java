@@ -98,7 +98,7 @@ public class MainActivity extends Activity {
         // M300 buttons more consistent to the user
        // buttonListen.requestFocusFromTouch();
 
-
+        CurrentActivity.setCurrentActivity("Companies");
         // Create the voice command receiver class
         progressCompanies.setVisibility(View.VISIBLE);
         mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
@@ -211,7 +211,7 @@ public class MainActivity extends Activity {
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
             Log.d("test1", "test");
-            mVoiceCmdReceiver.unregister();
+            //mVoiceCmdReceiver.unregister();
             String stringToRemove = "Selected item : ";
             int indexOfString = listName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, Login.class);
@@ -239,6 +239,7 @@ public class MainActivity extends Activity {
     public void Reload() {
             connection.HideAlert();
             this.onDestroy();
+            mVoiceCmdReceiver.unregister();
             Intent intent = new Intent(this, MainActivity.class);
             finish();
             startActivity(intent);
@@ -253,19 +254,21 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        CurrentActivity.setCurrentActivity("Companies");
         Log.d( "etee",txtSelectedItem.getText().toString());
         //If we say "return" in the login screen
         if (!txtSelectedItem.getText().equals("Select a Company"))
         {
             Log.d( "etee",txtSelectedItem.getText().toString());
-            mVoiceCmdReceiver = null;
-            mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
-            mVoiceCmdReceiver.CreateStrings(recyclerCompanies, getResources().getString(R.string.Companies));
+            //mVoiceCmdReceiver = null;
+            //mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
+            //mVoiceCmdReceiver.CreateStrings(recyclerCompanies, getResources().getString(R.string.Companies));
+            mVoiceCmdReceiver.dump();
         }
         txtSelectedItem.setText("Select a Company");
 
-        mVoiceCmdReceiver.unregister();
-        mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
+        //mVoiceCmdReceiver.unregister();
+        //mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
     }
 }
 
