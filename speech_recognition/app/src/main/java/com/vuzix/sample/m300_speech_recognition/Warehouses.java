@@ -109,7 +109,7 @@ public class Warehouses extends AppCompatActivity {
             int indexOfString = listWarehouseName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, Zones.class);
             intent.putExtra("idwareHouse",listIdWarehouse.get(indexOfString));
-            intent.putExtra("WarehouseName",listWarehouseName.get(indexOfString));
+            intent.putExtra("WarehouseName",listWarehouseName.get(indexOfString).substring(listWarehouseName.get(indexOfString).indexOf("-") + 1));
             startActivity(intent);
         }
         else

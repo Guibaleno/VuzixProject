@@ -40,7 +40,7 @@ public class Orders extends AppCompatActivity {
         txtSelectedZone = (TextView) findViewById(R.id.txtSelectedZone);
         recyclerOrders = (RecyclerView) findViewById(R.id.recyclerOrders);
         progressOrders = (ProgressBar) findViewById(R.id.progressOrders);
-
+        CurrentActivity.setCurrentActivity("Zones");
         progressOrders.setVisibility(View.VISIBLE);
         mVoiceCmdReceiverOrders = new VoiceCmdReceiverOrders(this);
 
@@ -98,7 +98,7 @@ public class Orders extends AppCompatActivity {
     {
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
-            mVoiceCmdReceiverOrders.unregister();
+            //mVoiceCmdReceiverOrders.unregister();
             String stringToRemove = "Selected order : ";
             int indexOfString = listIdOrders.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, LicensePlate.class);
@@ -167,8 +167,9 @@ public class Orders extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mVoiceCmdReceiverOrders.unregister();
-        mVoiceCmdReceiverOrders = new VoiceCmdReceiverOrders(this);
+        CurrentActivity.setCurrentActivity("Zones");
+        //mVoiceCmdReceiverOrders.unregister();
+        //mVoiceCmdReceiverOrders = new VoiceCmdReceiverOrders(this);
     }
 
     public void HideProgress()

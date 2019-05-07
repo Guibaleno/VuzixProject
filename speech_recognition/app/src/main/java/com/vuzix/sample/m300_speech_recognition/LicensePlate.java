@@ -37,7 +37,7 @@ public class LicensePlate extends AppCompatActivity {
         txtOrder = (TextView) findViewById(R.id.textSelectedOrder);
         txtZone = (TextView) findViewById(R.id.textSelectedZone);
         txtLicensePlate = (EditText) findViewById(R.id.editText_LicensePlate);
-
+        CurrentActivity.setCurrentActivity("LicensePlate");
         APIAdress = getAPIAdress();
 
         SetOrderInfoText();
@@ -54,8 +54,9 @@ public class LicensePlate extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mVoiceCmdReceiverLicensePlate.unregister();
-        mVoiceCmdReceiverLicensePlate = new VoiceCmdReceiverLicensePlate(this);
+        CurrentActivity.setCurrentActivity("LicensePlate");
+       // mVoiceCmdReceiverLicensePlate.unregister();
+       // mVoiceCmdReceiverLicensePlate = new VoiceCmdReceiverLicensePlate(this);
     }
 
     void SetOrderInfoText()
@@ -92,9 +93,6 @@ public class LicensePlate extends AppCompatActivity {
     }
 
     public void MoveToScanner() {
-        Intent scannerIntent = new Intent(ScannerIntent.ACTION);
-        mVoiceCmdReceiverLicensePlate.unregister();
-            //startActivityForResult(scannerIntent, REQUEST_CODE_SCAN);
             Intent intent = new Intent(this, MainBarcode.class);
             intent.putExtra("idOrder", getIntent().getStringExtra("idOrder"));
             intent.putExtra("licensePlateNo",txtLicensePlate.getText().toString());
@@ -113,9 +111,13 @@ public class LicensePlate extends AppCompatActivity {
     public void Reload()
     {
             Intent intent = new Intent(this, LicensePlate.class);
-            connection.HideAlert();
-            intent.putExtra("zoneName",txtZone.getText().toString());
-            intent.putExtra("idOrder",txtOrder.getText().toString());
+            mVoiceCmdReceiverLicensePlate.unregister();
+            if (connection != null)
+            {
+                connection.HideAlert();
+            }
+            intent.putExtra("zoneName",txtZone.getText().toString().substring(txtZone.getText().toString().indexOf(":") + 1));
+            intent.putExtra("idOrder",txtOrder.getText().toString().substring(txtOrder.getText().toString().indexOf(":") + 1));
             intent.putExtra("idwareHouse", getIntent().getStringExtra("idwareHouse"));
             intent.putExtra("licensePlateNo",txtLicensePlate.getText().toString());
             //mVoiceCmdReceiverLicensePlate.unregister();

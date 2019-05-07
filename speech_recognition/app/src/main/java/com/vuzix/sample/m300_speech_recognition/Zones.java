@@ -42,7 +42,7 @@ public class Zones extends AppCompatActivity {
         recyclerZones = (RecyclerView) findViewById(R.id.recyclerZones);
         progressZones = (ProgressBar) findViewById(R.id.progressZones);
 
-
+        CurrentActivity.setCurrentActivity("Zones");
         progressZones.setVisibility(View.VISIBLE);
         mVoiceCmdReceiverZones = new VoiceCmdReceiverZones(this);
         connectionZone = new ConnectionAPIZones(this, APIAdress);
@@ -56,6 +56,7 @@ public class Zones extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        CurrentActivity.setCurrentActivity("Zones");
        // mVoiceCmdReceiverZones.unregister();
         //mVoiceCmdReceiverZones = new VoiceCmdReceiverZones(this);
     }
