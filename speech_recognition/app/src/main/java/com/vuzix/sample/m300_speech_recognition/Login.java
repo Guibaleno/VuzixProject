@@ -78,7 +78,6 @@ public class Login extends AppCompatActivity {
     void FinishActivity()
     {
         mVoiceCmdReceiver.unregister();
-        mVoiceCmdReceiver = null;
         finish();
     }
 

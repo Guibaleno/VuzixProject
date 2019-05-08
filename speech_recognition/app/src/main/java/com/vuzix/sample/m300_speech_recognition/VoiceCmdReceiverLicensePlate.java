@@ -184,10 +184,9 @@ public class VoiceCmdReceiverLicensePlate extends VoiceCmdReceiver {
     public void unregister() {
         try {
             mLicensePLate.unregisterReceiver(this);
-
             mLicensePLate = null;
         }catch (Exception e) {
-
+            Log.d("ErreurLicense", e.getMessage());
         }
     }
 }

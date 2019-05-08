@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.vuzix.sample.m300_speech_recognition.Barcode.CurrentBarcode;
 import com.vuzix.sample.m300_speech_recognition.Barcode.MainBarcode;
 import com.vuzix.sample.m300_speech_recognition.Box;
+import com.vuzix.sample.m300_speech_recognition.CurrentActivity;
 import com.vuzix.sample.m300_speech_recognition.HeaderInfo;
 import com.vuzix.sample.m300_speech_recognition.R;
 
@@ -40,14 +41,14 @@ public class ConnectionAPIGetSerialBatchNumbers extends ConnectionAPI {
             if (response != null) {
                 try{
                     jsonRoot = new JSONArray(response);
-                    CurrentBarcode.refreshSerialNumbers();
+                    CurrentBarcode.refreshCurrentBarcode();
                     for (int cptObjects = 0; cptObjects < jsonRoot.length(); cptObjects ++)
                     {
                         JSONObject object = jsonRoot.getJSONObject(cptObjects);
                         if(object.has("batchNumber")){
                             String batchNumber = object.getString("batchNumber");
-                            CurrentBarcode.setBarcodeToScan(batchNumber);
-                            HeaderInfo.setBatchBarcode(batchNumber);
+                            CurrentBarcode.addBatchNumberToScan(batchNumber);
+                            Log.d("BatchNumber", batchNumber);
                         }else if(object.has("serialNumber"))
                         {
                             String serialNumber = object.getString("serialNumber");

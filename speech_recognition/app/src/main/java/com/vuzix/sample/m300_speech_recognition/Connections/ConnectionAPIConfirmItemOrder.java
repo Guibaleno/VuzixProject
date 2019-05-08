@@ -34,6 +34,7 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
 
     @Override
     protected void onPostExecute(String s) {
+        Log.d("ResponseConfirmItemOrde", s);
         if (s.equals("true"))
         {
             mMainBarcode.ShowNextItem();
@@ -63,7 +64,7 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
             osLicensePlate.write(payloadLicensePlate);
             osLicensePlate.close();
             BufferedReader brLicensePlate;
-            Log.i("error", String.valueOf(connection.getResponseCode()));
+            Log.i("errorConfirmItemOrder1", String.valueOf(connection.getResponseCode()));
             if (connection.getResponseCode() == 200) {
                 brLicensePlate = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             } else {
@@ -93,6 +94,10 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
                 params.put("serialNumber", HeaderInfo.getSerialBarcode());
                 params.put("batchTransferId", HeaderInfo.getBatchTransferID());
                 params.put("quantity", HeaderInfo.getItemQuantity());
+                Log.d("batchNumber",HeaderInfo.getBatchBarcode());
+                Log.d("serialNumber",HeaderInfo.getSerialBarcode());
+                Log.d("batchTransferId", HeaderInfo.getBatchTransferID());
+                Log.d("quantity", HeaderInfo.getItemQuantity());
 
                 JSONObject obj = new JSONObject(params);
                 String payload = obj.toString();
@@ -100,7 +105,7 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
                 os.write(payload);
                 os.close();
                 BufferedReader br;
-                Log.i("error", String.valueOf(connection.getResponseCode()));
+                Log.i("errorConfirmItemOrder2", String.valueOf(connection.getResponseCode()));
                 if (connection.getResponseCode() == 200) {
                     br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 } else {

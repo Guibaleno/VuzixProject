@@ -80,65 +80,55 @@ public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        // All phrases registered with insertPhrase() match ACTION_VOICE_COMMAND as do
-        // recognizer status updates
-        if (intent.getAction().equals(VuzixSpeechClient.ACTION_VOICE_COMMAND)) {
-            Bundle extras = intent.getExtras();
-            if (extras != null) {
-                // We will determine what type of message this is based upon the extras provided
-                if (extras.containsKey(VuzixSpeechClient.PHRASE_STRING_EXTRA)) {
-                    // If we get a phrase string extra, this was a recognized spoken phrase.
-                    // The extra will contain the text that was recognized, unless a substitution
-                    // was provided.  All phrases in this example have substitutions as it is
-                    // considered best practice
-                    String phrase = intent.getStringExtra(VuzixSpeechClient.PHRASE_STRING_EXTRA);
+        if(CurrentActivity.getCurrentActivity().equals("Orders")) {
+            // All phrases registered with insertPhrase() match ACTION_VOICE_COMMAND as do
+            // recognizer status updates
+            if (intent.getAction().equals(VuzixSpeechClient.ACTION_VOICE_COMMAND)) {
+                Bundle extras = intent.getExtras();
+                if (extras != null) {
+                    // We will determine what type of message this is based upon the extras provided
+                    if (extras.containsKey(VuzixSpeechClient.PHRASE_STRING_EXTRA)) {
+                        // If we get a phrase string extra, this was a recognized spoken phrase.
+                        // The extra will contain the text that was recognized, unless a substitution
+                        // was provided.  All phrases in this example have substitutions as it is
+                        // considered best practice
+                        String phrase = intent.getStringExtra(VuzixSpeechClient.PHRASE_STRING_EXTRA);
 
-                    // Determine the specific phrase that was recognized and act accordingly
+                        // Determine the specific phrase that was recognized and act accordingly
 
-                    if (phrase.equals(MATCH_RETURN_TO_ZONES))
-                    {
-                        mOrder.FinishActivity();
-                    }
-                    else if (phrase.equals(MATCH_SCROLLDOWN_ORDERS))
-                    {
-                        mOrder.Scroll(true);
-                    }
-                    else if (phrase.equals(MATCH_SCROLLUP_ORDERS))
-                    {
-                        mOrder.Scroll(false);
-                    }
-                    else if (phrase.equals(MATCH_RELOAD_ORDERS))
-                    {
-                        mOrder.Reload();
-                    }
-                    else
-                    {
-                        phrase = "fiveonethree";
-                        List<Integer> numberToFind = new ArrayList<Integer>();
-                        String endingString = context.getResources().getString(R.string.Orders);
-                        for (int cptNumbers = 0; cptNumbers < Arrays.asList(numbers).size(); cptNumbers ++)
-                        {
-                            //We will get a phrase like "OneZeroOrders", we have to check if the phrase does not
-                            //begin with "Orders"
-                            if (phrase.indexOf(endingString) != 0) {
-                                if (phrase.indexOf(numbers[cptNumbers]) == 0) {
-                                    int currentDigit = cptNumbers;
-                                    numberToFind.add(currentDigit);
-                                    phrase = phrase.substring(numbers[cptNumbers].length());
-                                    //We have to look into the full array after we find a number
-                                    cptNumbers = -1;
+                        if (phrase.equals(MATCH_RETURN_TO_ZONES)) {
+                            mOrder.FinishActivity();
+                        } else if (phrase.equals(MATCH_SCROLLDOWN_ORDERS)) {
+                            mOrder.Scroll(true);
+                        } else if (phrase.equals(MATCH_SCROLLUP_ORDERS)) {
+                            mOrder.Scroll(false);
+                        } else if (phrase.equals(MATCH_RELOAD_ORDERS)) {
+                            mOrder.Reload();
+                        } else {
+//                            phrase = "fiveonethree";
+                            List<Integer> numberToFind = new ArrayList<Integer>();
+                            String endingString = context.getResources().getString(R.string.Orders);
+                            for (int cptNumbers = 0; cptNumbers < Arrays.asList(numbers).size(); cptNumbers++) {
+                                //We will get a phrase like "OneZeroOrders", we have to check if the phrase does not
+                                //begin with "Orders"
+                                if (phrase.indexOf(endingString) != 0) {
+                                    if (phrase.indexOf(numbers[cptNumbers]) == 0) {
+                                        int currentDigit = cptNumbers;
+                                        numberToFind.add(currentDigit);
+                                        phrase = phrase.substring(numbers[cptNumbers].length());
+                                        //We have to look into the full array after we find a number
+                                        cptNumbers = -1;
+                                    }
                                 }
                             }
-                        }
-                        if (numberToFind.size() > 0)
-                        {
-                            String numberString = "";
-                            for (int cptDigit = 0; cptDigit < numberToFind.size(); cptDigit ++)
-                            {
-                                numberString += String.valueOf(numberToFind.get(cptDigit));
+                            if (numberToFind.size() > 0) {
+                                String numberString = "";
+                                for (int cptDigit = 0; cptDigit < numberToFind.size(); cptDigit++) {
+                                    numberString += String.valueOf(numberToFind.get(cptDigit));
+                                }
+                                mOrder.SelectItemInRecyclerViewOrders(parseInt(numberString));
+                                mOrder.MoveToLicensePlate();
                             }
-                            mOrder.SelectItemInRecyclerViewOrders(parseInt(numberString));
-                            mOrder.MoveToLicensePlate();
                         }
                     }
                 }

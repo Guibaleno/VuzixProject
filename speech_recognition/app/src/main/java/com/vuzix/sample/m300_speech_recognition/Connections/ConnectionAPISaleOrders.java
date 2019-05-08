@@ -34,6 +34,7 @@ public class ConnectionAPISaleOrders extends ConnectionAPI {
 
     @Override
     protected void onPostExecute(String response) {
+        Log.d("ResponseSaleOrders123", response);
         if (checknetwork(mMainBarcode)) {
             if (response != null) {
                     Log.d("123", response);
@@ -67,6 +68,7 @@ public class ConnectionAPISaleOrders extends ConnectionAPI {
                     else //order completed
                     {
                             JSONArray jsonArray = new JSONArray(response);
+                            Log.d("ResponseSaleOrders", response);
                             JSONObject orderCompleteMessage = new JSONObject(jsonArray.getJSONObject(0).toString());
                             if (orderCompleteMessage.has("english"))
                             {
