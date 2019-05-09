@@ -147,35 +147,30 @@ public class VoiceCmdReceiverLicensePlate extends VoiceCmdReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        // All phrases registered with insertPhrase() match ACTION_VOICE_COMMAND as do
-        // recognizer status updates
-        if (intent.getAction().equals(VuzixSpeechClient.ACTION_VOICE_COMMAND)) {
-            Bundle extras = intent.getExtras();
-            if (extras != null) {
-                // We will determine what type of message this is based upon the extras provided
-                if (extras.containsKey(VuzixSpeechClient.PHRASE_STRING_EXTRA)) {
-                    // If we get a phrase string extra, this was a recognized spoken phrase.
-                    // The extra will contain the text that was recognized, unless a substitution
-                    // was provided.  All phrases in this example have substitutions as it is
-                    // considered best practice
-                    String phrase = intent.getStringExtra(VuzixSpeechClient.PHRASE_STRING_EXTRA);
+        if(CurrentActivity.getCurrentActivity().equals("LicensePlate")) {
+            // All phrases registered with insertPhrase() match ACTION_VOICE_COMMAND as do
+            // recognizer status updates
+            if (intent.getAction().equals(VuzixSpeechClient.ACTION_VOICE_COMMAND)) {
+                Bundle extras = intent.getExtras();
+                if (extras != null) {
+                    // We will determine what type of message this is based upon the extras provided
+                    if (extras.containsKey(VuzixSpeechClient.PHRASE_STRING_EXTRA)) {
+                        // If we get a phrase string extra, this was a recognized spoken phrase.
+                        // The extra will contain the text that was recognized, unless a substitution
+                        // was provided.  All phrases in this example have substitutions as it is
+                        // considered best practice
+                        String phrase = intent.getStringExtra(VuzixSpeechClient.PHRASE_STRING_EXTRA);
 
-                    // Determine the specific phrase that was recognized and act accordingly
-                    if (phrase.equals(MATCH_RETURN_TO_ORDERS))
-                    {
-                        mLicensePLate.FinishActivity();
-                    }
-                    else if (phrase.equals(MATCH_NEXT_INFOORDERS))
-                    {
-                        mLicensePLate.CreateLicencePlate();
-                    }
-                    else if (phrase.equals(MATCH_RELOAD_LICENSEPLATE))
-                    {
-                        mLicensePLate.Reload();
-                    }
-                    else
-                    {
+                        // Determine the specific phrase that was recognized and act accordingly
+                        if (phrase.equals(MATCH_RETURN_TO_ORDERS)) {
+                            mLicensePLate.FinishActivity();
+                        } else if (phrase.equals(MATCH_NEXT_INFOORDERS)) {
+                            mLicensePLate.CreateLicencePlate();
+                        } else if (phrase.equals(MATCH_RELOAD_LICENSEPLATE)) {
+                            mLicensePLate.Reload();
+                        } else {
 
+                        }
                     }
                 }
             }

@@ -87,6 +87,9 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
                 connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                 connection.setRequestProperty("jwt", HeaderInfo.getToken());
                 connection.connect();
+
+                Log.d("dd1", HeaderInfo.getBatchBarcode());
+                Log.d("dd2", HeaderInfo.getSerialBarcode());
                 HashMap<String, String> params = new HashMap<String, String>();
                 params.put("LicensePlateId", HeaderInfo.getLicensePlateID());
                 params.put("batchNumber", HeaderInfo.getBatchBarcode());

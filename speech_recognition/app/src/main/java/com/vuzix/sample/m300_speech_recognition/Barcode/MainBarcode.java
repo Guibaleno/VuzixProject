@@ -36,6 +36,7 @@ import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPIEndOrde
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPIGetSerialBatchNumbers;
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPISaleOrders;
 import com.vuzix.sample.m300_speech_recognition.Connections.ConnectionAPISkipItem;
+import com.vuzix.sample.m300_speech_recognition.CurrentActivity;
 import com.vuzix.sample.m300_speech_recognition.HeaderInfo;
 import com.vuzix.sample.m300_speech_recognition.Orders;
 import com.vuzix.sample.m300_speech_recognition.R;
@@ -101,7 +102,7 @@ public class MainBarcode extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main_barcode);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-
+        CurrentActivity.setCurrentActivity("Barcode");
         mVoiceCmdReceiverScanBarcode = new VoiceCmdReceiverScanBarcode(this);
 
         // surface listeners - the only purpose is to open the camera when the preview surface becomes available
@@ -161,11 +162,13 @@ public class MainBarcode extends Activity {
 
     }
 
+
     /**
      * Close the camera when we pause
      *
      * Note: the surface listener opens it again when we resume, so we don't need an onResume()
      */
+
     @Override
     protected void onPause() {
         closeCamera();

@@ -85,7 +85,7 @@ public class LicensePlate extends AppCompatActivity {
 
     void CreateLicencePlate()
     {
-        mVoiceCmdReceiverLicensePlate.unregister();
+        //mVoiceCmdReceiverLicensePlate.unregister();
         Toast.makeText(getApplicationContext(), "Next", Toast.LENGTH_SHORT).show();
         connection = new ConnectionAPILicensePlate(this, APIAdress);
         connection.execute();
@@ -93,6 +93,7 @@ public class LicensePlate extends AppCompatActivity {
     }
 
     public void MoveToScanner() {
+       // mVoiceCmdReceiverLicensePlate.unregister();
             Intent intent = new Intent(this, MainBarcode.class);
             intent.putExtra("idOrder", getIntent().getStringExtra("idOrder"));
             intent.putExtra("licensePlateNo",txtLicensePlate.getText().toString());
