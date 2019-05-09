@@ -79,6 +79,7 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
+<<<<<<< HEAD
         if(CurrentActivity.getCurrentActivity().equals("Barcode")) {
 
             // All phrases registered with insertPhrase() match ACTION_VOICE_COMMAND as do
@@ -117,9 +118,51 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
                             if (phrase.equals(MATCH_ERASE)) {
                                 mainBarcode.removeCharacterQtyEntered();
                             }
+=======
+        // All phrases registered with insertPhrase() match ACTION_VOICE_COMMAND as do
+        // recognizer status updates
+        if (CurrentActivity.getCurrentActivity().equals("Barcode"))
+        {
+        if (intent.getAction().equals(VuzixSpeechClient.ACTION_VOICE_COMMAND)) {
+            Bundle extras = intent.getExtras();
+            if (extras != null) {
+                // We will determine what type of message this is based upon the extras provided
+                if (extras.containsKey(VuzixSpeechClient.PHRASE_STRING_EXTRA)) {
+                    // If we get a phrase string extra, this was a recognized spoken phrase.
+                    // The extra will contain the text that was recognized, unless a substitution
+                    // was provided.  All phrases in this example have substitutions as it is
+                    // considered best practice
+                    String phrase = intent.getStringExtra(VuzixSpeechClient.PHRASE_STRING_EXTRA);
+
+                    // Determine the specific phrase that was recognized and act accordingly
+                    Log.i("ici", phrase);
+                    if (phrase.equals(MATCH_NEXT)) {
+                        mainBarcode.setItemQuantity();
+                    } else if (phrase.equals(MATCH_RETURN_TO_LICENSE)) {
+                        mainBarcode.FinishActivity();
+                    } else if (phrase.equals(MATCH_RELOAD_BARCODE)) {
+                        // mainBarcode.Reload();
+                    } else if (phrase.equals(MATCH_SCAN)) {
+                        Log.d("PhraseScan", phrase);
+                        Log.d("PhraseScan", CurrentActivity.getCurrentActivity());
+                        mainBarcode.takeStillPicture();
+                    } else {
+
+                        for (int cptNumber = 0; cptNumber < numbers.length; cptNumber++) {
+                            if (numbers[cptNumber].equals(phrase)) {
+                                mainBarcode.setTextQty(cptNumber);
+                            }
+                        }
+                        if (phrase.equals(MATCH_POINT)) {
+                            mainBarcode.addDot();
+                        }
+                        if (phrase.equals(MATCH_ERASE)) {
+                            mainBarcode.removeCharacterQtyEntered();
+>>>>>>> 35c64a11f7e7635622212637b2cbcc88a6da9557
                         }
                     }
                 }
+            }
             }
         }
     }
@@ -129,6 +172,7 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
             mainBarcode.unregisterReceiver(this);
             mainBarcode = null;
         }catch (Exception e) {
+            Log.d("ErreurScan", e.getMessage());
         }
     }
 

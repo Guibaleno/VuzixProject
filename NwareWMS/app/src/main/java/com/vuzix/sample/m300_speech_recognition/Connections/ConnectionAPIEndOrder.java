@@ -35,7 +35,7 @@ public class ConnectionAPIEndOrder extends ConnectionAPI {
 
     @Override
     protected void onPostExecute(String s) {
-
+        Log.d("ResponseEndOrder", s);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class ConnectionAPIEndOrder extends ConnectionAPI {
                 os.write(payload);
                 os.close();
                 BufferedReader br;
-                Log.i("error", String.valueOf(connection.getResponseCode()));
+                Log.i("errorEndOrder", String.valueOf(connection.getResponseCode()));
                 if (connection.getResponseCode() == 204) {
                     br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 } else {

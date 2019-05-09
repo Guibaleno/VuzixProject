@@ -103,6 +103,10 @@ public class MainBarcode extends Activity {
         setContentView(R.layout.activity_main_barcode);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         CurrentActivity.setCurrentActivity("Barcode");
+<<<<<<< HEAD
+=======
+        Log.d("LicensePlateOnCreate", "LicensePlateOnCreate");
+>>>>>>> 35c64a11f7e7635622212637b2cbcc88a6da9557
         mVoiceCmdReceiverScanBarcode = new VoiceCmdReceiverScanBarcode(this);
 
         // surface listeners - the only purpose is to open the camera when the preview surface becomes available
@@ -157,8 +161,7 @@ public class MainBarcode extends Activity {
         // Create the class that will handle the image and process for barcodes
         mBarcodeProcessor = new BarcodeFinder(this);
 
-        connection = new ConnectionAPISaleOrders(this, getAPIAdress(),getAPIAdressBatchTransfertID());
-        connection.execute();
+        getNextItemConnection();
 
     }
 
@@ -421,7 +424,8 @@ public class MainBarcode extends Activity {
         // Show the user
         if (CurrentBarcode.getBarcodeToScan() != null && dataToShow != null){
             Log.d("barcode", CurrentBarcode.getBarcodeToScan());
-            if(CurrentBarcode.getBarcodeToScan().trim().equals(dataToShow.trim()) || CurrentBarcode.verifySerialNumber(dataToShow)){
+            if(CurrentBarcode.getBarcodeToScan().trim().equals(dataToShow.trim()) || CurrentBarcode.verifySerialNumber(dataToShow, this)
+                    || CurrentBarcode.verifyBatchNumber(dataToShow, this)){
                 Toast.makeText(MainBarcode.this, dataToShow , Toast.LENGTH_LONG).show();
                 if (box.getScanText().equals("Scan BIN"))
                 {
@@ -453,8 +457,7 @@ public class MainBarcode extends Activity {
                         connectionConfirmItemOrder.execute();
                         if(box.changeQuantityLeftSerial())
                         {
-                            connectionConfirmItemOrder = new ConnectionAPIConfirmItemOrder(this, getAPIAdressItemOrderConfirm(),getAPIAdressLicensePlateID());
-                            connectionConfirmItemOrder.execute();
+                            getNextItemConnection();
                         }
                     }
                     else
@@ -462,6 +465,10 @@ public class MainBarcode extends Activity {
                         box.setScanText("Say Quantity");
                     }
                     mVoiceCmdReceiverScanBarcode.createQuantityNumbers();
+                }
+                else
+                {
+                    getNextItemConnection();
                 }
                 RefreshCanvas();
             }
@@ -584,6 +591,11 @@ public class MainBarcode extends Activity {
             connectionAPISkipItem.execute();
         }
         connection = null;
+        getNextItemConnection();
+    }
+
+    public void getNextItemConnection()
+    {
         connection = new ConnectionAPISaleOrders(this, getAPIAdress(),getAPIAdressBatchTransfertID());
         connection.execute();
     }
@@ -643,6 +655,7 @@ public class MainBarcode extends Activity {
     {
         connectionAPIEndOrder = new ConnectionAPIEndOrder(this,getAPIAdressPostBatchTransfertID(),getAPIRestSkip(),getAPIEmployeeRemove());
         connectionAPIEndOrder.execute();
+        CurrentActivity.setOrderCompleted(true);
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
@@ -653,8 +666,13 @@ public class MainBarcode extends Activity {
 
     public void NextOrder()
     {
-        Intent intent = new Intent(getApplicationContext(), Orders.class);
-        intent.putExtra("zoneName",getIntent().getStringExtra("zoneName"));
-        startActivity(intent);
+        Log.d("Orders.class", "MainBarcode");
+        finish();
+    }
+
+    public  void FinishActivity()
+    {
+        mVoiceCmdReceiverScanBarcode.unregister();
+        finish();
     }
 }

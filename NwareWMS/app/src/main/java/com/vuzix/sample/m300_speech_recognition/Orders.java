@@ -40,7 +40,7 @@ public class Orders extends AppCompatActivity {
         txtSelectedZone = (TextView) findViewById(R.id.txtSelectedZone);
         recyclerOrders = (RecyclerView) findViewById(R.id.recyclerOrders);
         progressOrders = (ProgressBar) findViewById(R.id.progressOrders);
-        CurrentActivity.setCurrentActivity("Zones");
+        CurrentActivity.setCurrentActivity("Orders");
         progressOrders.setVisibility(View.VISIBLE);
         mVoiceCmdReceiverOrders = new VoiceCmdReceiverOrders(this);
 
@@ -116,7 +116,6 @@ public class Orders extends AppCompatActivity {
     void FinishActivity()
     {
         mVoiceCmdReceiverOrders.unregister();
-        mVoiceCmdReceiverOrders = null;
         finish();
     }
 
@@ -156,6 +155,7 @@ public class Orders extends AppCompatActivity {
     public void Reload()
     {
         mVoiceCmdReceiverOrders.unregister();
+        Log.d("Orders.class", "Orders");
         connectionOrder.HideAlert();
         Intent intent = new Intent(this, Orders.class);
         intent.putExtra("idZone",getIntent().getStringExtra("idZone"));
@@ -167,7 +167,7 @@ public class Orders extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        CurrentActivity.setCurrentActivity("Zones");
+        CurrentActivity.setCurrentActivity("Orders");
         //mVoiceCmdReceiverOrders.unregister();
         //mVoiceCmdReceiverOrders = new VoiceCmdReceiverOrders(this);
     }

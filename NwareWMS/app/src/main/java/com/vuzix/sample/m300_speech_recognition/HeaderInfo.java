@@ -1,5 +1,7 @@
 package com.vuzix.sample.m300_speech_recognition;
 
+import android.util.Log;
+
 public class HeaderInfo {
     static String token;
     static String idWarehouse;
@@ -82,8 +84,10 @@ public class HeaderInfo {
     }
     public static String getBatchBarcode()
     {
-        setItemQuantity("1");
-        setSerialBarcode("");
+        if (!batchBarcode.equals(""))
+        {
+            setSerialBarcode("");
+        }
         return batchBarcode;
     }
 
@@ -93,7 +97,10 @@ public class HeaderInfo {
     }
     public static String getSerialBarcode()
     {
-        setBatchBarcode("");
+        if (!serialBarcode.equals(""))
+        {
+            setBatchBarcode("");
+        }
         return serialBarcode;
     }
 

@@ -121,7 +121,6 @@ public class Warehouses extends AppCompatActivity {
     void FinishActivity()
     {
         mVoiceCmdReceiverWarehouse.unregister();
-        mVoiceCmdReceiverWarehouse = null;
         finish();
     }
 

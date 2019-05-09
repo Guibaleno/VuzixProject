@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -116,6 +117,7 @@ public class Zones extends AppCompatActivity {
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
            // mVoiceCmdReceiverZones.unregister();
+            Log.d("Orders.class", "Zones");
             String stringToRemove = "Selected Zone : ";
             int indexOfString = listZonesName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, Orders.class);
@@ -132,7 +134,6 @@ public class Zones extends AppCompatActivity {
     void FinishActivity()
     {
         mVoiceCmdReceiverZones.unregister();
-        mVoiceCmdReceiverZones = null;
         finish();
     }
 

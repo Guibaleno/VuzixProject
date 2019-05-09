@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +40,8 @@ public class LicensePlate extends AppCompatActivity {
         txtLicensePlate = (EditText) findViewById(R.id.editText_LicensePlate);
         CurrentActivity.setCurrentActivity("LicensePlate");
         APIAdress = getAPIAdress();
-
+        Log.d("onCreateLicense", "onCreateLicense");
+        Log.d("onCreateLicense", CurrentActivity.getCurrentActivity());
         SetOrderInfoText();
         WritePreviousData();
         mVoiceCmdReceiverLicensePlate = new VoiceCmdReceiverLicensePlate(this);
@@ -54,6 +56,10 @@ public class LicensePlate extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (CurrentActivity.isOrderCompleted())
+        {
+            finish();
+        }
         CurrentActivity.setCurrentActivity("LicensePlate");
        // mVoiceCmdReceiverLicensePlate.unregister();
        // mVoiceCmdReceiverLicensePlate = new VoiceCmdReceiverLicensePlate(this);
@@ -121,7 +127,6 @@ public class LicensePlate extends AppCompatActivity {
             intent.putExtra("idOrder",txtOrder.getText().toString().substring(txtOrder.getText().toString().indexOf(":") + 1));
             intent.putExtra("idwareHouse", getIntent().getStringExtra("idwareHouse"));
             intent.putExtra("licensePlateNo",txtLicensePlate.getText().toString());
-            //mVoiceCmdReceiverLicensePlate.unregister();
             finish();
             startActivity(intent);
     }
@@ -131,7 +136,7 @@ public class LicensePlate extends AppCompatActivity {
 
         String idWarehouse = HeaderInfo.getIdWarehouse();
         return  "https://216.226.53.29/V5/API/Warehouses%28" + idWarehouse
-                + "%29/Licenseplates%28LP361%29";
+                + "%29/Licenseplates%28" + txtLicensePlate.getText().toString() + "%29";
     }
 
 }
