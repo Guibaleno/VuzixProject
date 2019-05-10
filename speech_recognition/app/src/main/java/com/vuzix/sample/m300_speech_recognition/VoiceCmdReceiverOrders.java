@@ -105,7 +105,7 @@ public class VoiceCmdReceiverOrders extends VoiceCmdReceiver {
                         } else if (phrase.equals(MATCH_RELOAD_ORDERS)) {
                             mOrder.Reload();
                         } else {
-                            phrase = "fivethreezero";
+                            //phrase = "fivethreezero";
                             List<Integer> numberToFind = new ArrayList<Integer>();
                             String endingString = context.getResources().getString(R.string.Orders);
                             for (int cptNumbers = 0; cptNumbers < Arrays.asList(numbers).size(); cptNumbers++) {
