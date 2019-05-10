@@ -49,9 +49,9 @@ public class CurrentBarcode {
 
         while (found == false && cptBatchNumber < listBatchNumberToScan.size())
         {
-            if (listSerialNumberToScan.get(cptBatchNumber).equals(batchNumber))
+            if (listBatchNumberToScan.get(cptBatchNumber).equals(batchNumber))
             {
-                listSerialNumberScanned.add(batchNumber);
+                listBatchNumberToScan.add(batchNumber);
                 HeaderInfo.setSerialBarcode(batchNumber);
                 found = true;
             }

@@ -97,10 +97,6 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
                 params.put("serialNumber", HeaderInfo.getSerialBarcode());
                 params.put("batchTransferId", HeaderInfo.getBatchTransferID());
                 params.put("quantity", HeaderInfo.getItemQuantity());
-                Log.d("batchNumber",HeaderInfo.getBatchBarcode());
-                Log.d("serialNumber",HeaderInfo.getSerialBarcode());
-                Log.d("batchTransferId", HeaderInfo.getBatchTransferID());
-                Log.d("quantity", HeaderInfo.getItemQuantity());
 
                 JSONObject obj = new JSONObject(params);
                 String payload = obj.toString();

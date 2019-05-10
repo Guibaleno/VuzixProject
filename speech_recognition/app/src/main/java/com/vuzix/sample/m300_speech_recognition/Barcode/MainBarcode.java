@@ -103,10 +103,7 @@ public class MainBarcode extends Activity {
         setContentView(R.layout.activity_main_barcode);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         CurrentActivity.setCurrentActivity("Barcode");
-<<<<<<< HEAD
-=======
         Log.d("LicensePlateOnCreate", "LicensePlateOnCreate");
->>>>>>> 35c64a11f7e7635622212637b2cbcc88a6da9557
         mVoiceCmdReceiverScanBarcode = new VoiceCmdReceiverScanBarcode(this);
 
         // surface listeners - the only purpose is to open the camera when the preview surface becomes available
@@ -587,6 +584,7 @@ public class MainBarcode extends Activity {
     {
         if (!box.quantityEqualToQuantityEntered())
         {
+            Log.d("penis", "penis");
             connectionAPISkipItem = new ConnectionAPISkipItem(this,getAPISkip());
             connectionAPISkipItem.execute();
         }

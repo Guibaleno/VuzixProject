@@ -26,8 +26,8 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
     public final String MATCH_POINT = "Point";
     public final String MATCH_ERASE = "erase";
     List<String> quantityPossible = new ArrayList<>();
-    public VoiceCmdReceiverScanBarcode(MainBarcode iActivity)
-    {
+
+    public VoiceCmdReceiverScanBarcode(MainBarcode iActivity) {
         mainBarcode = iActivity;
         mainBarcode.registerReceiver(this, new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
         //Log.d(mWarehouse.LOG_TAG, "Connecting to M300 SDK");
@@ -44,7 +44,7 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
             // Delete every phrase in the dictionary! (Available in SDK version 3)
             sc.deletePhrase("*");
             Intent customToastIntent = new Intent(mainBarcode.CUSTOM_SDK_INTENT);
-            sc.defineIntent(TOAST_EVENT, customToastIntent );
+            sc.defineIntent(TOAST_EVENT, customToastIntent);
             sc.insertIntentPhrase("canned toast", TOAST_EVENT);
             sc.insertPhrase(MATCH_RETURN, MATCH_RETURN_TO_LICENSE);
             sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_BARCODE);
@@ -55,7 +55,7 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
 
             // The recognizer may not yet be enabled in Settings. We can enable this directly
             VuzixSpeechClient.EnableRecognizer(mainBarcode, true);
-        } catch(NoClassDefFoundError e) {
+        } catch (NoClassDefFoundError e) {
             // We get this exception if the SDK stubs against which we compiled cannot be resolved
             // at runtime. This occurs if the code is not being run on an M300 supporting the voice
             // SDK
@@ -69,18 +69,17 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
 
     /**
      * All custom phrases registered with insertPhrase() are handled here.
-     *
+     * <p>
      * Custom intents may also be directed here, but this example does not demonstrate this.
-     *
+     * <p>
      * Keycodes are never handled via this interface
      *
      * @param context Context in which the phrase is handled
-     * @param intent Intent associated with the recognized phrase
+     * @param intent  Intent associated with the recognized phrase
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-<<<<<<< HEAD
-        if(CurrentActivity.getCurrentActivity().equals("Barcode")) {
+        if (CurrentActivity.getCurrentActivity().equals("Barcode")) {
 
             // All phrases registered with insertPhrase() match ACTION_VOICE_COMMAND as do
             // recognizer status updates
@@ -118,74 +117,32 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
                             if (phrase.equals(MATCH_ERASE)) {
                                 mainBarcode.removeCharacterQtyEntered();
                             }
-=======
-        // All phrases registered with insertPhrase() match ACTION_VOICE_COMMAND as do
-        // recognizer status updates
-        if (CurrentActivity.getCurrentActivity().equals("Barcode"))
-        {
-        if (intent.getAction().equals(VuzixSpeechClient.ACTION_VOICE_COMMAND)) {
-            Bundle extras = intent.getExtras();
-            if (extras != null) {
-                // We will determine what type of message this is based upon the extras provided
-                if (extras.containsKey(VuzixSpeechClient.PHRASE_STRING_EXTRA)) {
-                    // If we get a phrase string extra, this was a recognized spoken phrase.
-                    // The extra will contain the text that was recognized, unless a substitution
-                    // was provided.  All phrases in this example have substitutions as it is
-                    // considered best practice
-                    String phrase = intent.getStringExtra(VuzixSpeechClient.PHRASE_STRING_EXTRA);
 
-                    // Determine the specific phrase that was recognized and act accordingly
-                    Log.i("ici", phrase);
-                    if (phrase.equals(MATCH_NEXT)) {
-                        mainBarcode.setItemQuantity();
-                    } else if (phrase.equals(MATCH_RETURN_TO_LICENSE)) {
-                        mainBarcode.FinishActivity();
-                    } else if (phrase.equals(MATCH_RELOAD_BARCODE)) {
-                        // mainBarcode.Reload();
-                    } else if (phrase.equals(MATCH_SCAN)) {
-                        Log.d("PhraseScan", phrase);
-                        Log.d("PhraseScan", CurrentActivity.getCurrentActivity());
-                        mainBarcode.takeStillPicture();
-                    } else {
-
-                        for (int cptNumber = 0; cptNumber < numbers.length; cptNumber++) {
-                            if (numbers[cptNumber].equals(phrase)) {
-                                mainBarcode.setTextQty(cptNumber);
-                            }
-                        }
-                        if (phrase.equals(MATCH_POINT)) {
-                            mainBarcode.addDot();
-                        }
-                        if (phrase.equals(MATCH_ERASE)) {
-                            mainBarcode.removeCharacterQtyEntered();
->>>>>>> 35c64a11f7e7635622212637b2cbcc88a6da9557
                         }
                     }
                 }
             }
-            }
         }
     }
-
     public void unregister() {
         try {
             mainBarcode.unregisterReceiver(this);
             mainBarcode = null;
-        }catch (Exception e) {
+        } catch (Exception e) {
             Log.d("ErreurScan", e.getMessage());
         }
     }
 
-    public void createQuantityNumbers(){
-        for (int cptNumber = 0; cptNumber < numbers.length; cptNumber ++)
-        {
+    public void createQuantityNumbers() {
+        for (int cptNumber = 0; cptNumber < numbers.length; cptNumber++) {
             sc.insertPhrase(numbers[cptNumber], numbers[cptNumber]);
         }
         sc.insertPhrase("point", MATCH_POINT);
         sc.insertPhrase("erase", MATCH_ERASE);
         sc.insertPhrase(MATCH_NEXT, MATCH_NEXT);
-        Log.i("ici",sc.dump());
+        Log.i("ici", sc.dump());
     }
-
-
 }
+
+
+
