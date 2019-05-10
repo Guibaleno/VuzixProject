@@ -52,7 +52,7 @@ public class CurrentBarcode {
             if (listBatchNumberToScan.get(cptBatchNumber).equals(batchNumber))
             {
                 listBatchNumberToScan.add(batchNumber);
-                HeaderInfo.setSerialBarcode(batchNumber);
+                HeaderInfo.setBatchBarcode(batchNumber);
                 found = true;
             }
             cptBatchNumber ++;

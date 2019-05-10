@@ -39,6 +39,7 @@ public class ConnectionAPIGetSerialBatchNumbers extends ConnectionAPI {
         if (checknetwork(mMainBarcode)) {
             JSONArray jsonRoot = null;
             if (response != null) {
+                Log.d("BatchNumber", response);
                 try{
                     jsonRoot = new JSONArray(response);
                     CurrentBarcode.refreshCurrentBarcode();

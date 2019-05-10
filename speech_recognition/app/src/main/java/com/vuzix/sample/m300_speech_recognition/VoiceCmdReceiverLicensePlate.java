@@ -51,6 +51,11 @@ public class VoiceCmdReceiverLicensePlate extends VoiceCmdReceiver {
     public final String MATCH_NEXT_INFOORDERS = "NextInfoOrders";
     public VoiceCmdReceiverLicensePlate(LicensePlate iActivity)
     {
+        if (mLicensePLate != null)
+        {
+            Log.d("UnregisterLicensePlate", "UnregisterLicensePlate");
+            unregister();
+        }
         mLicensePLate = iActivity;
         mLicensePLate.registerReceiver(this, new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
 

@@ -47,17 +47,9 @@ public class Warehouses extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        //mVoiceCmdReceiverWarehouse.unregister();
-        super.onDestroy();
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         CurrentActivity.setCurrentActivity("Warehouse");
-        //mVoiceCmdReceiverWarehouse.unregister();
-        //mVoiceCmdReceiverWarehouse = new VoiceCmdReceiverWarehouses(this);
     }
 
     public void BindData()
@@ -104,7 +96,6 @@ public class Warehouses extends AppCompatActivity {
     {
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
-           // mVoiceCmdReceiverWarehouse.unregister();
             String stringToRemove = "Selected item : ";
             int indexOfString = listWarehouseName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, Zones.class);

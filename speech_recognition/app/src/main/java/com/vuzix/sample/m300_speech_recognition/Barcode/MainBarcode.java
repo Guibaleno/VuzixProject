@@ -454,6 +454,7 @@ public class MainBarcode extends Activity {
                         connectionConfirmItemOrder.execute();
                         if(box.changeQuantityLeftSerial())
                         {
+                            RefreshCanvas();
                             getNextItemConnection();
                         }
                     }
@@ -468,6 +469,10 @@ public class MainBarcode extends Activity {
                     getNextItemConnection();
                 }
                 RefreshCanvas();
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(), "Wrong barcode detected", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -571,9 +576,18 @@ public class MainBarcode extends Activity {
     public void setCanvasInfo(String newBin,String newDescription,
                               String newProductCode,String newQuantity)
     {
+        Log.d("boxCreate", "Box onCreate");
         String idOrder = getIntent().getStringExtra("idOrder");
         String licensePlateNo = getIntent().getStringExtra("licensePlateNo");
         CurrentBarcode.setBarcodeToScan(newBin);
+        if(box != null){
+            if (((ViewManager)box.getParent()) != null)
+            {
+                ((ViewManager)box.getParent()).removeView(box);
+            }
+        }
+
+
         box = new Box(this,idOrder,newBin,newDescription,
                 newProductCode,licensePlateNo,newQuantity);
         addContentView(box, new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
@@ -584,7 +598,6 @@ public class MainBarcode extends Activity {
     {
         if (!box.quantityEqualToQuantityEntered())
         {
-            Log.d("penis", "penis");
             connectionAPISkipItem = new ConnectionAPISkipItem(this,getAPISkip());
             connectionAPISkipItem.execute();
         }
@@ -614,11 +627,12 @@ public class MainBarcode extends Activity {
     }
 
     public void RefreshCanvas(){
-
+        Log.d("Refresh Canvas", "Refresh Canvas");
         box.post(new Runnable() {
             @Override
             public void run() {
                 ((ViewManager)box.getParent()).removeView(box);
+                Log.d("Refresh Canvas", "Refresh Canvas2");
                 addContentView(box, new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
             }
         });
@@ -651,6 +665,7 @@ public class MainBarcode extends Activity {
 
     public void orderCompleted(String message)
     {
+        mVoiceCmdReceiverScanBarcode.unregister();
         connectionAPIEndOrder = new ConnectionAPIEndOrder(this,getAPIAdressPostBatchTransfertID(),getAPIRestSkip(),getAPIEmployeeRemove());
         connectionAPIEndOrder.execute();
         CurrentActivity.setOrderCompleted(true);

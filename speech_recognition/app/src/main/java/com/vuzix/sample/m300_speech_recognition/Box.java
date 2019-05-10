@@ -22,6 +22,11 @@ public class Box extends View {
     public String serialNumber;
     public String batchNumber;
 
+    public Box(Context context, String batchNumber) {
+        super(context);
+        this.batchNumber = batchNumber;
+    }
+
     public Box(Context context, String newOrderNumber,String newBin,String newDescription,
                String newProductCode,String newLicensePlate,String newQuantity) {
         super(context);
@@ -61,7 +66,6 @@ public class Box extends View {
         }
     }
 
-    private ConnectionAPISaleOrders connection;
     @Override
     protected void onDraw(Canvas canvas) { // Override the onDraw() Method
         super.onDraw(canvas);

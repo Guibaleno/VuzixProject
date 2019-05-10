@@ -98,6 +98,11 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
                 params.put("batchTransferId", HeaderInfo.getBatchTransferID());
                 params.put("quantity", HeaderInfo.getItemQuantity());
 
+                Log.d("batchNumber", HeaderInfo.getBatchBarcode());
+                Log.d("serialNumber", HeaderInfo.getSerialBarcode());
+                Log.d("quantity",HeaderInfo.getItemQuantity());
+
+
                 JSONObject obj = new JSONObject(params);
                 String payload = obj.toString();
                 OutputStreamWriter os = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");

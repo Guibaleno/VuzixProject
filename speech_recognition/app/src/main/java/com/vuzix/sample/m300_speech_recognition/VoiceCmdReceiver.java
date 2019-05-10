@@ -68,8 +68,6 @@ public class VoiceCmdReceiver  extends BroadcastReceiver {
     // Voice command custom intent names
     final String TOAST_EVENT = "other_toast";
 
-    private Login mLogin;
-
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -89,7 +87,6 @@ public class VoiceCmdReceiver  extends BroadcastReceiver {
 
             }
             sc.insertPhrase(phrase, phrase + currentActivity);
-            Log.d("Strings", phrase);
         }
     }
 

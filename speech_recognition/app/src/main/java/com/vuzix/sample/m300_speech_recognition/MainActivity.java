@@ -103,11 +103,8 @@ public class MainActivity extends Activity {
         progressCompanies.setVisibility(View.VISIBLE);
         mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
         connection = new ConnectionAPICompanies(this, APIAdress);
-        // Now register another intent handler to demonstrate intents sent from the service
-       // myIntentReceiver = new MyIntentReceiver();
-        //registerReceiver(myIntentReceiver , new IntentFilter(CUSTOM_SDK_INTENT));
         getCompanies();
-    }//
+    }
 
 
     /**
@@ -174,11 +171,9 @@ public class MainActivity extends Activity {
         recyclerCompanies.setAdapter(mAdapterRecyclerCompanies);
     }
     private void getCompanies(){
-
         try{
 
             connection.execute(APIAdress);
-
         }
         catch (Exception e){
             e.printStackTrace();
@@ -255,20 +250,12 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         CurrentActivity.setCurrentActivity("Companies");
-        Log.d( "etee",txtSelectedItem.getText().toString());
         //If we say "return" in the login screen
         if (!txtSelectedItem.getText().equals("Select a Company"))
         {
-            Log.d( "etee",txtSelectedItem.getText().toString());
-            //mVoiceCmdReceiver = null;
-            //mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
-            //mVoiceCmdReceiver.CreateStrings(recyclerCompanies, getResources().getString(R.string.Companies));
             mVoiceCmdReceiver.dump();
         }
         txtSelectedItem.setText("Select a Company");
-
-        //mVoiceCmdReceiver.unregister();
-        //mVoiceCmdReceiver = new VoiceCmdReceiverCompanies(this);
     }
 }
 
