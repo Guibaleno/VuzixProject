@@ -96,21 +96,21 @@ public class Orders extends AppCompatActivity {
 
     public void MoveToLicensePlate()
     {
-        if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
-        {
             //mVoiceCmdReceiverOrders.unregister();
+        Log.d("Burrito", "MoveToLicensePlate: ");
             String stringToRemove = "Selected order : ";
             int indexOfString = listIdOrders.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, LicensePlate.class);
+        Log.d("Burrito", "MoveToLicensePlate:2 ");
             intent.putExtra("idwareHouse", getIntent().getStringExtra("idwareHouse"));
+        Log.d("Burrito", "MoveToLicensePlate:3 ");
             intent.putExtra("idOrder",listIdOrders.get(indexOfString));
+        Log.d("Burrito", "MoveToLicensePlate:4 ");
             intent.putExtra("zoneName",getIntent().getStringExtra("zoneName"));
+        Log.d("Burrito", "MoveToLicensePlate:5 ");
             startActivity(intent);
-        }
-        else
-        {
-            Toast("Select an Order");
-        }
+            Log.d("Burrito", "MoveToLicensePlate:6 ");
+
     }
 
     void FinishActivity()

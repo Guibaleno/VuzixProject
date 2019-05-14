@@ -99,7 +99,7 @@ public class MainBarcode extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main_barcode);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         CurrentActivity.setCurrentActivity("Barcode");
@@ -680,12 +680,19 @@ public class MainBarcode extends Activity {
     public void NextOrder()
     {
         Log.d("Orders.class", "MainBarcode");
+        mVoiceCmdReceiverScanBarcode.unregister();
         finish();
     }
 
-    public  void FinishActivity()
+    public void FinishActivity()
     {
         mVoiceCmdReceiverScanBarcode.unregister();
         finish();
+    }
+
+    public void Reload()
+    {
+        mVoiceCmdReceiverScanBarcode.unregister();
+        onCreate(null);
     }
 }

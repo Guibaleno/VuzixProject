@@ -58,11 +58,10 @@ public class LicensePlate extends AppCompatActivity {
         super.onResume();
         if (CurrentActivity.isOrderCompleted())
         {
+            mVoiceCmdReceiverLicensePlate.unregister();
             finish();
         }
         CurrentActivity.setCurrentActivity("LicensePlate");
-       // mVoiceCmdReceiverLicensePlate.unregister();
-       // mVoiceCmdReceiverLicensePlate = new VoiceCmdReceiverLicensePlate(this);
     }
 
     void SetOrderInfoText()

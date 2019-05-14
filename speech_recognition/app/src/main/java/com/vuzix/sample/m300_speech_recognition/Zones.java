@@ -114,21 +114,12 @@ public class Zones extends AppCompatActivity {
 
     public void MoveToOrders()
     {
-        if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
-        {
-           // mVoiceCmdReceiverZones.unregister();
-            Log.d("Orders.class", "Zones");
             String stringToRemove = "Selected Zone : ";
             int indexOfString = listZonesName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, Orders.class);
             intent.putExtra("idZone",listIdZones.get(indexOfString));
             intent.putExtra("zoneName",listZonesName.get(indexOfString).substring(listZonesName.get(indexOfString).indexOf("-") + 2));
             startActivity(intent);
-        }
-        else
-        {
-            Toast("Select a zone");
-        }
     }
 
     void FinishActivity()

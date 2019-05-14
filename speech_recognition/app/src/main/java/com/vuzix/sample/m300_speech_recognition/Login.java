@@ -36,8 +36,9 @@ public class Login extends AppCompatActivity {
         CurrentActivity.setCurrentActivity("Login");
         mVoiceCmdReceiver = new VoiceCmdReceiverLogin(this);
         progressLogin.setVisibility(View.INVISIBLE);
-
         WritePreviousData();
+        txtUsername.setSelection(txtUsername.getText().length());
+        txtPassword.setSelection(txtPassword.getText().length());
     }
 
     @Override

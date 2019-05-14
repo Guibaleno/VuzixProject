@@ -99,9 +99,9 @@ public class VoiceCmdReceiverScanBarcode extends VoiceCmdReceiver {
                         if (phrase.equals(MATCH_NEXT)) {
                             mainBarcode.setItemQuantity();
                         } else if (phrase.equals(MATCH_RETURN_TO_LICENSE)) {
-                            //mainBarcode.FinishActivity();
+                            mainBarcode.FinishActivity();
                         } else if (phrase.equals(MATCH_RELOAD_BARCODE)) {
-                            // mainBarcode.Reload();
+                            mainBarcode.Reload();
                         } else if (phrase.equals(MATCH_SCAN)) {
                             mainBarcode.takeStillPicture();
                         } else {

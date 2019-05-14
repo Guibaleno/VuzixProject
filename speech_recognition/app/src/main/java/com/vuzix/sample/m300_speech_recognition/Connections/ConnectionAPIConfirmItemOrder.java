@@ -98,6 +98,8 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
                 params.put("batchTransferId", HeaderInfo.getBatchTransferID());
                 params.put("quantity", HeaderInfo.getItemQuantity());
 
+                Log.d("LicensePlateId", HeaderInfo.getLicensePlateID());
+                Log.d("batchTransferId", HeaderInfo.getBatchTransferID());
                 Log.d("batchNumber", HeaderInfo.getBatchBarcode());
                 Log.d("serialNumber", HeaderInfo.getSerialBarcode());
                 Log.d("quantity",HeaderInfo.getItemQuantity());
