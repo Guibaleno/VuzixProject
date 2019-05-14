@@ -22,6 +22,8 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
     public final String MATCH_SCROLLDOWN_COMPANIES = "ScrollDownCompanies";
     public final String MATCH_SCROLLUP_COMPANIES = "ScrollUpCompanies";
     public final String MATCH_RELOAD_COMPANIES = "RealoadCompanies";
+    public final String MATCH_TEST = "Test";
+    public final String MATCH_TEST_COMPANIES = "TestCompanies";
     public VoiceCmdReceiverCompanies(MainActivity iActivity)
     {
         mMainActivity = iActivity;
@@ -49,7 +51,12 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
             sc.insertPhrase(MATCH_SCROLLDOWN, MATCH_SCROLLDOWN_COMPANIES);
             sc.insertPhrase(MATCH_SCROLLUP, MATCH_SCROLLUP_COMPANIES);
             sc.insertPhrase(MATCH_RELOAD, MATCH_RELOAD_COMPANIES);
-            Log.i("REALOAD", "RELOAD");
+
+
+
+            //sc.insertPhrase(MATCH_TEST, MATCH_TEST_COMPANIES);
+
+
             // See what we've done
             //Log.i(mMainActivity.LOG_TAG, sc.dump());
             // The recognizer may not yet be enabled in Settings. We can enable this directly
@@ -102,7 +109,12 @@ public class VoiceCmdReceiverCompanies extends VoiceCmdReceiver {
                             mMainActivity.Scroll(false);
                         } else if (phrase.equals(MATCH_RELOAD_COMPANIES)) {
                             mMainActivity.Reload();
-                        } else {
+                        }
+                        //else if (phrase.equals(MATCH_TEST_COMPANIES))
+                        //{
+                        //    Toast.makeText(context, "Test réussi", Toast.LENGTH_LONG).show();
+                        //}
+                        else{
                             List<Integer> numberToFind = new ArrayList<Integer>();
                             String endingString = context.getResources().getString(R.string.Companies);
                             for (int cptNumbers = 0; cptNumbers < Arrays.asList(numbers).size(); cptNumbers++) {
