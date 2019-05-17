@@ -53,7 +53,6 @@ public class VoiceCmdReceiverLicensePlate extends VoiceCmdReceiver {
     {
         if (mLicensePLate != null)
         {
-            Log.d("UnregisterLicensePlate", "UnregisterLicensePlate");
             unregister();
         }
         mLicensePLate = iActivity;

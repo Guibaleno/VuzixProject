@@ -26,11 +26,9 @@ public class VoiceCmdReceiverWarehouses extends VoiceCmdReceiver {
     {
         mWarehouse = iActivity;
         mWarehouse.registerReceiver(this, new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
-        Log.d(mWarehouse.LOG_TAG, "Connecting to M300 SDK");
 
         try {
             // Create a VuzixSpeechClient from the SDK
-            //Log.d(mWarehouse.LOG_TAG, iActivity.toString());
             sc = new VuzixSpeechClient(iActivity);
             // Delete specific phrases. This is useful if there are some that sound similar to yours, but
             // you want to keep the majority of them intact

@@ -34,7 +34,6 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
 
     @Override
     protected void onPostExecute(String s) {
-        Log.d("ResponseConfirmItemOrde", s);
         if (s.equals("true"))
         {
             mMainBarcode.ShowNextItem();
@@ -89,19 +88,12 @@ public class ConnectionAPIConfirmItemOrder extends ConnectionAPI {
                 connection.setRequestProperty("jwt", HeaderInfo.getToken());
                 connection.connect();
 
-                Log.d("dd1", HeaderInfo.getBatchBarcode());
-                Log.d("dd2", HeaderInfo.getSerialBarcode());
                 HashMap<String, String> params = new HashMap<String, String>();
                 params.put("LicensePlateId", HeaderInfo.getLicensePlateID());
                 params.put("batchNumber", HeaderInfo.getBatchBarcode());
                 params.put("serialNumber", HeaderInfo.getSerialBarcode());
                 params.put("batchTransferId", HeaderInfo.getBatchTransferID());
                 params.put("quantity", HeaderInfo.getItemQuantity());
-
-                Log.d("batchNumber", HeaderInfo.getBatchBarcode());
-                Log.d("serialNumber", HeaderInfo.getSerialBarcode());
-                Log.d("quantity",HeaderInfo.getItemQuantity());
-
 
                 JSONObject obj = new JSONObject(params);
                 String payload = obj.toString();

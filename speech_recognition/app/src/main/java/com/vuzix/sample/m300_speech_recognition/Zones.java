@@ -117,7 +117,6 @@ public class Zones extends AppCompatActivity {
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
            // mVoiceCmdReceiverZones.unregister();
-            Log.d("Orders.class", "Zones");
             String stringToRemove = "Selected Zone : ";
             int indexOfString = listZonesName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));
             Intent intent = new Intent(this, Orders.class);

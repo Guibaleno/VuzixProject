@@ -112,7 +112,6 @@ public class MainActivity extends Activity {
      */
     @Override
     protected void onDestroy() {
-        Log.d("test1", "test333");
         mVoiceCmdReceiver.unregister();
         super.onDestroy();
     }
@@ -205,7 +204,6 @@ public class MainActivity extends Activity {
 
         if (!txtSelectedItem.getText().toString().equals("Selected Item : none"))
         {
-            Log.d("test1", "test");
             //mVoiceCmdReceiver.unregister();
             String stringToRemove = "Selected item : ";
             int indexOfString = listName.indexOf(txtSelectedItem.getText().toString().substring(stringToRemove.length()));

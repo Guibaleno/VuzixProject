@@ -39,7 +39,6 @@ public class ConnectionAPIGetSerialBatchNumbers extends ConnectionAPI {
         if (checknetwork(mMainBarcode)) {
             JSONArray jsonRoot = null;
             if (response != null) {
-                Log.d("BatchNumber", response);
                 try{
                     jsonRoot = new JSONArray(response);
                     CurrentBarcode.refreshCurrentBarcode();
@@ -49,12 +48,10 @@ public class ConnectionAPIGetSerialBatchNumbers extends ConnectionAPI {
                         if(object.has("batchNumber")){
                             String batchNumber = object.getString("batchNumber");
                             CurrentBarcode.addBatchNumberToScan(batchNumber);
-                            Log.d("BatchNumber", batchNumber);
                         }else if(object.has("serialNumber"))
                         {
                             String serialNumber = object.getString("serialNumber");
                             CurrentBarcode.addSerialNumberToScan(serialNumber);
-                            Log.d("serial numer to scan", serialNumber);
                         }
 
                     }

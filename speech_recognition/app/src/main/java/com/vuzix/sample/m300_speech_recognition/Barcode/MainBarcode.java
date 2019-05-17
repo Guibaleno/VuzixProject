@@ -103,7 +103,6 @@ public class MainBarcode extends Activity {
         setContentView(R.layout.activity_main_barcode);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         CurrentActivity.setCurrentActivity("Barcode");
-        Log.d("LicensePlateOnCreate", "LicensePlateOnCreate");
         mVoiceCmdReceiverScanBarcode = new VoiceCmdReceiverScanBarcode(this);
 
         // surface listeners - the only purpose is to open the camera when the preview surface becomes available
@@ -314,7 +313,6 @@ public class MainBarcode extends Activity {
         }
         mTakingPicture = true;
 
-        Log.d(LOG_TAG,"takeStillPicture()");
         SurfaceTexture texture = mTextureView.getSurfaceTexture();
         Surface surface = new Surface(texture);
         try {
@@ -360,7 +358,6 @@ public class MainBarcode extends Activity {
      */
     private void handleCaptureCompleted(){
         try {
-            Log.d(LOG_TAG,"handleCaptureCompleted()");
             final int imageWidth = 1920, imageHeight = 1080;
             List<Surface> outputSurfaces = new ArrayList<Surface>();
             SurfaceTexture texture = mTextureView.getSurfaceTexture();
@@ -410,7 +407,6 @@ public class MainBarcode extends Activity {
      * @param reader - The image reader
      */
     private void handleCameraImageOnWorkerThread(ImageReader reader){
-        Log.d(LOG_TAG, "Processing barcode results");
         String dataToShow = mBarcodeProcessor.getBarcodeResults(reader);
         reader.close();
 
@@ -420,7 +416,6 @@ public class MainBarcode extends Activity {
 
         // Show the user
         if (CurrentBarcode.getBarcodeToScan() != null && dataToShow != null){
-            Log.d("barcode", CurrentBarcode.getBarcodeToScan());
             if(CurrentBarcode.getBarcodeToScan().trim().equals(dataToShow.trim()) || CurrentBarcode.verifySerialNumber(dataToShow, this)
                     || CurrentBarcode.verifyBatchNumber(dataToShow, this)){
                 Toast.makeText(MainBarcode.this, dataToShow , Toast.LENGTH_LONG).show();
@@ -445,7 +440,6 @@ public class MainBarcode extends Activity {
                     {
                         mVoiceCmdReceiverScanBarcode.createQuantityNumbers();
                     }
-                    Log.d("Scantext", box.getScanText());
 
                 }else if (box.getScanText().equals("Scan Batch Number")|| box.getScanText().equals("Scan Serial Number")){
                     if (box.getScanText().equals("Scan Serial Number"))
@@ -576,7 +570,6 @@ public class MainBarcode extends Activity {
     public void setCanvasInfo(String newBin,String newDescription,
                               String newProductCode,String newQuantity)
     {
-        Log.d("boxCreate", "Box onCreate");
         String idOrder = getIntent().getStringExtra("idOrder");
         String licensePlateNo = getIntent().getStringExtra("licensePlateNo");
         CurrentBarcode.setBarcodeToScan(newBin);
@@ -627,12 +620,10 @@ public class MainBarcode extends Activity {
     }
 
     public void RefreshCanvas(){
-        Log.d("Refresh Canvas", "Refresh Canvas");
         box.post(new Runnable() {
             @Override
             public void run() {
                 ((ViewManager)box.getParent()).removeView(box);
-                Log.d("Refresh Canvas", "Refresh Canvas2");
                 addContentView(box, new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
             }
         });
@@ -679,7 +670,6 @@ public class MainBarcode extends Activity {
 
     public void NextOrder()
     {
-        Log.d("Orders.class", "MainBarcode");
         finish();
     }
 

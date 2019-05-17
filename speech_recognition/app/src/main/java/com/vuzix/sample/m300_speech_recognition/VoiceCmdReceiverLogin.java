@@ -67,12 +67,10 @@ public class VoiceCmdReceiverLogin extends VoiceCmdReceiver {
     {
         mLogin = iActivity;
         mLogin.registerReceiver(this, new IntentFilter(VuzixSpeechClient.ACTION_VOICE_COMMAND));
-        //Log.d(mLogin.LOG_TAG, "Connecting to M300 SDK");
 
 
         try {
             // Create a VuzixSpeechClient from the SDK
-            //Log.d(mLogin.LOG_TAG, iActivity.toString());
             sc = new VuzixSpeechClient(iActivity);
             // Delete specific phrases. This is useful if there are some that sound similar to yours, but
             // you want to keep the majority of them intact

@@ -40,8 +40,6 @@ public class LicensePlate extends AppCompatActivity {
         txtLicensePlate = (EditText) findViewById(R.id.editText_LicensePlate);
         CurrentActivity.setCurrentActivity("LicensePlate");
         APIAdress = getAPIAdress();
-        Log.d("onCreateLicense", "onCreateLicense");
-        Log.d("onCreateLicense", CurrentActivity.getCurrentActivity());
         SetOrderInfoText();
         WritePreviousData();
         mVoiceCmdReceiverLicensePlate = new VoiceCmdReceiverLicensePlate(this);

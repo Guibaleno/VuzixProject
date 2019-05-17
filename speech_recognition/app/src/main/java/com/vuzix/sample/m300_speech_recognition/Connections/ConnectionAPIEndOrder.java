@@ -35,7 +35,6 @@ public class ConnectionAPIEndOrder extends ConnectionAPI {
 
     @Override
     protected void onPostExecute(String s) {
-        Log.d("ResponseEndOrder", s);
     }
 
     @Override
